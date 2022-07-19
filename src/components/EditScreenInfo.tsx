@@ -1,11 +1,25 @@
+import axios, { AxiosError } from "axios";
 import * as WebBrowser from "expo-web-browser";
+import { useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import vars from "../../vars";
 
 import Colors from "../constants/Colors";
 import { MonoText } from "./StyledText";
 import { Text, View } from "./Themed";
 
 export default function EditScreenInfo({ path }: { path: string }) {
+  useEffect(() => {
+    console.log(path);
+    axios
+      .get(`${vars.API_BASE_URL}/clothings`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        if (err instanceof AxiosError) console.error(err.request);
+      });
+  }, [path]);
   return (
     <View>
       <View style={styles.getStartedContainer}>
@@ -14,7 +28,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
-          I wanna be free!
+          I wanna be free! xd
         </Text>
 
         <View
