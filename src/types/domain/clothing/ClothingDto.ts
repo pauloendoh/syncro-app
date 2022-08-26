@@ -1,4 +1,4 @@
-export interface ClothingGetDto {
+export interface ClothingDto {
   id: number;
   userId: number;
   imgUrl: string;

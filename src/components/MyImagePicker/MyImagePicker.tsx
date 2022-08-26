@@ -10,12 +10,12 @@ import { Button, Flex, Pressable, Text } from "native-base";
 import React from "react";
 import { Image, View } from "react-native";
 import { useClothingsQuery } from "../../hooks/react-query/clothing/useClothingsQuery";
-import { ClothingGetDto } from "../../types/domain/clothing/ClothingGetDto";
+import { ClothingDto } from "../../types/domain/clothing/ClothingDto";
 import { urls } from "../../utils/urls";
 
 interface Props {
   test?: string;
-  onPressClothing: (clothing: ClothingGetDto) => void;
+  onPressClothing: (clothing: ClothingDto) => void;
 }
 
 const MyImagePicker = (props: Props) => {
@@ -47,9 +47,9 @@ const MyImagePicker = (props: Props) => {
         },
       });
 
-      const clothing: ClothingGetDto = JSON.parse(result.body);
+      const clothing: ClothingDto = JSON.parse(result.body);
 
-      queryClient.setQueryData<ClothingGetDto[]>(
+      queryClient.setQueryData<ClothingDto[]>(
         [urls.api.clothings],
         (currClothings) => {
           if (!currClothings) return [clothing];

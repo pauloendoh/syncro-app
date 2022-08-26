@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { ClothingGetDto } from "../../../types/domain/clothing/ClothingGetDto";
+import { ClothingDto } from "../../../types/domain/clothing/ClothingDto";
 import { urls } from "../../../utils/urls";
 
 export const useClothingsQuery = () => {
-  return useQuery<ClothingGetDto[], Error>([urls.api.clothings]);
+  return useQuery<ClothingDto[], Error>([urls.api.clothings]);
 };

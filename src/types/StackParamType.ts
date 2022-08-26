@@ -1,6 +1,6 @@
-import { ClothingGetDto } from "./domain/clothing/ClothingGetDto";
+import { ClothingDto } from "./domain/clothing/ClothingDto";
 
 export type StackParamType = {
   Home: undefined;
-  Clothing: { clothing: ClothingGetDto };
+  Clothing: { clothing: ClothingDto };
 };
