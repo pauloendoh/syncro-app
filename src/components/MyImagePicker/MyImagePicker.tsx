@@ -3,35 +3,56 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FileSystemUploadType, uploadAsync } from "expo-file-system";
 import {
   ImageInfo,
+  ImagePickerOptions,
+  launchCameraAsync,
   launchImageLibraryAsync,
+  MediaTypeOptions,
+  requestCameraPermissionsAsync,
   requestMediaLibraryPermissionsAsync,
 } from "expo-image-picker";
 import { Button, Flex, Pressable, Text } from "native-base";
-import React from "react";
-import { Image, View } from "react-native";
+import React, { useMemo } from "react";
+import { View } from "react-native";
+import shallow from "zustand/shallow";
 import { useClothingsQuery } from "../../hooks/react-query/clothing/useClothingsQuery";
-import { ClothingDto } from "../../types/domain/clothing/ClothingDto";
+import { useCurrentWeatherQuery } from "../../hooks/react-query/useCurrentWeatherQuery";
+import useHomeFilterStore from "../../hooks/zustand/useHomeFilterStore";
+import { ClothingGetDto } from "../../types/domain/clothing/ClothingGetDto";
 import { urls } from "../../utils/urls";
+import ClothingThumbnail from "./ClothingThumbnail/ClothingThumbnail";
 
 interface Props {
   test?: string;
-  onPressClothing: (clothing: ClothingDto) => void;
+  onPressClothing: (clothing: ClothingGetDto) => void;
 }
 
 const MyImagePicker = (props: Props) => {
   const { data: clothings } = useClothingsQuery();
   const queryClient = useQueryClient();
 
-  let openImagePickerAsync = async () => {
-    let permissionResult = await requestMediaLibraryPermissionsAsync();
+  let openImagePickerAsync = async (type: "gallery" | "camera") => {
+    let permissionResult =
+      type === "gallery"
+        ? await requestMediaLibraryPermissionsAsync()
+        : await requestCameraPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
+      alert(`Permission to access ${type} required!`);
       return;
     }
 
-    let pickerResult = await launchImageLibraryAsync({ aspect: [1, 1] });
-    console.log(pickerResult);
+    const options: ImagePickerOptions = {
+      mediaTypes: MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+      aspect: [1, 1],
+    };
+
+    let pickerResult =
+      type === "gallery"
+        ? await launchImageLibraryAsync(options)
+        : await launchCameraAsync(options);
+
     if (!pickerResult.cancelled) {
       const { uri } = pickerResult as ImageInfo;
       // setImages((current) => [...current, uri]);
@@ -47,9 +68,9 @@ const MyImagePicker = (props: Props) => {
         },
       });
 
-      const clothing: ClothingDto = JSON.parse(result.body);
+      const clothing: ClothingGetDto = JSON.parse(result.body);
 
-      queryClient.setQueryData<ClothingDto[]>(
+      queryClient.setQueryData<ClothingGetDto[]>(
         [urls.api.clothings],
         (currClothings) => {
           if (!currClothings) return [clothing];
@@ -58,6 +79,36 @@ const MyImagePicker = (props: Props) => {
       );
     }
   };
+
+  const [filteringByCurrWeather, minRating, tagId] = useHomeFilterStore(
+    (s) => [s.filteringByCurrWeather, s.minRating, s.tagId],
+    shallow
+  );
+
+  const { data: currWeather } = useCurrentWeatherQuery();
+
+  const filteredImages = useMemo(() => {
+    if (!clothings) return [];
+
+    let result = [...clothings];
+
+    if (
+      filteringByCurrWeather &&
+      clothings.length > 0 &&
+      currWeather?.temperature
+    ) {
+      result = clothings.filter((c) => {
+        const { temperature } = currWeather;
+        return c.minDegree < temperature && temperature < c.maxDegree;
+      });
+    }
+
+    if (minRating) result = result.filter((r) => Number(r.rating) >= minRating);
+
+    if (tagId) result = result.filter((r) => r.tagId === tagId);
+
+    return result;
+  }, [filteringByCurrWeather, clothings, currWeather, minRating, tagId]);
 
   return (
     <View>
@@ -69,16 +120,13 @@ const MyImagePicker = (props: Props) => {
           alignContent: "flex-start",
         }}
       >
-        {clothings?.map((clothing) => (
+        {filteredImages.map((clothing) => (
           <Pressable
             key={clothing.id}
             style={{ width: "33.333%" }}
             onPress={() => props.onPressClothing(clothing)}
           >
-            <Image
-              source={{ uri: clothing.imgUrl }}
-              style={{ width: "100%", aspectRatio: 1 }}
-            />
+            <ClothingThumbnail clothing={clothing} />
           </Pressable>
         ))}
       </Flex>
@@ -88,7 +136,8 @@ const MyImagePicker = (props: Props) => {
         below!
       </Text>
 
-      <Button onPress={openImagePickerAsync}>Pick a photo</Button>
+      <Button onPress={() => openImagePickerAsync("gallery")}>Gallery</Button>
+      <Button onPress={() => openImagePickerAsync("camera")}>Camera</Button>
     </View>
   );
 };

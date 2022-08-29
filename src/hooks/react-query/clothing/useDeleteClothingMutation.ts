@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "native-base";
-import { ClothingDto } from "../../../types/domain/clothing/ClothingDto";
+import { ClothingGetDto } from "../../../types/domain/clothing/ClothingGetDto";
 import { pushOrRemove } from "../../../utils/array/pushOrRemove";
 import myAxios from "../../../utils/myAxios";
 import { urls } from "../../../utils/urls";
@@ -10,7 +10,7 @@ const useDeleteClothingMutation = () => {
   const toast = useToast();
 
   return useMutation(
-    (payload: ClothingDto) =>
+    (payload: ClothingGetDto) =>
       myAxios.delete(urls.api.clothingsId(payload.id)).then((res) => res.data),
     {
       onSuccess: (resData, payload) => {
@@ -18,7 +18,7 @@ const useDeleteClothingMutation = () => {
           description: "Clothing deleted!",
         });
 
-        queryClient.setQueryData<ClothingDto[]>(
+        queryClient.setQueryData<ClothingGetDto[]>(
           [urls.api.clothings],
           (currClothings) => {
             if (!currClothings) return [];

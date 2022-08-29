@@ -15,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,13 +25,29 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.pauloendoh.endohapp"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends.",
+          "cameraPermission": "Allow app to access your camera."
+        }
+      ]
+    ],
     "extra": {
-      "API_BASE_URL": "http://192.168.0.2:3000"
+      "API_BASE_URL": "http://192.168.0.2:3000",
+      "eas": {
+        "projectId": "6a4a530d-c5cd-4d55-859e-26df6f2ee20b"
+      }
     }
   }
 }

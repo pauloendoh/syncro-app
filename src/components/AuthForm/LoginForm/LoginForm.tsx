@@ -7,17 +7,12 @@ import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto";
 import myAxios from "../../../utils/myAxios";
 import { urls } from "../../../utils/urls";
 
-interface Props {
-  test?: string;
-}
-
 interface LoginDto {
   identificator: string;
-
   password: string;
 }
 
-const LoginForm = (props: Props) => {
+const LoginForm = () => {
   const setAuthUser = useAuthStore((s) => s.setAuthUser);
   const toast = useToast();
 

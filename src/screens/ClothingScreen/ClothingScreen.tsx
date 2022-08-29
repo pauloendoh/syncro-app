@@ -8,13 +8,18 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   useToast,
+  VStack,
 } from "native-base";
 import React, { useEffect, useState } from "react";
 import { Alert, Image } from "react-native";
+import { AirbnbRating } from "react-native-ratings";
 import useDeleteClothingMutation from "../../hooks/react-query/clothing/useDeleteClothingMutation";
 import useUpdateClothingMutation from "../../hooks/react-query/clothing/useUpdateClothingMutation";
+import { useCurrentWeatherQuery } from "../../hooks/react-query/useCurrentWeatherQuery";
 import useDebounce from "../../hooks/useDebounce";
 import { StackParamType } from "../../types/StackParamType";
+import TagSelector from "../shared/TagSelector/TagSelector";
+import AddTagButton from "./AddTagButton/AddTagButton";
 
 const ClothingScreen = ({
   route: {
@@ -28,6 +33,8 @@ const ClothingScreen = ({
   const [hasChanged, setHasChanged] = useState(false);
 
   const debouncedValue = useDebounce(localValue, 250);
+
+  const weatherRes = useCurrentWeatherQuery();
 
   const { mutate: requestUpdate } = useUpdateClothingMutation();
   const toast = useToast();
@@ -46,6 +53,11 @@ const ClothingScreen = ({
     setHasChanged(false);
   }, [clothing]);
 
+  useEffect(() => {
+    if (JSON.stringify(localValue) !== JSON.stringify(clothing))
+      setHasChanged(true);
+  }, [localValue]);
+
   const handleChangeDegree = (
     value: string,
     type: "minDegree" | "maxDegree"
@@ -53,12 +65,20 @@ const ClothingScreen = ({
     const numValue = Number(value);
     if (isNaN(numValue)) return;
 
-    setHasChanged(true);
     setLocalValue((curr) => ({
       ...curr,
       minDegree: type === "minDegree" ? numValue : curr.minDegree,
       maxDegree: type === "maxDegree" ? numValue : curr.maxDegree,
     }));
+  };
+
+  const handleChangeRating = (ratingValue: number) => {
+    if (ratingValue === localValue.rating) {
+      setLocalValue((curr) => ({ ...curr, rating: null }));
+      return;
+    }
+
+    setLocalValue((curr) => ({ ...curr, rating: ratingValue }));
   };
 
   const handleDelete = () => {
@@ -103,9 +123,28 @@ const ClothingScreen = ({
                 onChangeText={(text) => handleChangeDegree(text, "maxDegree")}
               />
             </FormControl>
+
+            <Box>{weatherRes && weatherRes?.data?.temperature}</Box>
           </Flex>
 
-          <Button onPress={handleDelete}>Delete</Button>
+          <AirbnbRating
+            showRating={false}
+            onFinishRating={handleChangeRating}
+            defaultRating={Number(localValue.rating)}
+          />
+
+          <VStack space="2">
+            <TagSelector
+              selectedTagId={localValue.tagId}
+              onChange={(tagId) =>
+                setLocalValue((curr) => ({ ...curr, tagId: tagId }))
+              }
+            />
+            <AddTagButton />
+            <Button onPress={handleDelete} colorScheme="error">
+              Delete
+            </Button>
+          </VStack>
         </Box>
       </KeyboardAvoidingView>
     </ScrollView>
