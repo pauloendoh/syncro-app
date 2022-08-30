@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert } from "react-native";
+import envVars from "../../../../envVars";
 import useAuthStore from "../../../hooks/zustand/useAuthStore";
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto";
 import myAxios from "../../../utils/myAxios";
@@ -141,6 +142,8 @@ const SignUpForm = (props: Props) => {
         <Link onPress={props.onToggleForm}>Sign</Link>
         in instead.
       </Text>
+
+      <Text>{envVars.API_BASE_URL}</Text>
     </VStack>
   );
 };
