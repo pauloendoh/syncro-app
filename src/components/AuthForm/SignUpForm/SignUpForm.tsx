@@ -115,7 +115,7 @@ const SignUpForm = (props: Props) => {
       </FormControl>
 
       <FormControl isInvalid={"password2" in errors}>
-        <FormControl.Label>Last Name</FormControl.Label>
+        <FormControl.Label>Confirm Password</FormControl.Label>
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -133,17 +133,20 @@ const SignUpForm = (props: Props) => {
         </FormControl.ErrorMessage>
       </FormControl>
 
-      <Button onPress={handleSubmit(onSubmit)} colorScheme="pink">
-        Submit
+      <Button onPress={handleSubmit(onSubmit)} color="primary">
+        SIGN UP
       </Button>
 
-      <Text>
-        Already have an account?
-        <Link onPress={props.onToggleForm}>Sign</Link>
-        in instead.
-      </Text>
+      <VStack alignItems="center" space="4">
+        <VStack alignItems="center">
+          <Text>Already have an account?</Text>
+          <Link onPress={props.onToggleForm} _text={{ color: "primary.500" }}>
+            Login
+          </Link>
+        </VStack>
 
-      <Text>{envVars.API_BASE_URL}</Text>
+        <Text fontStyle={"italic"}>{envVars.API_URL}</Text>
+      </VStack>
     </VStack>
   );
 };

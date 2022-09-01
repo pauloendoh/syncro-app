@@ -1,29 +1,27 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "native-base";
-import { TagGetDto } from "../../../types/domain/tag/TagGetDto";
 import { TagSaveDto } from "../../../types/domain/tag/TagSaveDto";
-import pushOrReplace from "../../../utils/array/pushOrReplace";
+import { pushOrRemove } from "../../../utils/array/pushOrRemove";
 import myAxios from "../../../utils/myAxios";
 import { urls } from "../../../utils/urls";
 
-const useSaveTagMutation = () => {
+const useDeleteTagMutation = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
   return useMutation(
     (payload: TagSaveDto) =>
-      myAxios.post<TagGetDto>(urls.api.tags, payload).then((res) => res.data),
+      myAxios.delete(urls.api.tagsId(payload.id!)).then((res) => res.data),
     {
-      onSuccess: (resData) => {
+      onSuccess: (resData, payload) => {
         toast.show({
-          description: "Tag saved!",
-          duration: 2000,
+          description: "Tag deleted!",
         });
 
-        queryClient.setQueryData<TagGetDto[]>([urls.api.tags], (currTags) => {
+        queryClient.setQueryData<TagSaveDto[]>([urls.api.tags], (currTags) => {
           if (!currTags) return [];
 
-          return pushOrReplace(currTags, resData, "id");
+          return pushOrRemove(currTags, payload, "id");
         });
       },
       onError: (err: Error) => {
@@ -35,4 +33,4 @@ const useSaveTagMutation = () => {
   );
 };
 
-export default useSaveTagMutation;
+export default useDeleteTagMutation;

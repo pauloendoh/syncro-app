@@ -11,14 +11,14 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
   authUser: null,
   setAuthUser: async (authUser) => {
     const expiresAt = new Date(authUser.expiresAt);
+    set({ authUser });
+
     await AsyncStorage.setItem("user", JSON.stringify(authUser));
 
     // Refresh logout timeout
     setTimeout(() => {
       return resetAuthStore();
     }, expiresAt.getTime() - new Date().getTime());
-
-    set({ authUser });
   },
 }));
 const initialState = useAuthStore.getState();

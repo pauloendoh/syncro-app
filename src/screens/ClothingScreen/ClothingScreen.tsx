@@ -18,7 +18,7 @@ import useUpdateClothingMutation from "../../hooks/react-query/clothing/useUpdat
 import { useCurrentWeatherQuery } from "../../hooks/react-query/useCurrentWeatherQuery";
 import useDebounce from "../../hooks/useDebounce";
 import { StackParamType } from "../../types/StackParamType";
-import TagSelector from "../shared/TagSelector/TagSelector";
+import TagSelector from "../_common/TagSelector/TagSelector";
 import AddTagButton from "./AddTagButton/AddTagButton";
 
 const ClothingScreen = ({
@@ -141,7 +141,11 @@ const ClothingScreen = ({
               }
             />
             <AddTagButton />
-            <Button onPress={handleDelete} colorScheme="error">
+            <Button
+              onPress={handleDelete}
+              colorScheme="error"
+              onLongPress={() => alert("hey")}
+            >
               Delete
             </Button>
           </VStack>

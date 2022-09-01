@@ -1,16 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useQueryClient } from "@tanstack/react-query";
-import { FileSystemUploadType, uploadAsync } from "expo-file-system";
-import {
-  ImageInfo,
-  ImagePickerOptions,
-  launchCameraAsync,
-  launchImageLibraryAsync,
-  MediaTypeOptions,
-  requestCameraPermissionsAsync,
-  requestMediaLibraryPermissionsAsync,
-} from "expo-image-picker";
-import { Button, Flex, Pressable, Text } from "native-base";
+import { Flex, HStack, Pressable, Spinner } from "native-base";
 import React, { useMemo } from "react";
 import { View } from "react-native";
 import shallow from "zustand/shallow";
@@ -18,7 +6,6 @@ import { useClothingsQuery } from "../../hooks/react-query/clothing/useClothings
 import { useCurrentWeatherQuery } from "../../hooks/react-query/useCurrentWeatherQuery";
 import useHomeFilterStore from "../../hooks/zustand/useHomeFilterStore";
 import { ClothingGetDto } from "../../types/domain/clothing/ClothingGetDto";
-import { urls } from "../../utils/urls";
 import ClothingThumbnail from "./ClothingThumbnail/ClothingThumbnail";
 
 interface Props {
@@ -27,58 +14,10 @@ interface Props {
 }
 
 const MyImagePicker = (props: Props) => {
-  const { data: clothings } = useClothingsQuery();
-  const queryClient = useQueryClient();
-
-  let openImagePickerAsync = async (type: "gallery" | "camera") => {
-    let permissionResult =
-      type === "gallery"
-        ? await requestMediaLibraryPermissionsAsync()
-        : await requestCameraPermissionsAsync();
-
-    if (permissionResult.granted === false) {
-      alert(`Permission to access ${type} required!`);
-      return;
-    }
-
-    const options: ImagePickerOptions = {
-      mediaTypes: MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-      aspect: [1, 1],
-    };
-
-    let pickerResult =
-      type === "gallery"
-        ? await launchImageLibraryAsync(options)
-        : await launchCameraAsync(options);
-
-    if (!pickerResult.cancelled) {
-      const { uri } = pickerResult as ImageInfo;
-      // setImages((current) => [...current, uri]);
-
-      const userStr = String(await AsyncStorage.getItem("user"));
-
-      const result = await uploadAsync(urls.api.clothings, uri, {
-        fieldName: "image",
-        httpMethod: "POST",
-        uploadType: FileSystemUploadType.MULTIPART,
-        headers: {
-          authorization: JSON.parse(userStr).token,
-        },
-      });
-
-      const clothing: ClothingGetDto = JSON.parse(result.body);
-
-      queryClient.setQueryData<ClothingGetDto[]>(
-        [urls.api.clothings],
-        (currClothings) => {
-          if (!currClothings) return [clothing];
-          return [...currClothings, clothing];
-        }
-      );
-    }
-  };
+  const {
+    data: clothings,
+    isLoading: isLoadingClothings,
+  } = useClothingsQuery();
 
   const [filteringByCurrWeather, minRating, tagId] = useHomeFilterStore(
     (s) => [s.filteringByCurrWeather, s.minRating, s.tagId],
@@ -120,6 +59,11 @@ const MyImagePicker = (props: Props) => {
           alignContent: "flex-start",
         }}
       >
+        {isLoadingClothings && (
+          <HStack justifyContent="center" marginTop="4" flex="1">
+            <Spinner size="lg" />
+          </HStack>
+        )}
         {filteredImages.map((clothing) => (
           <Pressable
             key={clothing.id}
@@ -130,14 +74,6 @@ const MyImagePicker = (props: Props) => {
           </Pressable>
         ))}
       </Flex>
-
-      <Text>
-        To share a photo from your phone with a friend, just press the button
-        below!
-      </Text>
-
-      <Button onPress={() => openImagePickerAsync("gallery")}>Gallery</Button>
-      <Button onPress={() => openImagePickerAsync("camera")}>Camera</Button>
     </View>
   );
 };

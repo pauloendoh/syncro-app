@@ -1,31 +1,26 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Box, Button, Flex, Text } from "native-base";
+import { VStack } from "native-base";
 import React from "react";
+import { ScrollView } from "react-native";
 import MyImagePicker from "../../components/MyImagePicker/MyImagePicker";
-import { useLogout } from "../../hooks/domain/auth/useLogout";
 import { StackParamType } from "../../types/StackParamType";
-import FilterRow from "./FilterRow/FilterRow";
+import { myColors } from "../../utils/myColors";
+import HomeFooter from "./HomeFooter/HomeFooter";
 
 const HomeScreen = ({
   navigation,
 }: NativeStackScreenProps<StackParamType, "Home">) => {
-  const logout = useLogout();
-
   return (
-    <Box>
-      <Button onPress={logout}>Logout</Button>
-      <Flex style={{ justifyContent: "space-between", flexDirection: "row" }}>
-        <Text>Home</Text>
-      </Flex>
-
-      <FilterRow />
-
-      <MyImagePicker
-        onPressClothing={(clothing) =>
-          navigation.navigate("Clothing", { clothing })
-        }
-      />
-    </Box>
+    <VStack flex="1" backgroundColor={myColors.background}>
+      <ScrollView>
+        <MyImagePicker
+          onPressClothing={(clothing) =>
+            navigation.navigate("Clothing", { clothing })
+          }
+        />
+      </ScrollView>
+      <HomeFooter />
+    </VStack>
   );
 };
 

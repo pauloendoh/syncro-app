@@ -1,21 +1,32 @@
 import { Center, CheckIcon, Select } from "native-base";
 import React, { useMemo } from "react";
 import { useTagsQuery } from "../../../hooks/react-query/tag/useTagsQuery";
+import useTagModalStore from "../../../hooks/zustand/modals/useTagModalStore";
 
 interface Props {
   selectedTagId: number | null;
   onChange: (tagId: number | null) => void;
+
+  width?: string;
+  noBorder?: boolean;
 }
 
 const TagSelector = (props: Props) => {
   const { data: tags } = useTagsQuery();
+
+  const openTagModal = useTagModalStore((s) => s.openModal);
+
   const handleChange = (value: string) => {
     if (value === "") {
       props.onChange(null);
       return;
     }
 
-    props.onChange(Number(value));
+    const numValue = Number(value);
+
+    if (numValue === props.selectedTagId) return props.onChange(null);
+
+    props.onChange(numValue);
   };
 
   const selectedValue = useMemo(
@@ -27,7 +38,7 @@ const TagSelector = (props: Props) => {
     <Center>
       <Select
         selectedValue={selectedValue}
-        width="148px"
+        width={props.width || "148px"}
         accessibilityLabel="Select tag"
         placeholder="Select tag"
         _selectedItem={{
@@ -36,9 +47,18 @@ const TagSelector = (props: Props) => {
         }}
         mt={1}
         onValueChange={handleChange}
+        borderColor={props.noBorder ? "transparent" : undefined}
+        placeholderTextColor={props.noBorder ? "dark.900" : undefined}
       >
         {tags?.map((tag) => (
-          <Select.Item key={tag.id} label={tag.name} value={String(tag.id)} />
+          <Select.Item
+            key={tag.id}
+            label={tag.name}
+            value={String(tag.id)}
+            onLongPress={() => {
+              openTagModal({ name: tag.name, id: tag.id });
+            }}
+          />
         ))}
       </Select>
     </Center>

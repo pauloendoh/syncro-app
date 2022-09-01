@@ -3,6 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
   }
 }

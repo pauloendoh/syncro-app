@@ -1,4 +1,12 @@
-import { Button, FormControl, Input, useToast, VStack } from "native-base";
+import {
+  Button,
+  FormControl,
+  Input,
+  Link,
+  Text,
+  useToast,
+  VStack,
+} from "native-base";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert } from "react-native";
@@ -12,7 +20,11 @@ interface LoginDto {
   password: string;
 }
 
-const LoginForm = () => {
+interface Props {
+  onToggleForm: () => void;
+}
+
+const LoginForm = (props: Props) => {
   const setAuthUser = useAuthStore((s) => s.setAuthUser);
   const toast = useToast();
 
@@ -38,7 +50,7 @@ const LoginForm = () => {
 
   return (
     <VStack width="80%" space={4}>
-      <FormControl isRequired isInvalid={!!errors.identificator}>
+      <FormControl isInvalid={!!errors.identificator}>
         <FormControl.Label>Username or Email</FormControl.Label>
         <Controller
           control={control}
@@ -58,7 +70,7 @@ const LoginForm = () => {
       </FormControl>
 
       <FormControl isInvalid={!!errors.password}>
-        <FormControl.Label>Last Name</FormControl.Label>
+        <FormControl.Label>Password</FormControl.Label>
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -76,9 +88,18 @@ const LoginForm = () => {
         </FormControl.ErrorMessage>
       </FormControl>
 
-      <Button onPress={handleSubmit(onSubmit)} colorScheme="pink">
-        Submit
+      <Button onPress={handleSubmit(onSubmit)} color="primary">
+        LOGIN
       </Button>
+
+      <VStack alignItems="center" space="4">
+        <VStack alignItems="center">
+          <Text>Don't have an account?</Text>
+          <Link onPress={props.onToggleForm} _text={{ color: "primary.500" }}>
+            Sign up
+          </Link>
+        </VStack>
+      </VStack>
     </VStack>
   );
 };

@@ -3,6 +3,7 @@ import React from "react";
 import { AirbnbRating } from "react-native-ratings";
 import shallow from "zustand/shallow";
 import useHomeFilterStore from "../../../../hooks/zustand/useHomeFilterStore";
+import HStackVCenter from "../../../_common/flexboxes/FlexVCenter";
 
 interface Props {
   test?: string;
@@ -26,10 +27,14 @@ const MinRatingButton = (props: Props) => {
   return (
     <Menu
       w="148"
+      shouldOverlapWithTrigger={false}
+      offset={44}
       trigger={(triggerProps) => {
         return (
           <Pressable accessibilityLabel="More options menu" {...triggerProps}>
-            <Text>Min Rating {minRating || "-"}</Text>
+            <HStackVCenter flex="1">
+              <Text>Min Rating {minRating || "-"}</Text>
+            </HStackVCenter>
           </Pressable>
         );
       }}

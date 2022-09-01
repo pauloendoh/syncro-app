@@ -1,5 +1,6 @@
-import { Box } from "native-base";
+import { Link, Text, VStack } from "native-base";
 import React, { useState } from "react";
+import HStackVCenter from "../../screens/_common/flexboxes/FlexVCenter";
 import LoginForm from "./LoginForm/LoginForm";
 import SignUpForm from "./SignUpForm/SignUpForm";
 
@@ -10,15 +11,42 @@ interface Props {
 const AuthForm = (props: Props) => {
   type FormType = "register" | "login";
 
-  const [currentForm, setCurrentForm] = useState<FormType>("register");
+  const [currentForm, setCurrentForm] = useState<FormType>("login");
 
   return (
-    <Box padding={2} bgColor="gray.400" width="300px" borderRadius={4}>
+    <VStack
+      paddingY="4"
+      bgColor="dark.100"
+      width="300px"
+      borderRadius={4}
+      alignItems="center"
+      space={4}
+    >
+      <VStack alignItems="center">
+        <Text fontSize="xl" fontWeight="semibold">
+          ClothesApp
+        </Text>
+
+        <HStackVCenter>
+          <Text>by </Text>
+          <Link
+            href="https://endoh.io"
+            isExternal
+            _text={{
+              color: "primary.500",
+            }}
+          >
+            endoh.io
+          </Link>
+        </HStackVCenter>
+      </VStack>
       {currentForm === "register" && (
         <SignUpForm onToggleForm={() => setCurrentForm("login")} />
       )}
-      {currentForm === "login" && <LoginForm />}
-    </Box>
+      {currentForm === "login" && (
+        <LoginForm onToggleForm={() => setCurrentForm("register")} />
+      )}
+    </VStack>
   );
 };
 
