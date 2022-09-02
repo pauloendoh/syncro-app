@@ -57,7 +57,8 @@
     "react-native-svg": "12.3.0",
     "react-native-web": "0.17.7",
     "sentry-expo": "^4.2.0",
-    "zustand": "^4.1.1"
+    "zustand": "^4.1.1",
+    "expo-navigation-bar": "~1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

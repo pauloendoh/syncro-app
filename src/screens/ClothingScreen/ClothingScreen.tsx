@@ -1,34 +1,29 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   Box,
-  Button,
-  Flex,
   FormControl,
+  HStack,
   Input,
   KeyboardAvoidingView,
   ScrollView,
-  useToast,
+  Text,
   VStack,
 } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Alert, Image } from "react-native";
+import { Image } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
-import useDeleteClothingMutation from "../../hooks/react-query/clothing/useDeleteClothingMutation";
 import useUpdateClothingMutation from "../../hooks/react-query/clothing/useUpdateClothingMutation";
 import { useCurrentWeatherQuery } from "../../hooks/react-query/useCurrentWeatherQuery";
 import useDebounce from "../../hooks/useDebounce";
 import { StackParamType } from "../../types/StackParamType";
+import { formatDegreeCelcius } from "../../utils/text/formatDegreeCelcius";
 import TagSelector from "../_common/TagSelector/TagSelector";
-import AddTagButton from "./AddTagButton/AddTagButton";
 
 const ClothingScreen = ({
   route: {
     params: { clothing },
   },
-  navigation,
 }: NativeStackScreenProps<StackParamType, "Clothing">) => {
-  const { mutate } = useDeleteClothingMutation();
-
   const [localValue, setLocalValue] = useState(clothing);
   const [hasChanged, setHasChanged] = useState(false);
 
@@ -37,14 +32,9 @@ const ClothingScreen = ({
   const weatherRes = useCurrentWeatherQuery();
 
   const { mutate: requestUpdate } = useUpdateClothingMutation();
-  const toast = useToast();
   useEffect(() => {
     if (hasChanged) {
-      requestUpdate(debouncedValue, {
-        onSuccess: () => {
-          toast.show({ description: "Saved" });
-        },
-      });
+      requestUpdate(debouncedValue);
     }
   }, [debouncedValue]);
 
@@ -81,25 +71,8 @@ const ClothingScreen = ({
     setLocalValue((curr) => ({ ...curr, rating: ratingValue }));
   };
 
-  const handleDelete = () => {
-    Alert.alert("Delete clothing", "Confirm delete?", [
-      {
-        text: "Ok",
-        onPress: () => {
-          mutate(localValue, {
-            onSuccess: () => {
-              navigation.navigate("Home");
-            },
-          });
-        },
-      },
-      {
-        text: "Cancel",
-      },
-    ]);
-  };
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }} backgroundColor="light.900">
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
         <Box>
           <Image
@@ -107,47 +80,52 @@ const ClothingScreen = ({
             style={{ width: "100%", aspectRatio: 1 }}
           />
 
-          <Flex style={{ flexDirection: "row" }}>
-            <FormControl style={{ width: 100, marginRight: 16 }}>
-              <FormControl.Label>Min degree</FormControl.Label>
-              <Input
-                value={String(localValue.minDegree)}
-                onChangeText={(text) => handleChangeDegree(text, "minDegree")}
+          <VStack flex="1" px={4} mt={4} space={4}>
+            <HStack space={4}>
+              <FormControl style={{ width: 100 }}>
+                <FormControl.Label>Min degree</FormControl.Label>
+                <Input
+                  keyboardType="numeric"
+                  value={String(localValue.minDegree)}
+                  onChangeText={(text) => handleChangeDegree(text, "minDegree")}
+                />
+              </FormControl>
+
+              <FormControl style={{ width: 100 }}>
+                <FormControl.Label>Max degree</FormControl.Label>
+                <Input
+                  keyboardType="numeric"
+                  value={String(localValue.maxDegree)}
+                  onChangeText={(text) => handleChangeDegree(text, "maxDegree")}
+                />
+              </FormControl>
+
+              <VStack marginTop={1} space={3.5}>
+                <Text>Current degree</Text>
+                <Text>
+                  {formatDegreeCelcius(weatherRes?.data?.temperature)}
+                </Text>
+              </VStack>
+            </HStack>
+
+            <VStack space={1} alignItems="flex-start">
+              <Text>Rating</Text>
+              <AirbnbRating
+                showRating={false}
+                onFinishRating={handleChangeRating}
+                size={16}
+                defaultRating={Number(localValue.rating)}
               />
-            </FormControl>
+            </VStack>
 
-            <FormControl style={{ width: 100 }}>
-              <FormControl.Label>Max degree</FormControl.Label>
-              <Input
-                value={String(localValue.maxDegree)}
-                onChangeText={(text) => handleChangeDegree(text, "maxDegree")}
+            <HStack alignItems="flex-end" space="2">
+              <TagSelector
+                selectedTagId={localValue.tagId}
+                onChange={(tagId) =>
+                  setLocalValue((curr) => ({ ...curr, tagId: tagId }))
+                }
               />
-            </FormControl>
-
-            <Box>{weatherRes && weatherRes?.data?.temperature}</Box>
-          </Flex>
-
-          <AirbnbRating
-            showRating={false}
-            onFinishRating={handleChangeRating}
-            defaultRating={Number(localValue.rating)}
-          />
-
-          <VStack space="2">
-            <TagSelector
-              selectedTagId={localValue.tagId}
-              onChange={(tagId) =>
-                setLocalValue((curr) => ({ ...curr, tagId: tagId }))
-              }
-            />
-            <AddTagButton />
-            <Button
-              onPress={handleDelete}
-              colorScheme="error"
-              onLongPress={() => alert("hey")}
-            >
-              Delete
-            </Button>
+            </HStack>
           </VStack>
         </Box>
       </KeyboardAvoidingView>

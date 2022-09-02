@@ -2,6 +2,7 @@ import { Center, CheckIcon, Select } from "native-base";
 import React, { useMemo } from "react";
 import { useTagsQuery } from "../../../hooks/react-query/tag/useTagsQuery";
 import useTagModalStore from "../../../hooks/zustand/modals/useTagModalStore";
+import { buildTagSaveDto } from "../../../types/domain/tag/TagSaveDto";
 
 interface Props {
   selectedTagId: number | null;
@@ -23,6 +24,8 @@ const TagSelector = (props: Props) => {
     }
 
     const numValue = Number(value);
+
+    if (numValue === -1) return openTagModal(buildTagSaveDto());
 
     if (numValue === props.selectedTagId) return props.onChange(null);
 
@@ -60,6 +63,8 @@ const TagSelector = (props: Props) => {
             }}
           />
         ))}
+
+        <Select.Item label={"+ New Tag"} value={"-1"} />
       </Select>
     </Center>
   );

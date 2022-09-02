@@ -81,7 +81,7 @@ const HomeFooter = (props: Props) => {
 
   return (
     <HStackVCenter
-      backgroundColor="light.800"
+      backgroundColor="light.900"
       justifyContent="space-evenly"
       height="64px"
     >

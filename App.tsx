@@ -11,12 +11,14 @@ import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout";
 import useCachedResources from "./src/hooks/useCachedResources";
 import useAuthStore from "./src/hooks/zustand/useAuthStore";
 import AuthScreen from "./src/screens/AuthScreen/AuthScreen";
-import TagModal from "./src/screens/ClothingScreen/AddTagButton/TagModal/TagModal";
 import ClothingScreen from "./src/screens/ClothingScreen/ClothingScreen";
+import ClothingTitle from "./src/screens/ClothingScreen/ClothingTitle/ClothingTitle";
 import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
 import HomeTitle from "./src/screens/HomeScreen/HomeTitle/HomeTitle";
 import LoadingScreen from "./src/screens/LoadingScreen/LoadingScreen";
+import TagModal from "./src/screens/_common/modals/TagModal/TagModal";
 import { StackParamType } from "./src/types/StackParamType";
+import { myColors } from "./src/utils/myColors";
 import { myQueryClient } from "./src/utils/myQueryClient";
 import { myTheme } from "./src/utils/myTheme";
 
@@ -71,6 +73,18 @@ export default function App() {
                     <RootStack.Screen
                       name="Clothing"
                       component={ClothingScreen}
+                      options={(navigationOptions) => ({
+                        headerStyle: {
+                          backgroundColor: myColors.background,
+                        },
+                        headerTintColor: "white",
+                        headerTitle: () => (
+                          <ClothingTitle
+                            navigation={navigationOptions.navigation}
+                            route={navigationOptions.route}
+                          />
+                        ),
+                      })}
                     />
                   </RootStack.Navigator>
                 </NavigationContainer>

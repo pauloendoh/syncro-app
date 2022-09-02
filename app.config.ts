@@ -1,3 +1,5 @@
+import { ExpoConfig } from "@expo/config-types";
+
 export default () => ({
   expo: {
     name: "endoh-app",
@@ -22,10 +24,16 @@ export default () => ({
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/images/adaptive-icon.png",
-        backgroundColor: "#1E1E1E",
+        backgroundColor: "#151515",
       },
       permissions: ["android.permission.RECORD_AUDIO"],
       package: "com.pauloendoh.endohapp",
+    },
+    androidNavigationBar: {
+      backgroundColor: "#1E1E1E",
+    },
+    androidStatusBar: {
+      barStyle: "dark-content",
     },
     web: {
       favicon: "./assets/images/favicon.png",
@@ -47,7 +55,7 @@ export default () => ({
         projectId: "6a4a530d-c5cd-4d55-859e-26df6f2ee20b",
       },
     },
-  },
+  } as ExpoConfig,
   hooks: {
     postPublish: [
       {

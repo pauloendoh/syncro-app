@@ -1,13 +1,21 @@
 import { AntDesign } from "@expo/vector-icons";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
-import { Button, FormControl, HStack, Input, Modal, Text } from "native-base";
+import {
+  Button,
+  FormControl,
+  HStack,
+  Input,
+  Modal,
+  Text,
+  useTheme,
+} from "native-base";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import useDeleteTagMutation from "../../../../hooks/react-query/tag/useDeleteTagMutation";
 import useSaveTagMutation from "../../../../hooks/react-query/tag/useSaveTagMutation";
 import useTagModalStore from "../../../../hooks/zustand/modals/useTagModalStore";
 import { TagSaveDto } from "../../../../types/domain/tag/TagSaveDto";
-import HStackVCenter from "../../../_common/flexboxes/FlexVCenter";
+import HStackVCenter from "../../flexboxes/FlexVCenter";
 import TagModalMenu from "./TagModalMenu/TagModalMenu";
 
 const resolver = classValidatorResolver(TagSaveDto);
@@ -37,10 +45,12 @@ const TagModal = () => {
     if (isOpen && initialValue) reset(initialValue);
   }, [isOpen, initialValue]);
 
+  const theme = useTheme();
+
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
       <Modal.Content maxWidth="400px">
-        <Modal.Header>
+        <Modal.Header borderBottomColor="transparent">
           <HStack justifyContent="space-between">
             <Text>Tag</Text>
             <HStackVCenter space="4">
@@ -55,7 +65,7 @@ const TagModal = () => {
               <AntDesign
                 name="close"
                 size={24}
-                color="black"
+                color={theme.colors.dark[500]}
                 onPress={closeModal}
               />
             </HStackVCenter>
@@ -80,9 +90,9 @@ const TagModal = () => {
             </FormControl.ErrorMessage>
           </FormControl>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer borderTopColor="transparent">
           <Button.Group space={2}>
-            <Button variant="ghost" colorScheme="blueGray" onPress={closeModal}>
+            <Button variant="ghost" colorScheme={"dark"} onPress={closeModal}>
               Cancel
             </Button>
             <Button onPress={handleSubmit(onSubmit)}>Save</Button>

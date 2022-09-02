@@ -5,7 +5,7 @@ import { TagSaveDto } from "../../../types/domain/tag/TagSaveDto";
 interface ITagModalStore {
   initialValue: TagSaveDto | null;
   isOpen: boolean;
-  openModal: (decision: TagSaveDto) => void;
+  openModal: (tag: TagSaveDto) => void;
   closeModal: () => void;
 }
 
