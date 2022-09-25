@@ -1,6 +1,9 @@
+import { persist } from "zustand/middleware";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import create from "zustand";
 
-interface IHomeFilterStore {
+type IHomeFilterStore = {
   filteringByCurrWeather: boolean;
   setFilteringByCurrWeather: (value: boolean) => void;
 
@@ -9,20 +12,32 @@ interface IHomeFilterStore {
 
   tagId: number | null;
   setTagId: (value: number | null) => void;
-}
+};
 
-const useHomeFilterStore = create<IHomeFilterStore>((set, get) => ({
-  filteringByCurrWeather: false,
-  setFilteringByCurrWeather: (value) => {
-    set({ filteringByCurrWeather: value });
-  },
+const useHomeFilterStore = create(
+  persist<IHomeFilterStore>(
+    (set, get) => ({
+      filteringByCurrWeather: false,
+      setFilteringByCurrWeather: (value) => {
+        set({ filteringByCurrWeather: value });
+      },
 
-  minRating: null,
-  setMinRating: (minRating) => set({ minRating }),
+      minRating: null,
+      setMinRating: (minRating) => {
+        set({ minRating });
+      },
 
-  tagId: null,
-  setTagId: (tagId) => set({ tagId }),
-}));
+      tagId: null,
+      setTagId: (tagId) => {
+        set({ tagId });
+      },
+    }),
+    {
+      name: "home-filter",
+      getStorage: () => AsyncStorage,
+    }
+  )
+);
 
 const initialState = useHomeFilterStore.getState();
 export const resetHomeFilterStore = async () => {
