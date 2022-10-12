@@ -2,8 +2,9 @@ import { ExpoConfig } from "@expo/config-types"
 
 export default () => ({
   expo: {
-    name: "ration",
-    slug: "ration",
+    owner: "pauloendoh",
+    name: "ration-app",
+    slug: "ration-app",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",

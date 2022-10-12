@@ -32,12 +32,15 @@ const ImdbItemScreen = ({
           </HStackVCenter>
 
           <HStack mt={4} space={3}>
-            <Image
-              src={data?.imageUrl}
-              height="120px"
-              width="120px"
-              alt={data?.title}
-            />
+            {/* conditional to fix message: "please provide an alt title"  */}
+            {data?.title && (
+              <Image
+                src={data?.imageUrl}
+                height="120px"
+                width="120px"
+                alt={data?.title}
+              />
+            )}
 
             <VStack style={{ flexShrink: 1 }}>
               <Text>{data?.plotSummary}</Text>

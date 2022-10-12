@@ -1,3 +1,5 @@
+import { RatingDto } from "../rating/RatingDto"
+
 export interface ImdbItemDto {
   id: string
   title: string
@@ -7,6 +9,8 @@ export interface ImdbItemDto {
   avgRating: number
   ratingCount: number
   plotSummary: string
+
+  ratings?: RatingDto[]
 }
 
 export const buildImdbItemDto = (p?: Partial<ImdbItemDto>): ImdbItemDto => ({

@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native"
 import { useLogout } from "../../hooks/domain/auth/useLogout"
 import EmptyScreen from "../../screens/EmptyScreen/EmptyScreen"
 import HomeScreen from "../../screens/HomeScreen/HomeScreen"
-import ProfileScreen from "../../screens/ProfileScreen/ProfileScreen"
+import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
 import SearchNavigationScreens from "../../screens/SearchNavigationScreens/SearchNavigationScreens"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import InterestModal from "../modals/InterestModal/InterestModal"
@@ -74,9 +74,10 @@ const MyNavigationContainer = (props: Props) => {
           />
 
           <Tab.Screen
-            name="Profile"
-            component={ProfileScreen}
+            name="ProfileNavigation"
+            component={ProfileNavigationScreens}
             options={{
+              tabBarLabel: "Profile",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="account"

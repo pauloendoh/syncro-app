@@ -15,6 +15,9 @@ export const urls = {
 
     imdbItemDetails: (id?: string | null) => API_URL + `/imdb-item?id=${id}`,
     myRatings: API_URL + `/me/ratings`,
+    userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
+    itemsRatedByUserId: (userId: string) =>
+      API_URL + `/user/${userId}/imdb-items`,
 
     apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
   },
