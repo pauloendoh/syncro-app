@@ -1,17 +1,17 @@
-import { Link, Text, VStack } from "native-base";
-import React, { useState } from "react";
-import HStackVCenter from "../../screens/_common/flexboxes/FlexVCenter";
-import LoginForm from "./LoginForm/LoginForm";
-import SignUpForm from "./SignUpForm/SignUpForm";
+import { Link, Text, VStack } from "native-base"
+import React, { useState } from "react"
+import HStackVCenter from "../../screens/_common/flexboxes/HStackVCenter"
+import LoginForm from "./LoginForm/LoginForm"
+import SignUpForm from "./SignUpForm/SignUpForm"
 
 interface Props {
-  test?: string;
+  test?: string
 }
 
 const AuthForm = (props: Props) => {
-  type FormType = "register" | "login";
+  type FormType = "register" | "login"
 
-  const [currentForm, setCurrentForm] = useState<FormType>("login");
+  const [currentForm, setCurrentForm] = useState<FormType>("login")
 
   return (
     <VStack
@@ -24,7 +24,7 @@ const AuthForm = (props: Props) => {
     >
       <VStack alignItems="center">
         <Text fontSize="xl" fontWeight="semibold">
-          ClothesApp
+          Ration
         </Text>
 
         <HStackVCenter>
@@ -47,7 +47,7 @@ const AuthForm = (props: Props) => {
         <LoginForm onToggleForm={() => setCurrentForm("register")} />
       )}
     </VStack>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

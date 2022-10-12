@@ -1,19 +1,21 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { VStack } from "native-base"
+import { Text, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { myColors } from "../../utils/myColors"
 
-const HomeScreen = ({
+const ProfileScreen = ({
   navigation,
-}: BottomTabScreenProps<NavigationParamType, "Home">) => {
+}: BottomTabScreenProps<NavigationParamType, "Profile">) => {
   return (
     <VStack flex="1" backgroundColor={myColors.background}>
-      <ScrollView></ScrollView>
+      <ScrollView>
+        <Text>Profile</Text>
+      </ScrollView>
       {/* <HomeFooter /> */}
     </VStack>
   )
 }
 
-export default HomeScreen
+export default ProfileScreen

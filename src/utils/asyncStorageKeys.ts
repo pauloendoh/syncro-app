@@ -1,3 +1,1 @@
-export const asyncStorageKeys = {
-  homeFilter: "homeFilter",
-};
+export const asyncStorageKeys = {}

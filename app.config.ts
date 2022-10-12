@@ -1,9 +1,9 @@
-import { ExpoConfig } from "@expo/config-types";
+import { ExpoConfig } from "@expo/config-types"
 
 export default () => ({
   expo: {
-    name: "endoh-app",
-    slug: "endoh-app",
+    name: "ration",
+    slug: "ration",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
@@ -56,17 +56,4 @@ export default () => ({
       },
     },
   } as ExpoConfig,
-  hooks: {
-    postPublish: [
-      {
-        file: "sentry-expo/upload-sourcemaps",
-        config: {
-          organization: "lambda3",
-          project: "clothes-server",
-          authToken:
-            "df599338e1e14f9e920be24339adf0a618488e3326024655a9677ed802b21269",
-        },
-      },
-    ],
-  },
-});
+})

@@ -5,7 +5,7 @@
         "buildType": "apk"
       },
       "env": {
-        "API_URL": "https://clothes-server.onrender.com"
+        "API_URL": "https://ration-server.onrender.com"
       }
     },
     "preview2": {

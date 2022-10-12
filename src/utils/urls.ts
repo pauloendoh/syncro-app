@@ -1,6 +1,8 @@
-import envVars from "../../envVars";
+import queryString from "query-string"
+import envVars from "../../envVars"
+import { RationItemType } from "../types/domain/RationItemType"
 
-const { API_URL } = envVars;
+const { API_URL } = envVars
 export const urls = {
   api: {
     register: API_URL + "/auth/register",
@@ -8,15 +10,12 @@ export const urls = {
 
     me: API_URL + "/auth/me",
 
-    clothings: API_URL + "/clothings",
-    tags: API_URL + "/tags",
-    tagsId: (id: number) => API_URL + "/tags/" + id,
+    search: (q: string, type: RationItemType) =>
+      API_URL + "/search?" + queryString.stringify({ q, type }),
 
-    clothingsId: (id: number) => API_URL + "/clothings/" + id,
-    publicUploads: (fileName: string) =>
-      API_URL + "/public/uploads/" + fileName,
+    imdbItemDetails: (id?: string | null) => API_URL + `/imdb-item?id=${id}`,
+    myRatings: API_URL + `/me/ratings`,
 
-    weather: (lat: number, lon: number) =>
-      `${API_URL}/weather?lat=${lat}&lon=${lon}`,
+    apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
   },
-};
+}
