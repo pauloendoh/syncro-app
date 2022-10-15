@@ -1,4 +1,8 @@
 import { ExpoConfig } from "@expo/config-types"
+import { config } from "dotenv"
+config()
+
+const { SENTRY_AUTH_TOKEN } = process.env
 
 export default () => ({
   expo: {
@@ -57,4 +61,17 @@ export default () => ({
       },
     },
   } as ExpoConfig,
+  hooks: {
+    postPublish: [
+      {
+        file: "sentry-expo/upload-sourcemaps",
+        config: {
+          organization: "lambda3",
+          project: "clothes-server",
+          authToken:
+            "df599338e1e14f9e920be24339adf0a618488e3326024655a9677ed802b21269",
+        },
+      },
+    ],
+  },
 })

@@ -3,10 +3,10 @@ import { HStack, Pressable, Text, useTheme, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
 import { useUserRatingsQuery } from "../../../hooks/react-query/rating/useUserRatingsQuery"
+import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
-import { myColors } from "../../../utils/myColors"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 
 const ProfileScreen = ({
@@ -16,8 +16,10 @@ const ProfileScreen = ({
 
   const { data: userRatings } = useUserRatingsQuery(authUser!.id)
   const theme = useTheme()
+
+  const { lightBackground } = useMyColors()
   return (
-    <VStack flex="1" backgroundColor={myColors.background}>
+    <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
         <HStack
           style={{

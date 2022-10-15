@@ -32,11 +32,11 @@ const MyNavigationContainer = (props: Props) => {
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{
+            tabBarShowLabel: false,
+            headerShown: false,
             tabBarStyle: {
               backgroundColor: theme.colors.light[900],
               borderTopColor: theme.colors.light[700],
-              height: 64,
-              paddingBottom: 8,
             },
             tabBarActiveTintColor: theme.colors.primary[700],
           }}
@@ -77,7 +77,6 @@ const MyNavigationContainer = (props: Props) => {
             name="ProfileNavigation"
             component={ProfileNavigationScreens}
             options={{
-              tabBarLabel: "Profile",
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
                   name="account"

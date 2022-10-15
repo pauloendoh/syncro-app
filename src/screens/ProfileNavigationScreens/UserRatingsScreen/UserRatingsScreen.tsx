@@ -3,8 +3,8 @@ import { HStack, Text, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
 import { useItemsRatedByUserQuery } from "../../../hooks/react-query/imdb-item/useItemsRatedByUserQuery"
+import { useMyColors } from "../../../hooks/useMyColors"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
-import { myColors } from "../../../utils/myColors"
 
 const UserRatingsScreen = ({
   navigation,
@@ -14,8 +14,9 @@ const UserRatingsScreen = ({
 
   const { data: items, isLoading } = useItemsRatedByUserQuery(userId)
 
+  const { lightBackground } = useMyColors()
   return (
-    <VStack flex="1" backgroundColor={myColors.background}>
+    <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
         {isLoading && <Text>"Loading... "</Text>}
         {items?.map((item) => (

@@ -3,8 +3,8 @@ import { Divider, HStack, Image, Text, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
 import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
+import { useMyColors } from "../../../hooks/useMyColors"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
-import { myColors } from "../../../utils/myColors"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import RatingRow from "./RatingRow/RatingRow"
 
@@ -13,8 +13,10 @@ const ImdbItemScreen = ({
   route,
 }: BottomTabScreenProps<SearchScreenTypes, "ImdbItem">) => {
   const { data, isLoading } = useImdbItemDetailsQuery(route.params.imdbId)
+
+  const { lightBackground } = useMyColors()
   return (
-    <VStack flex="1" backgroundColor={myColors.background}>
+    <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
         {isLoading && <Text>Loading...</Text>}
 

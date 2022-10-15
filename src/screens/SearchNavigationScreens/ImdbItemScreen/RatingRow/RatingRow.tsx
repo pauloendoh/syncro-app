@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { HStack, Text, VStack } from "native-base"
 import React from "react"
+import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
 import MyInterestButton from "./MyInterestButton/MyInterestButton"
 import MyRatingButton from "./MyRatingButton/MyRatingButton"
 
@@ -13,29 +14,36 @@ interface Props {
 const RatingRow = (props: Props) => {
   return (
     <HStack mt={4} style={{ justifyContent: "space-around" }}>
-      {props.imdbAvgRating >= 0 && props.imdbRatingCount >= 0 && (
-        <VStack alignItems={"center"}>
-          <MaterialCommunityIcons name="star" color={"#FFB600"} size={32} />
+      <VStackHCenter style={{ width: 120 }}>
+        {props.imdbAvgRating >= 0 && props.imdbRatingCount >= 0 && (
+          <VStack alignItems={"center"}>
+            <MaterialCommunityIcons name="star" color={"#FFB600"} size={32} />
 
-          <Text>
-            <Text fontWeight="500" fontSize="md">
-              {props.imdbAvgRating}
+            <Text>
+              <Text fontWeight="500" fontSize="md">
+                {props.imdbAvgRating}
+              </Text>
+              /10
             </Text>
-            /10
-          </Text>
 
-          <Text>
-            {Intl.NumberFormat("en", { notation: "compact" }).format(
-              props.imdbRatingCount
-            )}{" "}
-            ratings
-          </Text>
-          <Text>IMDB</Text>
-        </VStack>
-      )}
+            <Text>
+              {Intl.NumberFormat("en", { notation: "compact" }).format(
+                props.imdbRatingCount
+              )}{" "}
+              ratings
+            </Text>
+            <Text>IMDB</Text>
+          </VStack>
+        )}
+      </VStackHCenter>
 
-      <MyRatingButton itemId={props.itemId} />
-      <MyInterestButton itemId={props.itemId} />
+      <VStackHCenter style={{ width: 120 }}>
+        <MyRatingButton itemId={props.itemId} />
+      </VStackHCenter>
+
+      <VStackHCenter style={{ width: 120 }}>
+        <MyInterestButton itemId={props.itemId} />
+      </VStackHCenter>
     </HStack>
   )
 }

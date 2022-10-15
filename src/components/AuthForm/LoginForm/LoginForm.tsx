@@ -1,3 +1,4 @@
+import { AxiosError } from "axios"
 import {
   Button,
   FormControl,
@@ -6,27 +7,27 @@ import {
   Text,
   useToast,
   VStack,
-} from "native-base";
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
-import { Alert } from "react-native";
-import useAuthStore from "../../../hooks/zustand/useAuthStore";
-import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto";
-import myAxios from "../../../utils/myAxios";
-import { urls } from "../../../utils/urls";
+} from "native-base"
+import React from "react"
+import { Controller, useForm } from "react-hook-form"
+import { Alert } from "react-native"
+import useAuthStore from "../../../hooks/zustand/useAuthStore"
+import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
+import myAxios from "../../../utils/myAxios"
+import { urls } from "../../../utils/urls"
 
 interface LoginDto {
-  identificator: string;
-  password: string;
+  identificator: string
+  password: string
 }
 
 interface Props {
-  onToggleForm: () => void;
+  onToggleForm: () => void
 }
 
 const LoginForm = (props: Props) => {
-  const setAuthUser = useAuthStore((s) => s.setAuthUser);
-  const toast = useToast();
+  const setAuthUser = useAuthStore((s) => s.setAuthUser)
+  const toast = useToast()
 
   const {
     control,
@@ -37,16 +38,19 @@ const LoginForm = (props: Props) => {
       identificator: "",
       password: "",
     },
-  });
+  })
   const onSubmit = async (data: LoginDto) => {
-    try {
-      const res = await myAxios.post<AuthUserGetDto>(urls.api.login, data);
-      toast.show({ description: "Success" });
-      setAuthUser(res.data);
-    } catch (err: any) {
-      Alert.alert("Error", err.response?.data?.message || err.message);
-    }
-  };
+    myAxios
+      .post<AuthUserGetDto>(urls.api.login, data)
+      .then((res) => {
+        toast.show({ description: "Success" })
+        setAuthUser(res.data)
+      })
+      .catch((err: AxiosError<{ message: string }>) => {
+        Alert.alert("Error", err.response?.data?.message || err.message)
+        throw new Error(`url: ${urls.api.login}; data: ${JSON.stringify(data)}`)
+      })
+  }
 
   return (
     <VStack width="80%" space={4}>
@@ -59,6 +63,8 @@ const LoginForm = (props: Props) => {
               onBlur={onBlur}
               onChangeText={(val) => onChange(val)}
               value={value}
+              autoCapitalize="none"
+              autoComplete="username"
             />
           )}
           name="identificator"
@@ -101,7 +107,7 @@ const LoginForm = (props: Props) => {
         </VStack>
       </VStack>
     </VStack>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

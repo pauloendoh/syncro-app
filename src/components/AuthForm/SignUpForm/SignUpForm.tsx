@@ -6,31 +6,31 @@ import {
   Text,
   useToast,
   VStack,
-} from "native-base";
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
-import { Alert } from "react-native";
-import envVars from "../../../../envVars";
-import useAuthStore from "../../../hooks/zustand/useAuthStore";
-import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto";
-import myAxios from "../../../utils/myAxios";
-import { urls } from "../../../utils/urls";
+} from "native-base"
+import React from "react"
+import { Controller, useForm } from "react-hook-form"
+import { Alert } from "react-native"
+import envVars from "../../../../envVars"
+import useAuthStore from "../../../hooks/zustand/useAuthStore"
+import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
+import myAxios from "../../../utils/myAxios"
+import { urls } from "../../../utils/urls"
 
 interface Props {
-  onToggleForm: () => void;
+  onToggleForm: () => void
 }
 
 interface ISignUpDto {
-  username: string;
-  email: string;
-  password1: string;
-  password2: string;
+  username: string
+  email: string
+  password1: string
+  password2: string
 }
 
 const SignUpForm = (props: Props) => {
-  const setAuthUser = useAuthStore((s) => s.setAuthUser);
+  const setAuthUser = useAuthStore((s) => s.setAuthUser)
 
-  const toast = useToast();
+  const toast = useToast()
 
   const {
     control,
@@ -43,17 +43,17 @@ const SignUpForm = (props: Props) => {
       password1: "",
       password2: "",
     },
-  });
+  })
   const onSubmit = async (data: ISignUpDto) => {
     try {
-      const res = await myAxios.post<AuthUserGetDto>(urls.api.register, data);
+      const res = await myAxios.post<AuthUserGetDto>(urls.api.register, data)
 
-      setAuthUser(res.data);
-      toast.show({ description: "Success" });
+      setAuthUser(res.data)
+      toast.show({ description: "Success" })
     } catch (err: any) {
-      Alert.alert("Error", err.response?.data?.message || err.message);
+      Alert.alert("Error", err.response?.data?.message || err.message)
     }
-  };
+  }
 
   return (
     <VStack width="80%" space={4}>
@@ -66,6 +66,7 @@ const SignUpForm = (props: Props) => {
               onBlur={onBlur}
               onChangeText={(val) => onChange(val)}
               value={value}
+              autoCapitalize="none"
             />
           )}
           name="username"
@@ -85,6 +86,8 @@ const SignUpForm = (props: Props) => {
               onBlur={onBlur}
               onChangeText={(val) => onChange(val)}
               value={value}
+              autoCapitalize="none"
+              autoComplete="email"
             />
           )}
           name="email"
@@ -148,7 +151,7 @@ const SignUpForm = (props: Props) => {
         <Text fontStyle={"italic"}>{envVars.API_URL}</Text>
       </VStack>
     </VStack>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

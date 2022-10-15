@@ -1,10 +1,11 @@
 {
-  "name": "endoh-app",
+  "name": "ration-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "dev": "cross-env API_URL=\"http://192.168.0.2:3000\" expo start",
-    "dev:prod": "cross-env API_URL=\"http://192.168.0.2:3000\" expo start --no-dev --minify",
+    "dev:prod": "cross-env API_URL=\"https://ration-server.herokuapp.com\" expo start",
+    "dev:prod2": "cross-env API_URL=\"https://ration-server.herokuapp.com\" expo start --no-dev --minify",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",

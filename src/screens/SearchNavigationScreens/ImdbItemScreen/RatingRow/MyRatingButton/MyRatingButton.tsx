@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { Text, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { Pressable } from "react-native"
+import { getShortLabelByRatingValue } from "../../../../../components/modals/RatingModal/getLabelByRatingValue"
 import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
 import useRatingModalStore from "../../../../../hooks/zustand/modals/useRatingModalStore"
 import { buildDefaultRating } from "../../../../../types/domain/rating/RatingDto"
@@ -44,6 +45,10 @@ const MyRatingButton = (props: Props) => {
 
         <Text color={savedRating && theme.colors.secondary[600]}>
           {savedRating?.value ? `${savedRating.value}/10` : "Rate this"}
+        </Text>
+
+        <Text color={savedRating && theme.colors.secondary[600]}>
+          {savedRating?.value && getShortLabelByRatingValue(savedRating.value)}
         </Text>
       </VStackHCenter>
     </Pressable>

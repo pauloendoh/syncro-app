@@ -2,10 +2,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Input, Text, VStack } from "native-base"
 import React, { useRef, useState } from "react"
 import { ScrollView } from "react-native"
+import { useMyColors } from "../../../hooks/useMyColors"
 import { IImdbItem } from "../../../types/domain/movie/MovieResultResponseDto"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import myAxios from "../../../utils/myAxios"
-import { myColors } from "../../../utils/myColors"
 import { urls } from "../../../utils/urls"
 import SearchItem from "./SearchItem/SearchItem"
 
@@ -32,8 +32,10 @@ const SearchScreen = ({
       .finally(() => setIsSearching(false))
   }
 
+  const { lightBackground } = useMyColors()
+
   return (
-    <VStack flex="1" backgroundColor={myColors.background}>
+    <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
         <Input
           placeholder="Search TV series"
