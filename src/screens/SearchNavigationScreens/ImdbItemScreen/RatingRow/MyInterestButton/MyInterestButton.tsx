@@ -50,7 +50,7 @@ const MyInterestButton = (props: Props) => {
         <Text color={savedRating && theme.colors.secondary[600]}>
           {savedRating?.interestLevel
             ? `${savedRating.interestLevel}/3`
-            : "Rate this"}
+            : "Add to interest list"}
         </Text>
 
         {savedRating?.interestLevel && (

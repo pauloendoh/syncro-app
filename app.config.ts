@@ -57,7 +57,7 @@ export default () => ({
     extra: {
       API_URL: process.env.API_URL || null,
       eas: {
-        projectId: "6a4a530d-c5cd-4d55-859e-26df6f2ee20b",
+        projectId: "c002a7ca-4fc6-4cc7-925b-8f68f88f47b1",
       },
     },
   } as ExpoConfig,
