@@ -20,5 +20,6 @@ export const urls = {
       API_URL + `/user/${userId}/imdb-items`,
 
     apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
+    homeRatings: API_URL + "/feed/home-ratings",
   },
 }

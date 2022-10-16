@@ -1,3 +1,5 @@
+import { ImdbItemDto } from "../imdb-item/ImdbItemDto"
+
 export type RatingDto = {
   id: string
   imdbItemId: string | null
@@ -6,6 +8,11 @@ export type RatingDto = {
   interestLevel: number | null
   createdAt: string
   updatedAt: string
+
+  imdbItem?: ImdbItemDto
+  user?: {
+    username: string
+  }
 }
 
 export const buildDefaultRating = (p?: Partial<RatingDto>): RatingDto => ({
