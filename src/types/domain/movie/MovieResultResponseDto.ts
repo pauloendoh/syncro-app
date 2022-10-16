@@ -1,3 +1,6 @@
+import { ImdbItemDto } from "../imdb-item/ImdbItemDto"
+import { RatingDto } from "../rating/RatingDto"
+
 export interface Meta {
   operation: string
   requestId: string
@@ -66,7 +69,7 @@ interface KnownFor {
   year: number
 }
 
-export interface IImdbItem {
+export interface IImdbResultItem {
   id: string
   image: Image
   runningTimeInMinutes: number
@@ -85,4 +88,6 @@ export interface IImdbItem {
   legacyNameText: string
   name: string
   knownFor: KnownFor[]
+  imdbItem?: ImdbItemDto
+  myRating?: RatingDto
 }

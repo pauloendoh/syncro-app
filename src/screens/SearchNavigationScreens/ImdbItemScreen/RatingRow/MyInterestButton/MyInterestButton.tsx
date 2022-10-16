@@ -19,15 +19,14 @@ const MyInterestButton = (props: Props) => {
   const openModal = useInterestModalStore((s) => s.openModal)
 
   const savedRating = useMemo(
-    () =>
-      myRatings?.find(
-        (r) =>
-          r.imdbItemId === props.itemId &&
-          r.interestLevel &&
-          r.interestLevel > 0
-      ),
+    () => myRatings?.find((r) => r.imdbItemId === props.itemId),
     [props.itemId, myRatings]
   )
+
+  const currentInterestLevel = useMemo(() => savedRating?.interestLevel || 0, [
+    savedRating,
+  ])
+
   const theme = useTheme()
 
   return (
@@ -42,20 +41,27 @@ const MyInterestButton = (props: Props) => {
         <FontAwesome5
           name={"fire"}
           color={
-            savedRating ? theme.colors.secondary[600] : theme.colors.light[100]
+            currentInterestLevel > 0
+              ? theme.colors.secondary[600]
+              : theme.colors.light[100]
           }
+          ks
           size={32}
         />
 
-        <Text color={savedRating && theme.colors.secondary[600]}>
-          {savedRating?.interestLevel
-            ? `${savedRating.interestLevel}/3`
+        <Text
+          color={
+            currentInterestLevel > 0 ? theme.colors.secondary[600] : undefined
+          }
+        >
+          {currentInterestLevel > 0
+            ? `${currentInterestLevel}/3`
             : "Add to interest list"}
         </Text>
 
-        {savedRating?.interestLevel && (
+        {currentInterestLevel > 0 && (
           <Text color={theme.colors.secondary[600]}>
-            {getShortLabelByInterestValue(savedRating.interestLevel)}
+            {getShortLabelByInterestValue(currentInterestLevel)}
           </Text>
         )}
       </VStackHCenter>

@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { HStack, Text, VStack } from "native-base"
 import React from "react"
+import { formatCompactNumber } from "../../../../utils/math/formatCompactNumber"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
 import MyInterestButton from "./MyInterestButton/MyInterestButton"
 import MyRatingButton from "./MyRatingButton/MyRatingButton"
@@ -26,12 +27,7 @@ const RatingRow = (props: Props) => {
               /10
             </Text>
 
-            <Text>
-              {Intl.NumberFormat("en", { notation: "compact" }).format(
-                props.imdbRatingCount
-              )}{" "}
-              ratings
-            </Text>
+            <Text>{formatCompactNumber(props.imdbRatingCount)} ratings</Text>
             <Text>IMDB</Text>
           </VStack>
         )}

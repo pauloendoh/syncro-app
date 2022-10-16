@@ -3,7 +3,7 @@ import { Input, Text, VStack } from "native-base"
 import React, { useRef, useState } from "react"
 import { ScrollView } from "react-native"
 import { useMyColors } from "../../../hooks/useMyColors"
-import { IImdbItem } from "../../../types/domain/movie/MovieResultResponseDto"
+import { IImdbResultItem } from "../../../types/domain/movie/MovieResultResponseDto"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import myAxios from "../../../utils/myAxios"
 import { urls } from "../../../utils/urls"
@@ -14,7 +14,7 @@ const SearchScreen = ({
 }: NativeStackScreenProps<SearchScreenTypes, "Search">) => {
   const [text, setText] = useState("")
 
-  const [imdbItems, setMovies] = useState<IImdbItem[]>([])
+  const [imdbItems, setMovies] = useState<IImdbResultItem[]>([])
 
   const abortControllerRef = useRef(new AbortController())
 
@@ -22,7 +22,7 @@ const SearchScreen = ({
   const submitSearch = () => {
     setIsSearching(true)
     myAxios
-      .get<IImdbItem[]>(urls.api.search(text, "tv series"), {
+      .get<IImdbResultItem[]>(urls.api.search(text, "tv series"), {
         signal: abortControllerRef.current.signal,
       })
       .then((res) => setMovies(res.data))
@@ -46,15 +46,17 @@ const SearchScreen = ({
         />
         {isSearching && <Text>Searching...</Text>}
 
-        {imdbItems?.map((imdbItem) => (
-          <SearchItem
-            imdbItem={imdbItem}
-            key={imdbItem.id}
-            onClick={() =>
-              navigation.navigate("ImdbItem", { imdbId: imdbItem.id })
-            }
-          />
-        ))}
+        <VStack space={4}>
+          {imdbItems?.map((imdbItem) => (
+            <SearchItem
+              resultItem={imdbItem}
+              key={imdbItem.id}
+              onClick={() =>
+                navigation.navigate("ImdbItem", { imdbId: imdbItem.id })
+              }
+            />
+          ))}
+        </VStack>
       </ScrollView>
       {/* <HomeFooter /> */}
     </VStack>
