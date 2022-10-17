@@ -1,20 +1,23 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
+import type { CompositeScreenProps } from "@react-navigation/native"
 import { HStack, Pressable, Text, useTheme, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
 import { useUserRatingsQuery } from "../../../hooks/react-query/rating/useUserRatingsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
-import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
+import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 
 const ProfileScreen = ({
   navigation,
-}: BottomTabScreenProps<ProfileScreenTypes, "Profile">) => {
-  const authUser = useAuthStore((s) => s.authUser)
-
-  const { data: userRatings } = useUserRatingsQuery(authUser!.id)
+  route,
+}: CompositeScreenProps<
+  BottomTabScreenProps<ProfileScreenTypes, "Profile">,
+  BottomTabScreenProps<SearchScreenTypes, "Profile">
+>) => {
+  const { data: userRatings } = useUserRatingsQuery(route.params.userId)
   const theme = useTheme()
 
   const { lightBackground } = useMyColors()
@@ -30,7 +33,7 @@ const ProfileScreen = ({
             onPress={() => {
               navigation.navigate("UserRatings", {
                 itemType: "tv series",
-                userId: authUser!.id,
+                userId: route.params.userId,
               })
             }}
           >

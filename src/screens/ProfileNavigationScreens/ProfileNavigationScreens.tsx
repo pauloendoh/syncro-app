@@ -2,6 +2,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useTheme } from "native-base"
 import React from "react"
+import useAuthStore from "../../hooks/zustand/useAuthStore"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { ProfileScreenTypes } from "../../types/ProfileScreenTypes"
 import ProfileScreen from "./ProfileScreen/ProfileScreen"
@@ -13,6 +14,8 @@ const ProfileNavigationScreens = ({
   navigation,
 }: BottomTabScreenProps<NavigationParamType, "ProfileNavigation">) => {
   const theme = useTheme()
+
+  const authUser = useAuthStore((s) => s.authUser)
 
   return (
     <Stack.Navigator
@@ -27,7 +30,11 @@ const ProfileNavigationScreens = ({
         headerTintColor: theme.colors.light[100],
       }}
     >
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        initialParams={{ userId: authUser!.id }}
+      />
       <Stack.Screen name="UserRatings" component={UserRatingsScreen} />
     </Stack.Navigator>
   )

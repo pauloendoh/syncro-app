@@ -1,6 +1,6 @@
 import queryString from "query-string"
 import envVars from "../../envVars"
-import { RationItemType } from "../types/domain/RationItemType"
+import { SearchParams } from "../types/domain/search/SearchParams"
 
 const { API_URL } = envVars
 export const urls = {
@@ -10,8 +10,8 @@ export const urls = {
 
     me: API_URL + "/auth/me",
 
-    search: (q: string, type: RationItemType) =>
-      API_URL + "/search?" + queryString.stringify({ q, type }),
+    search: (params: SearchParams) =>
+      API_URL + "/search?" + queryString.stringify(params),
 
     imdbItemDetails: (id?: string | null) => API_URL + `/imdb-item?id=${id}`,
     myRatings: API_URL + `/me/ratings`,

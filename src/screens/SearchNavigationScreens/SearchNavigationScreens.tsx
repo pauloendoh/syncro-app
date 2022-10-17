@@ -2,9 +2,10 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useTheme } from "native-base"
 import React from "react"
-import { useMyColors } from "../../hooks/useMyColors"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { SearchScreenTypes } from "../../types/SearchScreenTypes"
+import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
+import UserRatingsScreen from "../ProfileNavigationScreens/UserRatingsScreen/UserRatingsScreen"
 import ImdbItemScreen from "./ImdbItemScreen/ImdbItemScreen"
 import SearchScreen from "./SearchScreen/SearchScreen"
 
@@ -13,7 +14,6 @@ const Stack = createNativeStackNavigator<SearchScreenTypes>()
 const SearchNavigationScreens = ({
   navigation,
 }: BottomTabScreenProps<NavigationParamType, "SearchNavigation">) => {
-  const { lightBackground } = useMyColors()
   const theme = useTheme()
   return (
     <Stack.Navigator
@@ -30,6 +30,8 @@ const SearchNavigationScreens = ({
     >
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="UserRatings" component={UserRatingsScreen} />
     </Stack.Navigator>
   )
 }
