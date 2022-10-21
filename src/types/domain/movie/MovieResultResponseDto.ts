@@ -1,4 +1,5 @@
 import { ImdbItemDto } from "../imdb-item/ImdbItemDto"
+import { InterestDto } from "../interest/InterestDto"
 import { RatingDto } from "../rating/RatingDto"
 
 export interface Meta {
@@ -90,4 +91,5 @@ export interface IImdbResultItem {
   knownFor: KnownFor[]
   imdbItem?: ImdbItemDto
   myRating?: RatingDto
+  myInterest?: InterestDto
 }

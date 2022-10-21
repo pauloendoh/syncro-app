@@ -99,7 +99,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
 
                     <Text>
                       {getLabelByInterestValue(
-                        resultItem.myRating.interestLevel
+                        resultItem.myInterest?.interestLevel || null
                       )}
                     </Text>
                   </HStack>
