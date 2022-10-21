@@ -62,7 +62,7 @@ export default () => ({
       policy: "sdkVersion",
     },
     updates: {
-      fallbackToCacheTimeout: 0,
+      fallbackToCacheTimeout: 60000,
       url: "https://u.expo.dev/2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
     },
   } as ExpoConfig,

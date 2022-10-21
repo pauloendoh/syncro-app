@@ -1,4 +1,5 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
+import { useFocusEffect } from "@react-navigation/native"
 import { Text, VStack } from "native-base"
 import React, { useMemo } from "react"
 import { ScrollView } from "react-native"
@@ -12,12 +13,16 @@ const HomeScreen = ({
 }: BottomTabScreenProps<NavigationParamType, "Home">) => {
   const { lightBackground } = useMyColors()
 
-  const { data: homeRatings, isLoading } = useHomeRatingsQuery()
+  const { data: homeRatings, isLoading, refetch } = useHomeRatingsQuery()
 
   const isReady = useMemo(() => !isLoading || !!homeRatings, [
     isLoading,
     homeRatings,
   ])
+
+  useFocusEffect(() => {
+    refetch()
+  })
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>

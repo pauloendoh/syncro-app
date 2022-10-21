@@ -11,6 +11,7 @@ import React, { useEffect, useMemo } from "react"
 import { View } from "react-native"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
+import * as Updates from "expo-updates"
 import * as Sentry from "sentry-expo"
 import MyNavigationContainer from "./src/components/MyNavigationContainer/MyNavigationContainer"
 import useCachedResources from "./src/hooks/useCachedResources"
@@ -48,6 +49,15 @@ export default function App() {
     isLoadingComplete,
     loadingUser,
   ])
+
+  const reactToUpdates = async () => {
+    Updates.addListener((event) => {
+      if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
+        alert("An update is available. Restart the app to update.")
+        Updates.reloadAsync()
+      }
+    })
+  }
 
   return (
     <QueryClientProvider client={myQueryClient}>

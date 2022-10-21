@@ -1,4 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons"
+import { useFocusEffect } from "@react-navigation/native"
 import { HStack, Text, useTheme, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
@@ -11,7 +12,11 @@ interface Props {
 }
 
 const UserSearchResults = (props: Props) => {
-  const { data: users } = useUserSearchQuery(props.query)
+  const { data: users, refetch } = useUserSearchQuery(props.query)
+
+  useFocusEffect(() => {
+    refetch()
+  })
 
   const theme = useTheme()
   return (

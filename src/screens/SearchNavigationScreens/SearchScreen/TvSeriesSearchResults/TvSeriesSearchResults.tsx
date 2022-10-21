@@ -1,3 +1,4 @@
+import { useFocusEffect } from "@react-navigation/native"
 import React from "react"
 import { useTvSeriesSearchQuery } from "../../../../hooks/react-query/search/useTvSeriesSearchQuery"
 import SearchItem from "../SearchItem/SearchItem"
@@ -8,7 +9,11 @@ interface Props {
 }
 
 const TvSeriesSearchResults = ({ onClickImdbItemId, query }: Props) => {
-  const { data: imdbItems } = useTvSeriesSearchQuery(query)
+  const { data: imdbItems, refetch } = useTvSeriesSearchQuery(query)
+
+  useFocusEffect(() => {
+    refetch()
+  })
   return (
     <>
       {imdbItems?.map((imdbItem) => (
