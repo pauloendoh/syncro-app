@@ -1,8 +1,8 @@
 import { MaterialIcons } from "@expo/vector-icons"
 import { Pressable, Text, useTheme } from "native-base"
 import React from "react"
-import { useLogout } from "../../../hooks/domain/auth/useLogout"
-import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
+import { useLogout } from "../../../../hooks/domain/auth/useLogout"
+import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 
 interface Props {
   test?: string

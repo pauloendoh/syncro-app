@@ -6,7 +6,7 @@ import React from "react"
 import { TouchableOpacity } from "react-native"
 import { useLogout } from "../../hooks/domain/auth/useLogout"
 import EmptyScreen from "../../screens/EmptyScreen/EmptyScreen"
-import HomeScreen from "../../screens/HomeScreen/HomeScreen"
+import HomeNavigationScreens from "../../screens/HomeNavigationScreens/HomeNavigationScreens"
 import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
 import SearchNavigationScreens from "../../screens/SearchNavigationScreens/SearchNavigationScreens"
 import { NavigationParamType } from "../../types/NavigationParamType"
@@ -43,15 +43,11 @@ const MyNavigationContainer = (props: Props) => {
         >
           <Tab.Screen
             name="Home"
-            component={HomeScreen}
+            component={HomeNavigationScreens}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="home" color={color} size={size} />
               ),
-              // headerStyle: {
-              //   backgroundColor: "#1E1E1E",
-              // },
-              // headerTitle: (props) => <HomeTitle />,
             }}
           />
           <Tab.Screen
