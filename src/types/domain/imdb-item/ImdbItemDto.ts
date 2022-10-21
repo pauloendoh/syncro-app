@@ -1,3 +1,4 @@
+import { InterestDto } from "../interest/InterestDto"
 import { RatingDto } from "../rating/RatingDto"
 
 export interface ImdbItemDto {
@@ -11,6 +12,7 @@ export interface ImdbItemDto {
   plotSummary: string
 
   ratings?: RatingDto[]
+  interests?: InterestDto[]
 }
 
 export const buildImdbItemDto = (p?: Partial<ImdbItemDto>): ImdbItemDto => ({

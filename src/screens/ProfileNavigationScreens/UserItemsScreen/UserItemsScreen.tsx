@@ -2,17 +2,17 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { HStack, Text, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
-import { useItemsRatedByUserQuery } from "../../../hooks/react-query/imdb-item/useItemsRatedByUserQuery"
+import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
-const UserRatingsScreen = ({
+const UserItemsScreen = ({
   navigation,
   route,
-}: BottomTabScreenProps<ProfileScreenTypes, "UserRatings">) => {
+}: BottomTabScreenProps<ProfileScreenTypes, "UserItems">) => {
   const { itemType, userId } = route.params
 
-  const { data: items, isLoading } = useItemsRatedByUserQuery(userId)
+  const { data: items, isLoading } = useUserItemsQuery(userId)
 
   const { lightBackground } = useMyColors()
   return (
@@ -23,12 +23,15 @@ const UserRatingsScreen = ({
           <HStack>
             <Text>{item.title}</Text>
             <Text>
-              {item.ratings?.map((rating) => (
-                <VStack>
-                  <Text>{rating.ratingValue}/10 rating</Text>
-                  {/* <Text>{rating.interestLevel}/3 interest</Text> */}
-                </VStack>
-              ))}
+              <VStack>
+                <Text>{item.ratings?.[0]?.ratingValue || "?"}/10 rating</Text>
+              </VStack>
+
+              <VStack>
+                <Text>
+                  {item.interests?.[0]?.interestLevel || "?"}/3 interest
+                </Text>
+              </VStack>
             </Text>
           </HStack>
         ))}
@@ -37,4 +40,4 @@ const UserRatingsScreen = ({
   )
 }
 
-export default UserRatingsScreen
+export default UserItemsScreen

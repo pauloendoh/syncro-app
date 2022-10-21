@@ -6,7 +6,7 @@ import useAuthStore from "../../hooks/zustand/useAuthStore"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { ProfileScreenTypes } from "../../types/ProfileScreenTypes"
 import ProfileScreen from "./ProfileScreen/ProfileScreen"
-import UserRatingsScreen from "./UserRatingsScreen/UserRatingsScreen"
+import UserItemsScreen from "./UserItemsScreen/UserItemsScreen"
 
 const Stack = createNativeStackNavigator<ProfileScreenTypes>()
 
@@ -35,7 +35,7 @@ const ProfileNavigationScreens = ({
         component={ProfileScreen}
         initialParams={{ userId: authUser!.id }}
       />
-      <Stack.Screen name="UserRatings" component={UserRatingsScreen} />
+      <Stack.Screen name="UserItems" component={UserItemsScreen} />
     </Stack.Navigator>
   )
 }

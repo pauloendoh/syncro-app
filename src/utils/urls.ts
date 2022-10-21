@@ -27,5 +27,6 @@ export const urls = {
     homeInterests: API_URL + "/feed/home-interests",
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
+    userItems: (userId: string) => API_URL + `/user/${userId}/items`,
   },
 }

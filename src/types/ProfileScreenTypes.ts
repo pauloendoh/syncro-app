@@ -2,7 +2,7 @@ import { RationItemType } from "./domain/RationItemType"
 
 export type ProfileScreenTypes = {
   Profile: { userId: string }
-  UserRatings: {
+  UserItems: {
     userId: string
     itemType: RationItemType
   }

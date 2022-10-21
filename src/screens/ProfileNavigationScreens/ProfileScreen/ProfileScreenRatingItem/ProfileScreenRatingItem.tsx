@@ -28,7 +28,6 @@ const ProfileScreenRatingItem = (props: Props) => {
             width: 150,
             height: 150,
           }}
-          resizeMode="contain"
         />
         <Text style={{ fontWeight: "500" }} mt={1}>
           TV Series
