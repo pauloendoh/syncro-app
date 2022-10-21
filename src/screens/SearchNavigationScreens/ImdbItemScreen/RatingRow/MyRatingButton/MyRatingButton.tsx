@@ -20,7 +20,8 @@ const MyRatingButton = (props: Props) => {
   const savedRating = useMemo(
     () =>
       myRatings?.find(
-        (r) => r.imdbItemId === props.itemId && r.value && r.value > 0
+        (r) =>
+          r.imdbItemId === props.itemId && r.ratingValue && r.ratingValue > 0
       ),
     [props.itemId, myRatings]
   )
@@ -44,11 +45,14 @@ const MyRatingButton = (props: Props) => {
         />
 
         <Text color={savedRating && theme.colors.secondary[600]}>
-          {savedRating?.value ? `${savedRating.value}/10` : "Rate this"}
+          {savedRating?.ratingValue
+            ? `${savedRating.ratingValue}/10`
+            : "Rate this"}
         </Text>
 
         <Text color={savedRating && theme.colors.secondary[600]}>
-          {savedRating?.value && getShortLabelByRatingValue(savedRating.value)}
+          {savedRating?.ratingValue &&
+            getShortLabelByRatingValue(savedRating.ratingValue)}
         </Text>
       </VStackHCenter>
     </Pressable>

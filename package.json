@@ -1,5 +1,5 @@
 {
-  "name": "ration-app",
+  "name": "syncro",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -63,7 +63,8 @@
     "react-native-tab-view": "^3.3.0",
     "react-native-web": "0.17.7",
     "sentry-expo": "^4.2.0",
-    "zustand": "^4.1.1"
+    "zustand": "^4.1.1",
+    "react-native-pager-view": "5.4.15"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

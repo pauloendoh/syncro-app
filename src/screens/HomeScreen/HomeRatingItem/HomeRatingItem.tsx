@@ -24,7 +24,7 @@ const HomeRatingItem = ({ rating }: Props) => {
         />
         <VStack ml={4}>
           <Text>
-            {rating.user?.username} rated {rating.value}/10
+            {rating.user?.username} rated {rating.ratingValue}/10
           </Text>
           <Text>
             <Text fontWeight="semibold">{rating.imdbItem?.title}</Text>{" "}

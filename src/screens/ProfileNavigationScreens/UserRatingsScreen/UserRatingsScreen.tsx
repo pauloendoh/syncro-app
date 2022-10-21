@@ -25,7 +25,7 @@ const UserRatingsScreen = ({
             <Text>
               {item.ratings?.map((rating) => (
                 <VStack>
-                  <Text>{rating.value}/10 rating</Text>
+                  <Text>{rating.ratingValue}/10 rating</Text>
                   <Text>{rating.interestLevel}/3 interest</Text>
                 </VStack>
               ))}

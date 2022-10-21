@@ -86,7 +86,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
                         size={18}
                       />
                     </VStackHCenter>
-                    <Text>{resultItem.myRating.value}/10</Text>
+                    <Text>{resultItem.myRating.ratingValue}/10</Text>
                   </HStackVCenter>
                   <HStack space={1}>
                     <VStackHCenter style={{ width: 24 }}>

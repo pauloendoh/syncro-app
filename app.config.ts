@@ -7,8 +7,8 @@ const { SENTRY_AUTH_TOKEN } = process.env
 export default () => ({
   expo: {
     owner: "pauloendoh",
-    name: "ration-app",
-    slug: "ration-app",
+    name: "syncro",
+    slug: "syncro",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
@@ -57,7 +57,7 @@ export default () => ({
     extra: {
       API_URL: process.env.API_URL || null,
       eas: {
-        projectId: "c002a7ca-4fc6-4cc7-925b-8f68f88f47b1",
+        projectId: "2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
       },
     },
   } as ExpoConfig,
@@ -73,5 +73,11 @@ export default () => ({
         },
       },
     ],
+  },
+  runtimeVersion: {
+    policy: "sdkVersion",
+  },
+  updates: {
+    url: "https://u.expo.dev/2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
   },
 })

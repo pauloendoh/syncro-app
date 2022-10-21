@@ -26,7 +26,7 @@ const RatingModal = () => {
 
   const [rating, setRating] = useState<number | null>(null)
   useEffect(() => {
-    setRating(initialValue?.value || null)
+    setRating(initialValue?.ratingValue || null)
   }, [initialValue])
 
   const handleChangeRating = (newRating: number) => {
@@ -73,7 +73,8 @@ const RatingModal = () => {
         <Modal.Footer borderTopColor="transparent">
           <Button
             onPress={() => {
-              if (initialValue) onSubmit({ ...initialValue, value: rating })
+              if (initialValue)
+                onSubmit({ ...initialValue, ratingValue: rating })
             }}
             colorScheme={"secondary"}
             width="100%"
