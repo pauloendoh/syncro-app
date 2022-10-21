@@ -15,12 +15,16 @@ export const urls = {
 
     imdbItemDetails: (id?: string | null) => API_URL + `/imdb-item?id=${id}`,
     myRatings: API_URL + `/me/ratings`,
+    myInterests: API_URL + `/me/interests`,
+
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
+    userInterests: (userId: string) => API_URL + `/user/${userId}/interests`,
     itemsRatedByUserId: (userId: string) =>
       API_URL + `/user/${userId}/imdb-items`,
 
     apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
     homeRatings: API_URL + "/feed/home-ratings",
+    homeInterests: API_URL + "/feed/home-interests",
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
   },

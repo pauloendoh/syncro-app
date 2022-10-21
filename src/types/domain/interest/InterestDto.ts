@@ -1,10 +1,10 @@
 import { ImdbItemDto } from "../imdb-item/ImdbItemDto"
 
-export type RatingDto = {
+export type InterestDto = {
   id: string
   imdbItemId: string | null
   userId: string
-  ratingValue: number | null
+  interestLevel: number | null
   createdAt: string
   updatedAt: string
 
@@ -14,11 +14,11 @@ export type RatingDto = {
   }
 }
 
-export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
+export const buildInterestDto = (p?: Partial<InterestDto>): InterestDto => ({
   id: "",
   imdbItemId: "",
   userId: "",
-  ratingValue: null,
+  interestLevel: null,
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   ...p,

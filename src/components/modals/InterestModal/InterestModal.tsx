@@ -3,19 +3,19 @@ import { AirbnbRating } from "react-native-ratings"
 import { Button, HStack, Modal, Text, useTheme } from "native-base"
 import React, { useEffect, useState } from "react"
 import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
-import useSaveRatingMutation from "../../../hooks/react-query/rating/useSaveRatingMutation"
+import useSaveInterestMutation from "../../../hooks/react-query/interest/useSaveInterestMutation"
 import useInterestModalStore from "../../../hooks/zustand/modals/useInterestModalStore"
-import { RatingDto } from "../../../types/domain/rating/RatingDto"
+import { InterestDto } from "../../../types/domain/interest/InterestDto"
 import { urls } from "../../../utils/urls"
 import { getLabelByInterestValue } from "./getLabelByInterestValue"
 
 const InterestModal = () => {
   const { isOpen, initialValue, closeModal } = useInterestModalStore()
 
-  const { mutate } = useSaveRatingMutation()
+  const { mutate } = useSaveInterestMutation()
   // const { mutate: mutateDeleteTag } = useDeleteTagMutation()
 
-  const onSubmit = async (data: RatingDto) => {
+  const onSubmit = async (data: InterestDto) => {
     mutate(data, {
       onSuccess: closeModal,
     })
@@ -25,18 +25,18 @@ const InterestModal = () => {
 
   const { data: imdbItem } = useImdbItemDetailsQuery(initialValue?.imdbItemId)
 
-  const [interest, setInterest] = useState<number | null>(null)
+  const [localInterest, setLocalInterest] = useState<number | null>(null)
   useEffect(() => {
-    setInterest(initialValue?.interestLevel || null)
+    setLocalInterest(initialValue?.interestLevel || null)
   }, [initialValue])
 
   const handleChangeRating = (newRating: number) => {
-    if (newRating === interest) {
-      setInterest(null)
+    if (newRating === localInterest) {
+      setLocalInterest(null)
       return
     }
 
-    setInterest(newRating)
+    setLocalInterest(newRating)
   }
 
   console.log(urls.api.apiImages("fire-flame-curved-solid.svg"))
@@ -68,7 +68,7 @@ const InterestModal = () => {
             showRating={false}
             onFinishRating={handleChangeRating}
             selectedColor={theme.colors.secondary[700]}
-            defaultRating={Number(interest)}
+            defaultRating={Number(localInterest)}
             size={20}
             count={3}
           />
@@ -77,12 +77,12 @@ const InterestModal = () => {
           <Button
             onPress={() => {
               if (initialValue)
-                onSubmit({ ...initialValue, interestLevel: interest })
+                onSubmit({ ...initialValue, interestLevel: localInterest })
             }}
             colorScheme={"secondary"}
             width="100%"
           >
-            {getLabelByInterestValue(interest)}
+            {getLabelByInterestValue(localInterest)}
           </Button>
         </Modal.Footer>
       </Modal.Content>

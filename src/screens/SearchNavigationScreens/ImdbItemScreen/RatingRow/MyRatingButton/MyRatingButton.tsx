@@ -5,7 +5,7 @@ import { Pressable } from "react-native"
 import { getShortLabelByRatingValue } from "../../../../../components/modals/RatingModal/getLabelByRatingValue"
 import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
 import useRatingModalStore from "../../../../../hooks/zustand/modals/useRatingModalStore"
-import { buildDefaultRating } from "../../../../../types/domain/rating/RatingDto"
+import { buildRatingDto } from "../../../../../types/domain/rating/RatingDto"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
@@ -30,9 +30,7 @@ const MyRatingButton = (props: Props) => {
   return (
     <Pressable
       onPress={() =>
-        openModal(
-          savedRating || buildDefaultRating({ imdbItemId: props.itemId })
-        )
+        openModal(savedRating || buildRatingDto({ imdbItemId: props.itemId }))
       }
     >
       <VStackHCenter alignItems={"center"}>

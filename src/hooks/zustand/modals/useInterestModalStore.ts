@@ -1,14 +1,14 @@
 import create from "zustand"
-import { RatingDto } from "../../../types/domain/rating/RatingDto"
+import { InterestDto } from "../../../types/domain/interest/InterestDto"
 
-interface IRatingModalStore {
-  initialValue: RatingDto | null
+interface IInterestModalStore {
+  initialValue: InterestDto | null
   isOpen: boolean
-  openModal: (tag: RatingDto) => void
+  openModal: (tag: InterestDto) => void
   closeModal: () => void
 }
 
-const useInterestModalStore = create<IRatingModalStore>((set, get) => ({
+const useInterestModalStore = create<IInterestModalStore>((set, get) => ({
   initialValue: null,
   isOpen: false,
   openModal: (initialValue) => {

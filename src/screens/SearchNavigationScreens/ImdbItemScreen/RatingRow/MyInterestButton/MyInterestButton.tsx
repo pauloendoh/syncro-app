@@ -4,9 +4,9 @@ import { Text, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { Pressable } from "react-native"
 import { getShortLabelByInterestValue } from "../../../../../components/modals/InterestModal/getLabelByInterestValue"
-import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
+import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
 import useInterestModalStore from "../../../../../hooks/zustand/modals/useInterestModalStore"
-import { buildDefaultRating } from "../../../../../types/domain/rating/RatingDto"
+import { buildInterestDto } from "../../../../../types/domain/interest/InterestDto"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
@@ -14,18 +14,19 @@ interface Props {
 }
 
 const MyInterestButton = (props: Props) => {
-  const { data: myRatings } = useMyRatingsQuery()
+  const { data: myRatings } = useMyInterestsQuery()
 
   const openModal = useInterestModalStore((s) => s.openModal)
 
-  const savedRating = useMemo(
+  const savedInterest = useMemo(
     () => myRatings?.find((r) => r.imdbItemId === props.itemId),
     [props.itemId, myRatings]
   )
 
-  const currentInterestLevel = useMemo(() => savedRating?.interestLevel || 0, [
-    savedRating,
-  ])
+  const currentInterestLevel = useMemo(
+    () => savedInterest?.interestLevel || 0,
+    [savedInterest]
+  )
 
   const theme = useTheme()
 
@@ -33,7 +34,7 @@ const MyInterestButton = (props: Props) => {
     <Pressable
       onPress={() =>
         openModal(
-          savedRating || buildDefaultRating({ imdbItemId: props.itemId })
+          savedInterest || buildInterestDto({ imdbItemId: props.itemId })
         )
       }
     >
