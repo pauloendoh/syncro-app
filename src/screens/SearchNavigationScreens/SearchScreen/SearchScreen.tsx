@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, Input, VStack } from "native-base"
-import React, { useMemo, useState } from "react"
-import { ScrollView } from "react-native"
+import React, { useMemo, useRef, useState } from "react"
+import { ScrollView, TextInput } from "react-native"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import TabViewExample from "./TabViewExample/TabViewExample"
@@ -25,17 +25,17 @@ const SearchScreen = ({
   const [query, setQuery] = useState("")
   const queryIsValid = useMemo(() => query.length >= 3, [query])
 
+  const inputRef = useRef<TextInput | null>(null)
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
         <Input
+          ref={inputRef}
           placeholder={placeholderText}
           value={textInput}
           onChangeText={setTextInput}
           returnKeyType="search"
-          onSubmitEditing={(e) => {
-            setQuery(textInput)
-          }}
         />
 
         <Box mt={4} />

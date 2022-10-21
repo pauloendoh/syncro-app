@@ -32,7 +32,7 @@ const ProfileScreenRatingItem = (props: Props) => {
         <Text style={{ fontWeight: "500" }} mt={1}>
           TV Series
         </Text>
-        <Text>{props.ratingsCount} ratings</Text>
+        <Text>{props.ratingsCount} items</Text>
       </VStackHCenter>
     </Pressable>
   )

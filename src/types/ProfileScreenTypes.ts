@@ -6,4 +6,7 @@ export type ProfileScreenTypes = {
     userId: string
     itemType: RationItemType
   }
+  ImdbItem: {
+    imdbId: string
+  }
 }

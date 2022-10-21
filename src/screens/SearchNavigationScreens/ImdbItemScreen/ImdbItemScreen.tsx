@@ -1,12 +1,19 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
+import { CompositeScreenProps } from "@react-navigation/native"
 import { Divider, HStack, Image, Text, VStack } from "native-base"
 import React from "react"
 import { ScrollView } from "react-native"
 import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import RatingRow from "./RatingRow/RatingRow"
+
+export type ProfileScreenNavigationProp = CompositeScreenProps<
+  BottomTabScreenProps<SearchScreenTypes, "ImdbItem">,
+  BottomTabScreenProps<ProfileScreenTypes, "ImdbItem">
+>
 
 const ImdbItemScreen = ({
   navigation,

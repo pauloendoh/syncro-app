@@ -5,6 +5,7 @@ import React from "react"
 import useAuthStore from "../../hooks/zustand/useAuthStore"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { ProfileScreenTypes } from "../../types/ProfileScreenTypes"
+import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
 import ProfileScreen from "./ProfileScreen/ProfileScreen"
 import UserItemsScreen from "./UserItemsScreen/UserItemsScreen"
 
@@ -36,6 +37,7 @@ const ProfileNavigationScreens = ({
         initialParams={{ userId: authUser!.id }}
       />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
+      <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
     </Stack.Navigator>
   )
 }

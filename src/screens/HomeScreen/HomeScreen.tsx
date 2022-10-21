@@ -1,8 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { useFocusEffect } from "@react-navigation/native"
 import { Text, VStack } from "native-base"
 import React, { useMemo } from "react"
-import { ScrollView } from "react-native"
+import { RefreshControl, ScrollView } from "react-native"
 import { useHomeRatingsQuery } from "../../hooks/react-query/feed/useHomeRatingsQuery"
 import { useMyColors } from "../../hooks/useMyColors"
 import { NavigationParamType } from "../../types/NavigationParamType"
@@ -13,20 +12,25 @@ const HomeScreen = ({
 }: BottomTabScreenProps<NavigationParamType, "Home">) => {
   const { lightBackground } = useMyColors()
 
-  const { data: homeRatings, isLoading, refetch } = useHomeRatingsQuery()
+  const {
+    data: homeRatings,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useHomeRatingsQuery()
 
   const isReady = useMemo(() => !isLoading || !!homeRatings, [
     isLoading,
     homeRatings,
   ])
 
-  useFocusEffect(() => {
-    refetch()
-  })
-
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        }
+      >
         <VStack
           style={{
             paddingTop: 64,
