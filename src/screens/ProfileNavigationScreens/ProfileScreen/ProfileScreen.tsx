@@ -13,8 +13,8 @@ import { getRandomIntInclusive } from "../../../utils/math/getRandomIntInclusive
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
-  BottomTabScreenProps<ProfileScreenTypes, "Profile">,
-  BottomTabScreenProps<SearchScreenTypes, "Profile">
+  BottomTabScreenProps<ProfileScreenTypes, "Profile", undefined>,
+  BottomTabScreenProps<SearchScreenTypes, "Profile", undefined>
 >
 
 const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
@@ -84,6 +84,12 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
               thumbnailImdbItemId={randomHighestTvSeriesRating.imdbItemId!}
               ratingsCount={userRatings.length}
               userId={route.params.userId}
+              onClick={() =>
+                navigation.navigate("UserRatings", {
+                  userId: route.params.userId,
+                  itemType: "tv series",
+                })
+              }
             />
           ) : (
             <Text>No ratings :(</Text>
