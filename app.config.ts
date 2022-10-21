@@ -19,9 +19,7 @@ export default () => ({
       resizeMode: "contain",
       backgroundColor: "#1E1E1E",
     },
-    updates: {
-      fallbackToCacheTimeout: 0,
-    },
+
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
@@ -60,6 +58,13 @@ export default () => ({
         projectId: "2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
       },
     },
+    runtimeVersion: {
+      policy: "sdkVersion",
+    },
+    updates: {
+      fallbackToCacheTimeout: 0,
+      url: "https://u.expo.dev/2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
+    },
   } as ExpoConfig,
   hooks: {
     postPublish: [
@@ -73,11 +78,5 @@ export default () => ({
         },
       },
     ],
-  },
-  runtimeVersion: {
-    policy: "sdkVersion",
-  },
-  updates: {
-    url: "https://u.expo.dev/2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
   },
 })

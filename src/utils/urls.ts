@@ -21,5 +21,7 @@ export const urls = {
 
     apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
     homeRatings: API_URL + "/feed/home-ratings",
+
+    userInfo: (userId: string) => API_URL + `/user/${userId}`,
   },
 }
