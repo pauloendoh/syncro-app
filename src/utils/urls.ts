@@ -28,5 +28,6 @@ export const urls = {
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
     userItems: (userId: string) => API_URL + `/user/${userId}/items`,
+    mySimilarUsers: API_URL + `/me/similar-users`,
   },
 }

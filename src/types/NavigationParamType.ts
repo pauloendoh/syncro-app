@@ -3,4 +3,5 @@ export type NavigationParamType = {
   SearchNavigation: undefined
   Empty: undefined
   ProfileNavigation: undefined
+  DiscoverNavigation: undefined
 }

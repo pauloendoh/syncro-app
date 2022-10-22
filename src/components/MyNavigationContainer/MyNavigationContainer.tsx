@@ -5,6 +5,7 @@ import { useTheme } from "native-base"
 import React from "react"
 import { TouchableOpacity } from "react-native"
 import { useLogout } from "../../hooks/domain/auth/useLogout"
+import DiscoverNavigationScreens from "../../screens/DiscoverNavigationScreens/DiscoverNavigationScreens"
 import EmptyScreen from "../../screens/EmptyScreen/EmptyScreen"
 import HomeNavigationScreens from "../../screens/HomeNavigationScreens/HomeNavigationScreens"
 import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
@@ -62,10 +63,21 @@ const MyNavigationContainer = (props: Props) => {
                   size={size}
                 />
               ),
-              // headerStyle: {
-              //   backgroundColor: "#1E1E1E",
-              // },
-              // headerTitle: (props) => <HomeTitle />,
+            }}
+          />
+
+          <Tab.Screen
+            name="DiscoverNavigation"
+            component={DiscoverNavigationScreens}
+            options={{
+              tabBarLabel: "Discover",
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons
+                  name="compass"
+                  color={color}
+                  size={size}
+                />
+              ),
             }}
           />
 

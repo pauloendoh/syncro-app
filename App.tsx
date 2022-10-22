@@ -18,8 +18,8 @@ import useCachedResources from "./src/hooks/useCachedResources"
 import useAuthStore from "./src/hooks/zustand/useAuthStore"
 import AuthScreen from "./src/screens/AuthScreen/AuthScreen"
 import LoadingScreen from "./src/screens/LoadingScreen/LoadingScreen"
-import { myQueryClient } from "./src/utils/myQueryClient"
 import { myTheme } from "./src/utils/myTheme"
+import { useMyQueryClient } from "./src/utils/useMyQueryClient"
 
 Sentry.init({
   dsn:
@@ -40,6 +40,8 @@ export default function App() {
 
   const { checkAuthOrLogout, loading: loadingUser } = useCheckAuthOrLogout()
   const authUser = useAuthStore((s) => s.authUser)
+
+  const myQueryClient = useMyQueryClient()
 
   useEffect(() => {
     checkAuthOrLogout()

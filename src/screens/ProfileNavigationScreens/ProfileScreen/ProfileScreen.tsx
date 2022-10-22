@@ -6,6 +6,7 @@ import { ScrollView } from "react-native"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
@@ -14,8 +15,11 @@ import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
-  BottomTabScreenProps<ProfileScreenTypes, "Profile", undefined>,
-  BottomTabScreenProps<SearchScreenTypes, "Profile", undefined>
+  BottomTabScreenProps<ProfileScreenTypes, "Profile">,
+  CompositeScreenProps<
+    BottomTabScreenProps<SearchScreenTypes, "Profile">,
+    BottomTabScreenProps<DiscoverScreenTypes, "Profile">
+  >
 >
 
 const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
