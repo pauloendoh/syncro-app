@@ -8,6 +8,7 @@ import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
+import LoadingScreen from "../../LoadingScreen/LoadingScreen"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import RatingRow from "./RatingRow/RatingRow"
 
@@ -26,11 +27,14 @@ const ImdbItemScreen = ({
   const { data, isLoading } = useImdbItemDetailsQuery(route.params.imdbId)
 
   const { lightBackground } = useMyColors()
+
+  if (isLoading) {
+    return <LoadingScreen />
+  }
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
-        {isLoading && <Text>Loading...</Text>}
-
         <VStack>
           <HStackVCenter>
             <Text fontSize="lg" fontWeight={"semibold"}>

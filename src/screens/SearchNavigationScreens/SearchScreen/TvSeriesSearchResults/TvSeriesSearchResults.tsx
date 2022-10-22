@@ -1,5 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native"
-import { Text, VStack } from "native-base"
+import { Spinner, Text, VStack } from "native-base"
 import React, { useMemo } from "react"
 import { useTvSeriesSearchQuery } from "../../../../hooks/react-query/search/useTvSeriesSearchQuery"
 import SearchItem from "../SearchItem/SearchItem"
@@ -23,6 +23,7 @@ const TvSeriesSearchResults = ({ onClickImdbItemId, query }: Props) => {
 
   return (
     <VStack mt={4} space={4}>
+      {isLoading && <Spinner size="lg" color="primary.500" />}
       {noResults ? (
         <Text>No TV series found :(</Text>
       ) : (

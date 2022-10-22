@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons"
 import { useFocusEffect } from "@react-navigation/native"
-import { HStack, Text, useTheme, VStack } from "native-base"
+import { HStack, Spinner, Text, useTheme, VStack } from "native-base"
 import React, { useMemo } from "react"
 import { Pressable } from "react-native"
 import { useUserSearchQuery } from "../../../../hooks/react-query/search/useUserSearchQuery"
@@ -26,6 +26,8 @@ const UserSearchResults = (props: Props) => {
   const theme = useTheme()
   return (
     <VStack mt={4} space={4}>
+      {isLoading && <Spinner size="lg" color="primary.500" />}
+
       {noResults ? (
         <Text>No users found :(</Text>
       ) : (
