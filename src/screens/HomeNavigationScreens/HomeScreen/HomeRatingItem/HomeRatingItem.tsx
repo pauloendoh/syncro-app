@@ -2,6 +2,7 @@ import { FontAwesome } from "@expo/vector-icons"
 import { DateTime } from "luxon"
 import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
 import React, { useMemo } from "react"
+import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
 
 interface Props {
@@ -15,6 +16,8 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
   const timeAgo = useMemo(() => {
     return DateTime.fromISO(rating.createdAt).toRelative()
   }, [rating.createdAt])
+
+  const authUser = useAuthStore((s) => s.authUser)
   return (
     <Pressable onPress={() => props.onPress()}>
       <HStack key={rating.id} justifyContent="space-between">
@@ -26,7 +29,10 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
           />
           <VStack ml={4}>
             <Text>
-              {rating.user?.username} rated {rating.ratingValue}/10
+              {authUser?.username === rating.user?.username
+                ? "You"
+                : rating.user?.username}{" "}
+              rated {rating.ratingValue}/10
             </Text>
             <Text>
               <Text fontWeight="semibold">{rating.imdbItem?.title}</Text>{" "}

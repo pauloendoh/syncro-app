@@ -6,12 +6,14 @@ import { ScrollView } from "react-native"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getRandomIntInclusive } from "../../../utils/math/getRandomIntInclusive"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
+import FollowUnfollowButton from "./FollowUnfollowButton/FollowUnfollowButton"
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
@@ -36,6 +38,11 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
     refetch: refetchUserInfo,
     isLoading: isLoadingUserInfo,
   } = useUserInfoQuery(route.params.userId)
+
+  const authUser = useAuthStore((s) => s.authUser)
+  const thisIsMyProfile = useMemo(() => authUser?.id === route.params.userId, [
+    authUser,
+  ])
 
   useFocusEffect(() => {
     refetchUserInfo()
@@ -89,8 +96,16 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
           </VStackHCenter>
         )}
 
+        <VStackHCenter mt={2}>
+          {thisIsMyProfile ? (
+            <Text>This is my profile</Text>
+          ) : (
+            <FollowUnfollowButton profileUserId={route.params.userId} />
+          )}
+        </VStackHCenter>
+
         <HStack
-          mt={8}
+          mt={6}
           style={{
             flexWrap: "wrap",
           }}

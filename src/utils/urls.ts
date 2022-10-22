@@ -29,5 +29,7 @@ export const urls = {
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
     userItems: (userId: string) => API_URL + `/user/${userId}/items`,
     mySimilarUsers: API_URL + `/me/similar-users`,
+    myFollowingUsers: API_URL + `/me/following-users`,
+    toggleFollow: (userId: string) => API_URL + `/user/${userId}/toggle-follow`,
   },
 }
