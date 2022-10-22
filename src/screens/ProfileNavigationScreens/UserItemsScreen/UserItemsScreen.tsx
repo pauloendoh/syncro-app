@@ -83,7 +83,7 @@ const UserItemsScreen = ({
 
                   <VStack style={{ flexShrink: 1 }}>
                     <Text style={{ fontWeight: "500" }}>
-                      {item.title} ({item.year})
+                      {item.title} {item.year && `(${item.year})`}
                     </Text>
 
                     <HStack mt={2}>

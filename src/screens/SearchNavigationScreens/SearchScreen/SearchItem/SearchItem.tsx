@@ -38,7 +38,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
 
         <VStack style={{ flexShrink: 1 }}>
           <Text style={{ fontWeight: "500" }}>
-            {resultItem.title} ({resultItem.year})
+            {resultItem.title} {resultItem.year && `(${resultItem.year})`}
           </Text>
 
           <HStack mt={2}>
