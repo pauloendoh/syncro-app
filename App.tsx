@@ -52,12 +52,11 @@ export default function App() {
   ])
 
   const reactToUpdates = async () => {
-    Updates.addListener((event) => {
-      if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
-        alert("An update is available. Restart the app to update.")
-        Updates.reloadAsync()
-      }
-    })
+    const { isAvailable } = await Updates.checkForUpdateAsync()
+    if (isAvailable) {
+      await Updates.fetchUpdateAsync()
+      await Updates.reloadAsync()
+    }
   }
 
   return (
