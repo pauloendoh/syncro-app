@@ -18,7 +18,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
   return (
     <Pressable onPress={() => props.onPress()}>
       <HStack key={rating.id} justifyContent="space-between">
-        <HStack>
+        <HStack flexShrink={1}>
           <FontAwesome
             name="user-circle-o"
             size={36}
