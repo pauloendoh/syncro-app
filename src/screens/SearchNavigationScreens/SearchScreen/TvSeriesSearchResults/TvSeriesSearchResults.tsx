@@ -1,5 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native"
-import React from "react"
+import { Text, VStack } from "native-base"
+import React, { useMemo } from "react"
 import { useTvSeriesSearchQuery } from "../../../../hooks/react-query/search/useTvSeriesSearchQuery"
 import SearchItem from "../SearchItem/SearchItem"
 
@@ -9,21 +10,31 @@ interface Props {
 }
 
 const TvSeriesSearchResults = ({ onClickImdbItemId, query }: Props) => {
-  const { data: imdbItems, refetch } = useTvSeriesSearchQuery(query)
+  const { data: imdbItems, isLoading, refetch } = useTvSeriesSearchQuery(query)
 
   useFocusEffect(() => {
     refetch()
   })
+
+  const noResults = useMemo(() => !isLoading && imdbItems?.length === 0, [
+    isLoading,
+    imdbItems,
+  ])
+
   return (
-    <>
-      {imdbItems?.map((imdbItem) => (
-        <SearchItem
-          resultItem={imdbItem}
-          key={imdbItem.id}
-          onClick={() => onClickImdbItemId(imdbItem.id)}
-        />
-      ))}
-    </>
+    <VStack mt={4} space={4}>
+      {noResults ? (
+        <Text>No TV series found :(</Text>
+      ) : (
+        imdbItems?.map((imdbItem) => (
+          <SearchItem
+            resultItem={imdbItem}
+            key={imdbItem.id}
+            onClick={() => onClickImdbItemId(imdbItem.id)}
+          />
+        ))
+      )}
+    </VStack>
   )
 }
 
