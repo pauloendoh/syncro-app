@@ -1,6 +1,5 @@
-import { Link, Text, VStack } from "native-base"
+import { Text, VStack } from "native-base"
 import React, { useState } from "react"
-import HStackVCenter from "../../screens/_common/flexboxes/HStackVCenter"
 import LoginForm from "./LoginForm/LoginForm"
 import SignUpForm from "./SignUpForm/SignUpForm"
 
@@ -24,21 +23,8 @@ const AuthForm = (props: Props) => {
     >
       <VStack alignItems="center">
         <Text fontSize="xl" fontWeight="semibold">
-          Ration
+          Syncro
         </Text>
-
-        <HStackVCenter>
-          <Text>by </Text>
-          <Link
-            href="https://endoh.io"
-            isExternal
-            _text={{
-              color: "primary.500",
-            }}
-          >
-            endoh.io
-          </Link>
-        </HStackVCenter>
       </VStack>
       {currentForm === "register" && (
         <SignUpForm onToggleForm={() => setCurrentForm("login")} />
