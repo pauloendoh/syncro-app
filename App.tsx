@@ -43,6 +43,7 @@ export default function App() {
 
   useEffect(() => {
     checkAuthOrLogout()
+    reactToUpdates()
   }, [])
 
   const completedLoading = useMemo(() => isLoadingComplete && !loadingUser, [

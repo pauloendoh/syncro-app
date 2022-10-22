@@ -1,4 +1,3 @@
-import { AxiosError } from "axios"
 import {
   Button,
   FormControl,
@@ -10,10 +9,9 @@ import {
 } from "native-base"
 import React from "react"
 import { Controller, useForm } from "react-hook-form"
-import { Alert } from "react-native"
+import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
-import myAxios from "../../../utils/myAxios"
 import { urls } from "../../../utils/urls"
 
 interface LoginDto {
@@ -29,6 +27,7 @@ const LoginForm = (props: Props) => {
   const setAuthUser = useAuthStore((s) => s.setAuthUser)
   const toast = useToast()
 
+  const axios = useAxios()
   const {
     control,
     handleSubmit,
@@ -40,16 +39,10 @@ const LoginForm = (props: Props) => {
     },
   })
   const onSubmit = async (data: LoginDto) => {
-    myAxios
-      .post<AuthUserGetDto>(urls.api.login, data)
-      .then((res) => {
-        toast.show({ description: "Success" })
-        setAuthUser(res.data)
-      })
-      .catch((err: AxiosError<{ message: string }>) => {
-        Alert.alert("Error", err.response?.data?.message || err.message)
-        throw new Error(`url: ${urls.api.login}; data: ${JSON.stringify(data)}`)
-      })
+    axios.post<AuthUserGetDto>(urls.api.login, data).then((res) => {
+      toast.show({ description: "Success" })
+      setAuthUser(res.data)
+    })
   }
 
   return (

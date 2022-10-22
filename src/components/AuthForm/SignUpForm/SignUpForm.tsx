@@ -9,11 +9,10 @@ import {
 } from "native-base"
 import React from "react"
 import { Controller, useForm } from "react-hook-form"
-import { Alert } from "react-native"
 import envVars from "../../../../envVars"
+import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
-import myAxios from "../../../utils/myAxios"
 import { urls } from "../../../utils/urls"
 
 interface Props {
@@ -32,6 +31,8 @@ const SignUpForm = (props: Props) => {
 
   const toast = useToast()
 
+  const axios = useAxios()
+
   const {
     control,
     handleSubmit,
@@ -46,12 +47,12 @@ const SignUpForm = (props: Props) => {
   })
   const onSubmit = async (data: ISignUpDto) => {
     try {
-      const res = await myAxios.post<AuthUserGetDto>(urls.api.register, data)
+      const res = await axios.post<AuthUserGetDto>(urls.api.register, data)
 
       setAuthUser(res.data)
       toast.show({ description: "Success" })
-    } catch (err: any) {
-      Alert.alert("Error", err.response?.data?.message || err.message)
+    } catch (err: unknown) {
+      console.log({ err })
     }
   }
 
