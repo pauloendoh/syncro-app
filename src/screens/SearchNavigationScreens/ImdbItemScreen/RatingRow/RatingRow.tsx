@@ -15,7 +15,7 @@ interface Props {
 const RatingRow = (props: Props) => {
   return (
     <HStack mt={4} style={{ justifyContent: "space-around" }}>
-      <VStackHCenter style={{ width: 120 }}>
+      <VStackHCenter style={{ width: 80 }}>
         {props.imdbAvgRating >= 0 && props.imdbRatingCount >= 0 && (
           <VStack alignItems={"center"}>
             <MaterialCommunityIcons name="star" color={"#FFB600"} size={32} />
@@ -33,11 +33,11 @@ const RatingRow = (props: Props) => {
         )}
       </VStackHCenter>
 
-      <VStackHCenter style={{ width: 120 }}>
+      <VStackHCenter style={{ width: 80 }}>
         <MyRatingButton itemId={props.itemId} />
       </VStackHCenter>
 
-      <VStackHCenter style={{ width: 120 }}>
+      <VStackHCenter style={{ width: 80 }}>
         <MyInterestButton itemId={props.itemId} />
       </VStackHCenter>
     </HStack>
