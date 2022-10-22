@@ -1,5 +1,5 @@
 export type NavigationParamType = {
-  Home: undefined
+  HomeNavigation: undefined
   SearchNavigation: undefined
   Empty: undefined
   ProfileNavigation: undefined

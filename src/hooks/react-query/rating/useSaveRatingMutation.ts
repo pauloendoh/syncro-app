@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
+import { useToast } from "native-base"
 import { RatingDto } from "../../../types/domain/rating/RatingDto"
 import removeFromArray from "../../../utils/array/removeFromArray"
 import upsert from "../../../utils/array/upsert"
@@ -8,6 +9,7 @@ import { urls } from "../../../utils/urls"
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
+  const toast = useToast()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
 
   return useMutation(
@@ -24,7 +26,9 @@ const useSaveRatingMutation = () => {
               (curr) => removeFromArray(curr, (i) => i.id === payload.id)
             )
           }
-          // setSuccessMessage("Rating removed!")
+          toast.show({
+            description: "Rating removed!",
+          })
 
           return
         }
@@ -33,7 +37,9 @@ const useSaveRatingMutation = () => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
 
-        // setSuccessMessage("Idea saved!")
+        toast.show({
+          description: "Rating saved!",
+        })
       },
       onError: (err: AxiosError<any>) => {
         alert(err?.response?.data?.message || "Error saving idea")

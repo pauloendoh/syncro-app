@@ -30,7 +30,7 @@ const MyNavigationContainer = (props: Props) => {
       <InterestModal />
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Home"
+          initialRouteName="HomeNavigation"
           screenOptions={{
             tabBarShowLabel: false,
             headerShown: false,
@@ -42,7 +42,7 @@ const MyNavigationContainer = (props: Props) => {
           }}
         >
           <Tab.Screen
-            name="Home"
+            name="HomeNavigation"
             component={HomeNavigationScreens}
             options={{
               tabBarIcon: ({ color, size }) => (

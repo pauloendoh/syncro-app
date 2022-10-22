@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator<HomeScreenTypes>()
 
 const HomeNavigationScreens = ({
   navigation,
-}: BottomTabScreenProps<NavigationParamType, "Home">) => {
+}: BottomTabScreenProps<NavigationParamType, "HomeNavigation">) => {
   const theme = useTheme()
   return (
     <Stack.Navigator
