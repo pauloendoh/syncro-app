@@ -1,6 +1,6 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
-import { HStack, Text, useTheme, VStack } from "native-base"
+import { HStack, Spinner, Text, useTheme, VStack } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { ScrollView } from "react-native"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
@@ -10,6 +10,7 @@ import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getRandomIntInclusive } from "../../../utils/math/getRandomIntInclusive"
+import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
@@ -20,18 +21,27 @@ export type ProfileScreenNavigationProp = CompositeScreenProps<
 const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
   const theme = useTheme()
 
-  const { data: userItems, refetch: refetchUserRatings } = useUserItemsQuery(
-    route.params.userId
-  )
+  const {
+    data: userItems,
+    refetch: refetchUserRatings,
+    isLoading: isLoadingUserRatings,
+  } = useUserItemsQuery(route.params.userId)
 
-  const { data: userInfo, refetch: refetchUserInfo } = useUserInfoQuery(
-    route.params.userId
-  )
+  const {
+    data: userInfo,
+    refetch: refetchUserInfo,
+    isLoading: isLoadingUserInfo,
+  } = useUserInfoQuery(route.params.userId)
 
   useFocusEffect(() => {
     refetchUserInfo()
     refetchUserRatings()
   })
+
+  const isLoading = useMemo(() => isLoadingUserInfo || isLoadingUserRatings, [
+    isLoadingUserInfo,
+    isLoadingUserRatings,
+  ])
 
   useEffect(() => {
     navigation.setOptions({
@@ -69,6 +79,12 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
+        {isLoading && (
+          <VStackHCenter mt={4}>
+            <Spinner size={"lg"} color="primary.500" />
+          </VStackHCenter>
+        )}
+
         <HStack
           mt={8}
           style={{
