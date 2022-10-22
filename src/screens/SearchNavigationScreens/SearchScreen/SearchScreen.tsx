@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, Input, VStack } from "native-base"
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { ScrollView } from "react-native"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
@@ -18,12 +18,18 @@ const SearchScreen = ({
   const [tabIndex, setTabIndex] = useState(0)
 
   const placeholderText = useMemo(() => {
+    if (!hasSearchedOnce) return "Search TV series, users... "
     if (tabIndex === 0) return "Search TV series"
     return "Search users"
   }, [tabIndex])
 
   const [query, setQuery] = useState("")
   const queryIsValid = useMemo(() => query.length >= 3, [query])
+
+  const [hasSearchedOnce, setHasSearchedOnce] = useState(false)
+  useEffect(() => {
+    if (query !== "") setHasSearchedOnce(true)
+  }, [query])
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
@@ -39,28 +45,33 @@ const SearchScreen = ({
         />
 
         <Box mt={4} />
-        <TabViewExample tabIndex={tabIndex} changeTabIndex={setTabIndex} />
 
-        {queryIsValid && (
-          <VStack space={4}>
-            {tabIndex === 0 && (
-              <TvSeriesSearchResults
-                query={query}
-                onClickImdbItemId={(imdbId) =>
-                  navigation.navigate("ImdbItem", { imdbId })
-                }
-              />
-            )}
+        {hasSearchedOnce && (
+          <>
+            <TabViewExample tabIndex={tabIndex} changeTabIndex={setTabIndex} />
 
-            {tabIndex === 1 && (
-              <UserSearchResults
-                query={query}
-                onClickUser={(user) =>
-                  navigation.navigate("Profile", { userId: user.id })
-                }
-              />
+            {queryIsValid && (
+              <VStack space={4}>
+                {tabIndex === 0 && (
+                  <TvSeriesSearchResults
+                    query={query}
+                    onClickImdbItemId={(imdbId) =>
+                      navigation.navigate("ImdbItem", { imdbId })
+                    }
+                  />
+                )}
+
+                {tabIndex === 1 && (
+                  <UserSearchResults
+                    query={query}
+                    onClickUser={(user) =>
+                      navigation.navigate("Profile", { userId: user.id })
+                    }
+                  />
+                )}
+              </VStack>
             )}
-          </VStack>
+          </>
         )}
       </ScrollView>
       {/* <HomeFooter /> */}
