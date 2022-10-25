@@ -20,6 +20,8 @@ jobs:
           expo-version: 5.x
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+      - name: Remove hooks
+        run: rm -rf .git/hooks
       - name: Install dependencies
         run: npm ci
       - name: EAS  updates
