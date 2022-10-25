@@ -26,11 +26,7 @@ const HomeNavigationScreens = ({
         headerTintColor: theme.colors.light[100],
       }}
     >
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
     </Stack.Navigator>
   )

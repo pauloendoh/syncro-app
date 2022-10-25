@@ -7,7 +7,7 @@ import {
   useToast,
   VStack,
 } from "native-base"
-import React from "react"
+import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import envVars from "../../../../envVars"
 import { useAxios } from "../../../hooks/useAxios"
@@ -45,14 +45,20 @@ const SignUpForm = (props: Props) => {
       password2: "",
     },
   })
+
+  const [loading, setLoading] = useState(false)
+
   const onSubmit = async (data: ISignUpDto) => {
     try {
+      setLoading(true)
       const res = await axios.post<AuthUserGetDto>(urls.api.register, data)
 
+      setLoading(false)
       setAuthUser(res.data)
       toast.show({ description: "Success" })
     } catch (err: unknown) {
       console.log({ err })
+      setLoading(false)
     }
   }
 
@@ -137,7 +143,11 @@ const SignUpForm = (props: Props) => {
         </FormControl.ErrorMessage>
       </FormControl>
 
-      <Button onPress={handleSubmit(onSubmit)} color="primary">
+      <Button
+        onPress={handleSubmit(onSubmit)}
+        color="primary"
+        isLoading={loading}
+      >
         SIGN UP
       </Button>
 

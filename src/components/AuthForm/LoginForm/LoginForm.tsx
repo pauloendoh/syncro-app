@@ -7,7 +7,7 @@ import {
   useToast,
   VStack,
 } from "native-base"
-import React from "react"
+import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
@@ -38,11 +38,17 @@ const LoginForm = (props: Props) => {
       password: "",
     },
   })
+
+  const [loading, setLoading] = useState(false)
   const onSubmit = async (data: LoginDto) => {
-    axios.post<AuthUserGetDto>(urls.api.login, data).then((res) => {
-      toast.show({ description: "Success" })
-      setAuthUser(res.data)
-    })
+    setLoading(true)
+    axios
+      .post<AuthUserGetDto>(urls.api.login, data)
+      .then((res) => {
+        toast.show({ description: "Success" })
+        setAuthUser(res.data)
+      })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -87,7 +93,11 @@ const LoginForm = (props: Props) => {
         </FormControl.ErrorMessage>
       </FormControl>
 
-      <Button onPress={handleSubmit(onSubmit)} color="primary">
+      <Button
+        onPress={handleSubmit(onSubmit)}
+        color="primary"
+        isLoading={loading}
+      >
         LOGIN
       </Button>
 

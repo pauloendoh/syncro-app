@@ -27,7 +27,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
             size={36}
             color={theme.colors.dark[900]}
           />
-          <VStack ml={4}>
+          <VStack ml={4} flexShrink={1} pr={2}>
             <Text>
               {authUser?.username === rating.user?.username
                 ? "You"

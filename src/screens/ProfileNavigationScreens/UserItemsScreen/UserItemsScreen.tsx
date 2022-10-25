@@ -39,7 +39,7 @@ const UserItemsScreen = ({
     [headerTitle]
   )
 
-  const { lightBackground } = useMyColors()
+  const { lightBackground, ratingYellow } = useMyColors()
 
   const sortedItems = useMemo(() => {
     if (!items) return []
@@ -58,8 +58,11 @@ const UserItemsScreen = ({
       <ScrollView style={{ paddingHorizontal: 4 }}>
         {isLoading && <Text>"Loading... "</Text>}
 
-        <VStack paddingX={2} marginTop={4}>
-          <Text fontSize="lg">{items?.length} items</Text>
+        <VStack paddingX={2} marginTop={4} paddingBottom={10}>
+          <HStackVCenter flex={1} justifyContent={"space-between"}>
+            <Text fontSize="lg">{items?.length} items</Text>
+            <Text>Sorting by rating</Text>
+          </HStackVCenter>
 
           <VStack space={4} marginTop={4}>
             {sortedItems.map((item) => (
@@ -87,32 +90,40 @@ const UserItemsScreen = ({
                     </Text>
 
                     <HStack mt={2}>
-                      <VStack style={{ width: 120 }}>
-                        <Text fontWeight="semibold">IMDB</Text>
+                      <VStack space={1} style={{ width: 120 }}>
+                        <Text fontWeight="semibold">Them</Text>
+
                         {item.id ? (
                           <>
-                            <HStackVCenter space={1}>
+                            <HStack space={1}>
                               <VStackHCenter style={{ width: 24 }}>
                                 <MaterialCommunityIcons
                                   name="star"
-                                  color={theme.colors.primary[600]}
+                                  color={ratingYellow}
                                   size={18}
+                                  style={{ position: "relative", top: 2 }}
                                 />
                               </VStackHCenter>
-                              <Text>{item.ratings?.[0]?.ratingValue}/10</Text>
-                            </HStackVCenter>
-                            <HStackVCenter space={1}>
-                              <VStackHCenter style={{ width: 24 }}>
-                                <FontAwesome5
-                                  name={"fire"}
-                                  color={theme.colors.primary[600]}
-                                  size={18}
-                                />
-                              </VStackHCenter>
-                              <Text>
-                                {item.interests?.[0]?.interestLevel}/3
-                              </Text>
-                            </HStackVCenter>
+                              {item.ratings?.[0]?.ratingValue ? (
+                                <Text>{item.ratings?.[0]?.ratingValue}</Text>
+                              ) : (
+                                <Text>?</Text>
+                              )}
+                            </HStack>
+                            {item.interests?.[0]?.interestLevel && (
+                              <HStack space={1}>
+                                <VStackHCenter style={{ width: 24 }}>
+                                  <FontAwesome5
+                                    name={"fire"}
+                                    color={ratingYellow}
+                                    size={18}
+                                  />
+                                </VStackHCenter>
+                                <Text>
+                                  {item.interests?.[0]?.interestLevel}
+                                </Text>
+                              </HStack>
+                            )}
                           </>
                         ) : (
                           <Text>See details</Text>

@@ -33,13 +33,9 @@ const HomeScreen = ({
       >
         <VStack
           style={{
-            paddingTop: 64,
             paddingHorizontal: 8,
           }}
         >
-          <Text fontWeight="semibold" style={{ fontSize: 24 }}>
-            Home
-          </Text>
           {!isReady && <Text>Loading...</Text>}
           {homeRatings && (
             <VStack mt={4} space={4}>

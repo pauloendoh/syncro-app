@@ -123,7 +123,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
               }
             />
           ) : (
-            <Text>No ratings :(</Text>
+            !isLoading && <Text>No ratings :(</Text>
           )}
         </HStack>
       </ScrollView>

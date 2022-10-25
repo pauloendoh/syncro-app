@@ -5,5 +5,7 @@ export const useMyColors = () => {
 
   return {
     lightBackground: theme.colors.light[800],
+
+    ratingYellow: "#FFB600",
   }
 }
