@@ -65,7 +65,7 @@ const DiscoverScreen = ({
                   <Text fontWeight="semibold">@{item.userB.username}</Text>
                   <Text>
                     {Math.floor(item.ratingsSimilarityAvgPercentage * 100)}%
-                    similarity · {item.ratedSameItemsCount} items
+                    rating similarity · {item.ratedSameItemsCount} items in common
                   </Text>
                 </VStack>
               </HStack>

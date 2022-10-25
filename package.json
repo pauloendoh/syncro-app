@@ -12,7 +12,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "update:apk": "npx eas update && npx eas build -p android --profile preview",
+    "update:apk": "cross-env API_URL=\"https://ration-server.herokuapp.com\"  npx eas update --branch preview",
     "build:android": "npx eas build -p android --profile preview"
   },
   "jest": {

@@ -3,21 +3,21 @@ const upsert = <T>(
   item: T,
   equalityFn: (oldArrayItem: T) => boolean
 ) => {
-  if (array === undefined || array === null) return [item];
+  if (array === undefined || array === null) return [item]
 
-  let newArray = [...array];
+  let newArray = [...array]
 
-  const indexFound = newArray.findIndex(equalityFn);
+  const indexFound = newArray.findIndex(equalityFn)
 
   if (~indexFound) {
     // replace
-    newArray[indexFound] = item;
+    newArray[indexFound] = item
   } else {
     // push
-    newArray = [...newArray, item];
+    newArray = [...newArray, item]
   }
 
-  return newArray;
-};
+  return newArray
+}
 
-export default upsert;
+export default upsert

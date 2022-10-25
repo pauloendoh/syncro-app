@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { Divider, HStack, Image, Text, VStack } from "native-base"
-import React from "react"
+import React, { useEffect } from "react"
 import { ScrollView } from "react-native"
 import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
@@ -28,6 +28,12 @@ const ImdbItemScreen = ({
 
   const { lightBackground } = useMyColors()
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: data?.title || "Loading...",
+    })
+  }, [data])
+
   if (isLoading) {
     return <LoadingScreen />
   }
@@ -35,7 +41,7 @@ const ImdbItemScreen = ({
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
-        <VStack>
+        <VStack mt={4}>
           <HStackVCenter>
             <Text fontSize="lg" fontWeight={"semibold"}>
               {data?.title}

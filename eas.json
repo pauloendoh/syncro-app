@@ -1,6 +1,7 @@
 {
   "build": {
     "preview": {
+      "channel": "preview",
       "android": {
         "buildType": "apk"
       },
@@ -8,14 +9,7 @@
         "API_URL": "https://ration-server.herokuapp.com"
       }
     },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
-    },
+
     "production": {}
   }
 }
