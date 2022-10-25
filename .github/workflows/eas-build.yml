@@ -27,4 +27,4 @@ jobs:
       - name: EAS  updates
         run: npm run update:apk --auto
       - name: Build on EAS
-        run: eas build --platform all --non-interactive
+        run: eas build -p android --profile preview
