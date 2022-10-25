@@ -7,6 +7,7 @@ import { SearchScreenTypes } from "../../types/SearchScreenTypes"
 import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
 import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserItemsScreen"
 import ImdbItemScreen from "./ImdbItemScreen/ImdbItemScreen"
+import SearchHeaderTitle from "./SearchScreen/SearchHeaderTitle/SearchHeaderTitle"
 import SearchScreen from "./SearchScreen/SearchScreen"
 
 const Stack = createNativeStackNavigator<SearchScreenTypes>()
@@ -28,7 +29,13 @@ const SearchNavigationScreens = ({
         headerTintColor: theme.colors.light[100],
       }}
     >
-      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerTitle: (props) => <SearchHeaderTitle {...props} />,
+        }}
+      />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />

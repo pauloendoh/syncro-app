@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Box, Input, VStack } from "native-base"
+import { Box, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
 import { ScrollView } from "react-native"
 import { useMyColors } from "../../../hooks/useMyColors"
+import useSearchStore from "../../../hooks/zustand/useSearchStore"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import TabViewExample from "./TabViewExample/TabViewExample"
 import TvSeriesSearchResults from "./TvSeriesSearchResults/TvSeriesSearchResults"
@@ -11,19 +12,12 @@ import UserSearchResults from "./UserSearchResults/UserSearchResults"
 const SearchScreen = ({
   navigation,
 }: NativeStackScreenProps<SearchScreenTypes, "Search">) => {
-  const [textInput, setTextInput] = useState("")
+  const { submittedText: query } = useSearchStore()
 
   const { lightBackground } = useMyColors()
 
   const [tabIndex, setTabIndex] = useState(0)
 
-  const placeholderText = useMemo(() => {
-    if (!hasSearchedOnce) return "Search TV series, users... "
-    if (tabIndex === 0) return "Search TV series"
-    return "Search users"
-  }, [tabIndex])
-
-  const [query, setQuery] = useState("")
   const queryIsValid = useMemo(() => query.length >= 3, [query])
 
   const [hasSearchedOnce, setHasSearchedOnce] = useState(false)
@@ -34,17 +28,7 @@ const SearchScreen = ({
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
-        <Input
-          placeholder={placeholderText}
-          value={textInput}
-          onChangeText={setTextInput}
-          returnKeyType="search"
-          onSubmitEditing={(e) => {
-            setQuery(textInput)
-          }}
-        />
-
-        <Box mt={4} />
+        <Box mt={2} />
 
         {hasSearchedOnce && (
           <>
