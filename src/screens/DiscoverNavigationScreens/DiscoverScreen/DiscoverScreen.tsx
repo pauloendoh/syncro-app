@@ -62,11 +62,18 @@ const DiscoverScreen = ({
                   color={theme.colors.dark[900]}
                 />
                 <VStack ml={4}>
-                  <Text fontWeight="semibold">@{item.userB.username}</Text>
+                  <Text fontWeight="semibold">{item.userB.username}</Text>
                   <Text>
                     {Math.floor(item.ratingsSimilarityAvgPercentage * 100)}%
-                    rating similarity · {item.ratedSameItemsCount} items in common
+                    rating similarity · {item.ratedSameItemsCount}{" "}
+                    {item.ratedSameItemsCount <= 1 ? "item" : "items"}
                   </Text>
+                  {item.highInterestCount > 0 && (
+                    <Text>
+                      {item.highInterestCount} common high{" "}
+                      {item.highInterestCount === 1 ? "interest" : "interests"}
+                    </Text>
+                  )}
                 </VStack>
               </HStack>
             </Pressable>

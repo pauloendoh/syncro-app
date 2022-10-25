@@ -7,4 +7,5 @@ export interface RatingSimilarityDto {
   ratedSameItemsCount: number
   percentageQuantityFromUserA: number
   overallPercentage: number
+  highInterestCount: number
 }
