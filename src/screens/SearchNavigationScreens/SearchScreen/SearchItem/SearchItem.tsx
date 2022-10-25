@@ -11,7 +11,7 @@ import {
 import React from "react"
 import { getLabelByInterestValue } from "../../../../components/modals/InterestModal/getLabelByInterestValue"
 import { IImdbResultItem } from "../../../../types/domain/movie/MovieResultResponseDto"
-import { formatCompactNumber } from "../../../../utils/math/formatCompactNumber"
+import { shortNumberFormatter } from "../../../../utils/math/shortNumberFormatter"
 import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
 
@@ -65,7 +65,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
                       />
                     </VStackHCenter>
                     <Text>
-                      {formatCompactNumber(resultItem.imdbItem.ratingCount)}{" "}
+                      {shortNumberFormatter(resultItem.imdbItem.ratingCount)}{" "}
                       votes
                     </Text>
                   </HStackVCenter>
