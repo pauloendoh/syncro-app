@@ -64,7 +64,7 @@ const RatingModal = () => {
           <AirbnbRating
             showRating={false}
             onFinishRating={handleChangeRating}
-            selectedColor={theme.colors.secondary[700]}
+            selectedColor={theme.colors.secondary[500]}
             defaultRating={Number(rating)}
             size={20}
             count={10}

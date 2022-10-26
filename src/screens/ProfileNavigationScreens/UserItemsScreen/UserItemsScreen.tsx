@@ -1,14 +1,16 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { Box, HStack, Image, Text, useTheme, VStack } from "native-base"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Pressable, ScrollView } from "react-native"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import { SortingByTypes } from "../../../types/domain/others/SortingByTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
+import SortingBySection from "./SortingBySection/SortingBySection"
 
 const UserItemsScreen = ({
   navigation,
@@ -41,8 +43,20 @@ const UserItemsScreen = ({
 
   const { lightBackground, ratingYellow } = useMyColors()
 
+  const [sortingBy, setSortingBy] = useState<SortingByTypes>("theirRatingDesc")
+
   const sortedItems = useMemo(() => {
     if (!items) return []
+    if (sortingBy === "theirInterestDesc")
+      return items.sort((a, b) => {
+        const interestA = a.interests?.[0]?.interestLevel
+        const interestB = b.interests?.[0]?.interestLevel
+        if (interestB && !interestA) return 1
+        if (!interestA || !interestB) return -1
+        if (interestB > interestA) return 1
+        return -1
+      })
+
     return items.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue
       const ratingB = b.ratings?.[0]?.ratingValue
@@ -51,7 +65,7 @@ const UserItemsScreen = ({
       if (ratingB > ratingA) return 1
       return -1
     })
-  }, [items])
+  }, [items, sortingBy])
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
@@ -61,7 +75,10 @@ const UserItemsScreen = ({
         <VStack paddingX={2} marginTop={4} paddingBottom={10}>
           <HStackVCenter flex={1} justifyContent={"space-between"}>
             <Text fontSize="lg">{items?.length} items</Text>
-            <Text>Sorting by rating</Text>
+            <SortingBySection
+              onChangeSortingBy={setSortingBy}
+              sortingBy={sortingBy}
+            />
           </HStackVCenter>
 
           <VStack space={4} marginTop={4}>

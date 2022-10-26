@@ -37,18 +37,18 @@ const MyRatingButton = (props: Props) => {
         <MaterialCommunityIcons
           name={savedRating ? "star" : "star-outline"}
           color={
-            savedRating ? theme.colors.secondary[600] : theme.colors.light[100]
+            savedRating ? theme.colors.secondary[500] : theme.colors.light[100]
           }
           size={32}
         />
 
-        <Text color={savedRating && theme.colors.secondary[600]}>
+        <Text color={savedRating && theme.colors.secondary[500]}>
           {savedRating?.ratingValue
             ? `${savedRating.ratingValue}/10`
             : "Rate this"}
         </Text>
 
-        <Text color={savedRating && theme.colors.secondary[600]}>
+        <Text color={savedRating && theme.colors.secondary[500]}>
           {savedRating?.ratingValue &&
             getShortLabelByRatingValue(savedRating.ratingValue)}
         </Text>

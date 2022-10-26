@@ -43,7 +43,7 @@ const MyInterestButton = (props: Props) => {
           name={"fire"}
           color={
             currentInterestLevel > 0
-              ? theme.colors.secondary[600]
+              ? theme.colors.secondary[500]
               : theme.colors.light[100]
           }
           ks
@@ -53,7 +53,7 @@ const MyInterestButton = (props: Props) => {
         <Text
           textAlign={"center"}
           color={
-            currentInterestLevel > 0 ? theme.colors.secondary[600] : undefined
+            currentInterestLevel > 0 ? theme.colors.secondary[500] : undefined
           }
         >
           {currentInterestLevel > 0
@@ -62,7 +62,7 @@ const MyInterestButton = (props: Props) => {
         </Text>
 
         {currentInterestLevel > 0 && (
-          <Text color={theme.colors.secondary[600]} textAlign="center">
+          <Text color={theme.colors.secondary[500]} textAlign="center">
             {getShortLabelByInterestValue(currentInterestLevel)}
           </Text>
         )}

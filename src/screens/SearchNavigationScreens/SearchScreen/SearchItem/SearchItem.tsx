@@ -82,7 +82,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
                     <VStackHCenter style={{ width: 24 }}>
                       <MaterialCommunityIcons
                         name="star"
-                        color={theme.colors.secondary[600]}
+                        color={theme.colors.secondary[500]}
                         size={18}
                       />
                     </VStackHCenter>
@@ -92,7 +92,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
                     <VStackHCenter style={{ width: 24 }}>
                       <FontAwesome5
                         name={"fire"}
-                        color={theme.colors.secondary[600]}
+                        color={theme.colors.secondary[500]}
                         size={18}
                       />
                     </VStackHCenter>

@@ -67,7 +67,7 @@ const InterestModal = () => {
           <AirbnbRating
             showRating={false}
             onFinishRating={handleChangeRating}
-            selectedColor={theme.colors.secondary[700]}
+            selectedColor={theme.colors.secondary[500]}
             defaultRating={Number(localInterest)}
             size={20}
             count={3}
