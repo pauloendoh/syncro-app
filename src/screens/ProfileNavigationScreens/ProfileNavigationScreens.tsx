@@ -6,6 +6,7 @@ import useAuthStore from "../../hooks/zustand/useAuthStore"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { ProfileScreenTypes } from "../../types/ProfileScreenTypes"
 import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
+import FollowersScreen from "./FollowersScreen/FollowersScreen"
 import ProfileScreen from "./ProfileScreen/ProfileScreen"
 import UserItemsScreen from "./UserItemsScreen/UserItemsScreen"
 
@@ -38,6 +39,7 @@ const ProfileNavigationScreens = ({
       />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
+      <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
     </Stack.Navigator>
   )
 }

@@ -27,7 +27,7 @@ const FollowUnfollowButton = (props: Props) => {
       onPress={() => submitToggleFollow(props.profileUserId)}
     >
       {isLoading && "Loading"}
-      {alreadyFollowing ? "Unfollow" : "Follow"}
+      {alreadyFollowing ? "Following" : "Follow"}
     </Button>
   )
 }

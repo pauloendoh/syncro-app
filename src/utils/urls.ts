@@ -30,6 +30,9 @@ export const urls = {
     userItems: (userId: string) => API_URL + `/user/${userId}/items`,
     mySimilarUsers: API_URL + `/me/similar-users`,
     myFollowingUsers: API_URL + `/me/following-users`,
+    userFollowers: (userId: string) => API_URL + `/user/${userId}/followers`,
+    userFollowingUsers: (userId: string) =>
+      API_URL + `/user/${userId}/following-users`,
     toggleFollow: (userId: string) => API_URL + `/user/${userId}/toggle-follow`,
   },
 }

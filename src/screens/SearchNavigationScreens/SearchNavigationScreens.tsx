@@ -4,6 +4,7 @@ import { useTheme } from "native-base"
 import React from "react"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { SearchScreenTypes } from "../../types/SearchScreenTypes"
+import FollowersScreen from "../ProfileNavigationScreens/FollowersScreen/FollowersScreen"
 import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
 import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserItemsScreen"
 import ImdbItemScreen from "./ImdbItemScreen/ImdbItemScreen"
@@ -39,6 +40,7 @@ const SearchNavigationScreens = ({
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
+      <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
     </Stack.Navigator>
   )
 }

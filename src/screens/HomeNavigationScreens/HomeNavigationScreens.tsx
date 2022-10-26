@@ -4,6 +4,7 @@ import { useTheme } from "native-base"
 import React from "react"
 import { HomeScreenTypes } from "../../types/HomeScreenTypes"
 import { NavigationParamType } from "../../types/NavigationParamType"
+import FollowersScreen from "../ProfileNavigationScreens/FollowersScreen/FollowersScreen"
 import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
 import HomeScreen from "./HomeScreen/HomeScreen"
 
@@ -28,6 +29,7 @@ const HomeNavigationScreens = ({
     >
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
+      <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
     </Stack.Navigator>
   )
 }

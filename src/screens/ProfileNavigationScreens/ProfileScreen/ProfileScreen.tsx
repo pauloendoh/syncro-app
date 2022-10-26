@@ -2,7 +2,9 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
 import { Box, HStack, Spinner, Text, useTheme, VStack } from "native-base"
 import React, { useEffect, useMemo } from "react"
-import { ScrollView } from "react-native"
+import { Pressable, ScrollView } from "react-native"
+import { useFollowersQuery } from "../../../hooks/react-query/follow/useFollowersQuery"
+import { useFollowingUsersQuery } from "../../../hooks/react-query/follow/useFollowingUsersQuery"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
@@ -12,6 +14,8 @@ import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getRandomIntInclusive } from "../../../utils/math/getRandomIntInclusive"
+import { shortNumberFormatter } from "../../../utils/math/shortNumberFormatter"
+import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import FollowUnfollowButton from "./FollowUnfollowButton/FollowUnfollowButton"
 import ProfileAuthUserMenu from "./ProfileAuthUserMenu/ProfileAuthUserMenu"
@@ -100,6 +104,11 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
     ].id
   }, [highestTvSeriesRating, userItems])
 
+  const { data: followersFollows } = useFollowersQuery(route.params.userId)
+  const { data: followingUsersFollows } = useFollowingUsersQuery(
+    route.params.userId
+  )
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
@@ -108,6 +117,40 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
             <Spinner size={"lg"} color="primary.500" />
           </VStackHCenter>
         )}
+
+        <HStackVCenter mt={2} space={6}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate("FollowersScreen", {
+                type: "followers",
+                userId: route.params.userId,
+              })
+            }
+          >
+            <VStackHCenter>
+              <Text fontWeight={"semibold"}>
+                {shortNumberFormatter(followersFollows?.length || 0)}
+              </Text>
+              <Text>Followers</Text>
+            </VStackHCenter>
+          </Pressable>
+
+          <Pressable
+            onPress={() =>
+              navigation.navigate("FollowersScreen", {
+                type: "following-users",
+                userId: route.params.userId,
+              })
+            }
+          >
+            <VStackHCenter>
+              <Text fontWeight={"semibold"}>
+                {shortNumberFormatter(followingUsersFollows?.length || 0)}
+              </Text>
+              <Text>Following</Text>
+            </VStackHCenter>
+          </Pressable>
+        </HStackVCenter>
 
         <VStackHCenter mt={2}>
           {thisIsMyProfile ? null : (
