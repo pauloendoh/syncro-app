@@ -19,6 +19,7 @@ import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import FollowUnfollowButton from "./FollowUnfollowButton/FollowUnfollowButton"
 import ProfileAuthUserMenu from "./ProfileAuthUserMenu/ProfileAuthUserMenu"
+import ProfileImageProfileScreen from "./ProfileImageProfileScreen/ProfileImageProfileScreen"
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
@@ -119,6 +120,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
         )}
 
         <HStackVCenter mt={2} space={6}>
+          <ProfileImageProfileScreen userId={route.params.userId} />
           <Pressable
             onPress={() =>
               navigation.navigate("FollowersScreen", {

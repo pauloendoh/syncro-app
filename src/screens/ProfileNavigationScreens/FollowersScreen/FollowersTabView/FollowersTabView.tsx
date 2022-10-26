@@ -34,8 +34,6 @@ export default function FollowersTabView(props: Props) {
 
   const theme = useTheme()
 
-  console.log({ message: "ronald" })
-
   return (
     <TabView
       renderTabBar={(p) => (

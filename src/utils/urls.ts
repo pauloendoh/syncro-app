@@ -34,5 +34,7 @@ export const urls = {
     userFollowingUsers: (userId: string) =>
       API_URL + `/user/${userId}/following-users`,
     toggleFollow: (userId: string) => API_URL + `/user/${userId}/toggle-follow`,
+
+    profilePicture: API_URL + "/profiles/picture",
   },
 }

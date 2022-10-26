@@ -1,7 +1,7 @@
-import { FontAwesome } from "@expo/vector-icons"
 import { DateTime } from "luxon"
 import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
 import React, { useMemo } from "react"
+import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
 
@@ -22,11 +22,8 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
     <Pressable onPress={() => props.onPress()}>
       <HStack key={rating.id} justifyContent="space-between">
         <HStack flexShrink={1}>
-          <FontAwesome
-            name="user-circle-o"
-            size={36}
-            color={theme.colors.dark[900]}
-          />
+          <UserProfilePicture userId={rating.userId} widthHeigth={40} />
+
           <VStack ml={4} flexShrink={1} pr={2}>
             <Text>
               <Text fontWeight={"semibold"}>
