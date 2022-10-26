@@ -1,6 +1,6 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
-import { HStack, Spinner, Text, useTheme, VStack } from "native-base"
+import { Box, HStack, Spinner, Text, useTheme, VStack } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { ScrollView } from "react-native"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
@@ -14,6 +14,7 @@ import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getRandomIntInclusive } from "../../../utils/math/getRandomIntInclusive"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import FollowUnfollowButton from "./FollowUnfollowButton/FollowUnfollowButton"
+import ProfileAuthUserMenu from "./ProfileAuthUserMenu/ProfileAuthUserMenu"
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
@@ -60,6 +61,18 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
     })
   }, [userInfo])
 
+  useEffect(() => {
+    if (thisIsMyProfile) {
+      navigation.setOptions({
+        headerRight: (props) => (
+          <Box {...props}>
+            <ProfileAuthUserMenu />
+          </Box>
+        ),
+      })
+    }
+  }, [thisIsMyProfile])
+
   const { lightBackground } = useMyColors()
 
   const highestTvSeriesRating = useMemo(() => {
@@ -97,9 +110,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
         )}
 
         <VStackHCenter mt={2}>
-          {thisIsMyProfile ? (
-            <Text>This is my profile</Text>
-          ) : (
+          {thisIsMyProfile ? null : (
             <FollowUnfollowButton profileUserId={route.params.userId} />
           )}
         </VStackHCenter>

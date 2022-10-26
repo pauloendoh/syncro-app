@@ -3,10 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import { useTheme } from "native-base"
 import React from "react"
-import { TouchableOpacity } from "react-native"
-import { useLogout } from "../../hooks/domain/auth/useLogout"
 import DiscoverNavigationScreens from "../../screens/DiscoverNavigationScreens/DiscoverNavigationScreens"
-import EmptyScreen from "../../screens/EmptyScreen/EmptyScreen"
 import HomeNavigationScreens from "../../screens/HomeNavigationScreens/HomeNavigationScreens"
 import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
 import SearchNavigationScreens from "../../screens/SearchNavigationScreens/SearchNavigationScreens"
@@ -22,8 +19,6 @@ const Tab = createBottomTabNavigator<NavigationParamType>()
 
 const MyNavigationContainer = (props: Props) => {
   const theme = useTheme()
-
-  const logout = useLogout()
 
   return (
     <>
@@ -97,24 +92,6 @@ const MyNavigationContainer = (props: Props) => {
               // },
               // headerTitle: (props) => <HomeTitle />,
             }}
-          />
-
-          <Tab.Screen
-            name="Empty"
-            component={EmptyScreen}
-            options={() => ({
-              tabBarLabel: "Logout",
-              tabBarIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="logout"
-                  color={color}
-                  size={size}
-                />
-              ),
-              tabBarButton: (props) => (
-                <TouchableOpacity {...props} onPress={logout} />
-              ),
-            })}
           />
         </Tab.Navigator>
       </NavigationContainer>

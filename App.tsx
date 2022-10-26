@@ -6,7 +6,7 @@ import { Platform } from "react-native"
 import { StatusBar } from "expo-status-bar"
 
 import { QueryClientProvider } from "@tanstack/react-query"
-import { NativeBaseProvider } from "native-base"
+import { Alert, NativeBaseProvider } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { View } from "react-native"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
@@ -54,11 +54,13 @@ export default function App() {
   ])
 
   const reactToUpdates = async () => {
-    const { isAvailable } = await Updates.checkForUpdateAsync()
-    if (isAvailable) {
-      await Updates.fetchUpdateAsync()
-      await Updates.reloadAsync()
-    }
+    Updates.addListener(async (e) => {
+      if (e.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
+        await Updates.fetchUpdateAsync()
+        await Updates.reloadAsync()
+        Alert("There's a new updated. Restart your app to apply.")
+      }
+    })
   }
 
   return (
