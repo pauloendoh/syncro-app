@@ -1,7 +1,7 @@
-import { FontAwesome } from "@expo/vector-icons"
-import { HStack, Text, theme, VStack } from "native-base"
+import { HStack, Text, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
+import UserProfilePicture from "../../../../../components/UserProfilePicture/UserProfilePicture"
 import { UserSimpleDto } from "../../../../../types/domain/user/UserSimpleDto"
 
 interface Props {
@@ -14,11 +14,8 @@ const UserSearchItem = ({ user, onClickUser }: Props) => {
     <Pressable key={user.id} onPress={() => onClickUser(user)}>
       <HStack>
         <HStack>
-          <FontAwesome
-            name="user-circle-o"
-            size={36}
-            color={theme.colors.dark[900]}
-          />
+          <UserProfilePicture userId={user.id} widthHeigth={36} />
+
           <VStack ml={4}>
             <Text>{user.username}</Text>
             <Text></Text>

@@ -1,9 +1,9 @@
-import { FontAwesome } from "@expo/vector-icons"
 import { useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { HStack, Pressable, Spinner, Text, useTheme, VStack } from "native-base"
 import React, { useCallback, useMemo } from "react"
 import { ScrollView } from "react-native"
+import UserProfilePicture from "../../../components/UserProfilePicture/UserProfilePicture"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
 import { useMySimilarUsersQuery } from "../../../types/domain/me/useMySimilarUsersQuery"
@@ -56,11 +56,11 @@ const DiscoverScreen = ({
               key={item.userB.id}
             >
               <HStack flexShrink={1}>
-                <FontAwesome
-                  name="user-circle-o"
-                  size={36}
-                  color={theme.colors.dark[900]}
+                <UserProfilePicture
+                  userId={item.userB.username}
+                  widthHeigth={36}
                 />
+
                 <VStack ml={4}>
                   <Text fontWeight="semibold">{item.userB.username}</Text>
                   <Text>
