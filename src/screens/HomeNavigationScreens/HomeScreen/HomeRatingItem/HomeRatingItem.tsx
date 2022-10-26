@@ -29,13 +29,18 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
           />
           <VStack ml={4} flexShrink={1} pr={2}>
             <Text>
-              {authUser?.username === rating.user?.username
-                ? "You"
-                : rating.user?.username}{" "}
-              rated {rating.ratingValue}/10
+              <Text fontWeight={"semibold"}>
+                {authUser?.username === rating.user?.username
+                  ? "You"
+                  : rating.user?.username}{" "}
+              </Text>
+              rated{" "}
+              <Text fontWeight={"semibold"} color="yellow.500">
+                {rating.ratingValue}
+              </Text>
             </Text>
             <Text>
-              <Text fontWeight="semibold">{rating.imdbItem?.title}</Text>{" "}
+              <Text>{rating.imdbItem?.title}</Text>{" "}
               {rating.imdbItem?.year && `(${rating.imdbItem?.year})`}
             </Text>
             <Text fontSize="xs">{timeAgo}</Text>
