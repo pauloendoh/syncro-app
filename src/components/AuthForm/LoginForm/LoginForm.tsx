@@ -1,18 +1,11 @@
-import {
-  Button,
-  FormControl,
-  Input,
-  Link,
-  Text,
-  useToast,
-  VStack,
-} from "native-base"
+import { Button, FormControl, Input, Link, Text, VStack } from "native-base"
 import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
 import { urls } from "../../../utils/urls"
+import { useMyToast } from "../../toasts/useMyToast"
 
 interface LoginDto {
   identificator: string
@@ -25,7 +18,7 @@ interface Props {
 
 const LoginForm = (props: Props) => {
   const setAuthUser = useAuthStore((s) => s.setAuthUser)
-  const toast = useToast()
+  const { showSuccessToast } = useMyToast()
 
   const axios = useAxios()
   const {
@@ -45,7 +38,8 @@ const LoginForm = (props: Props) => {
     axios
       .post<AuthUserGetDto>(urls.api.login, data)
       .then((res) => {
-        toast.show({ description: "Success" })
+        showSuccessToast("Success")
+
         setAuthUser(res.data)
       })
       .finally(() => setLoading(false))

@@ -1,11 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
 import { ValidationError } from "class-validator"
-import { useToast } from "native-base"
-import ErrorToast from "../components/toasts/ErrorToast"
+import { useMyToast } from "../components/toasts/useMyToast"
 
 export const useAxios = () => {
-  const toast = useToast()
+  const { showErrorToast } = useMyToast()
   const myAxios = axios.create()
   myAxios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
@@ -36,20 +35,12 @@ export const useAxios = () => {
         if (constraints) {
           const [key, value] = Object.entries(constraints)[0]
 
-          toast.show({
-            render: () => <ErrorToast>{value}</ErrorToast>,
-          })
+          showErrorToast(value)
 
           return Promise.reject(error)
         }
 
-        toast.show({
-          render: () => (
-            <ErrorToast>
-              {error.response?.data.message || error.message}
-            </ErrorToast>
-          ),
-        })
+        showErrorToast(error.response?.data.message || error.message)
       }
 
       return Promise.reject(error)

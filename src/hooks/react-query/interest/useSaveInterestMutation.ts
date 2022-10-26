@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
-import { useToast } from "native-base"
+import { useMyToast } from "../../../components/toasts/useMyToast"
 import { InterestDto } from "../../../types/domain/interest/InterestDto"
 import removeFromArray from "../../../utils/array/removeFromArray"
 import upsert from "../../../utils/array/upsert"
@@ -10,7 +10,7 @@ import { urls } from "../../../utils/urls"
 const useSaveInterestMutation = () => {
   const queryClient = useQueryClient()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
-  const toast = useToast()
+  const { showSuccessToast } = useMyToast()
 
   return useMutation(
     (payload: InterestDto) =>
@@ -27,8 +27,7 @@ const useSaveInterestMutation = () => {
             )
           }
 
-          toast.show({ description: "Interest removed!" })
-          // setSuccessMessage("Interest removed!")
+          showSuccessToast("Interest removed!")
 
           return
         }
@@ -40,7 +39,7 @@ const useSaveInterestMutation = () => {
           }
         )
 
-        toast.show({ description: "Interest saved!" })
+        showSuccessToast("Interest saved!")
       },
       onError: (err: AxiosError<any>) => {
         alert(err?.response?.data?.message || "Error saving idea")

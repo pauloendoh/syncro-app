@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useToast } from "native-base"
+import { useMyToast } from "../../../components/toasts/useMyToast"
 import { FollowDto } from "../../../types/domain/follow/FollowDto"
 import removeFromArray from "../../../utils/array/removeFromArray"
 import upsert from "../../../utils/array/upsert"
@@ -8,7 +8,7 @@ import { urls } from "../../../utils/urls"
 
 const useToggleFollowMutation = () => {
   const queryClient = useQueryClient()
-  const toast = useToast()
+  const { showSuccessToast } = useMyToast()
 
   return useMutation(
     (followingUserId: string) =>
@@ -29,7 +29,7 @@ const useToggleFollowMutation = () => {
             )
           }
 
-          toast.show({ description: "Unfollowed!" })
+          showSuccessToast("Unfollowed!")
 
           return
         }
@@ -41,7 +41,7 @@ const useToggleFollowMutation = () => {
           }
         )
 
-        toast.show({ description: "Following!" })
+        showSuccessToast("Following!")
       },
     }
   )

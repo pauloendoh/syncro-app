@@ -1,12 +1,4 @@
-import {
-  Button,
-  FormControl,
-  Input,
-  Link,
-  Text,
-  useToast,
-  VStack,
-} from "native-base"
+import { Button, FormControl, Input, Link, Text, VStack } from "native-base"
 import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import envVars from "../../../../envVars"
@@ -14,6 +6,7 @@ import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
 import { urls } from "../../../utils/urls"
+import { useMyToast } from "../../toasts/useMyToast"
 
 interface Props {
   onToggleForm: () => void
@@ -29,7 +22,7 @@ interface ISignUpDto {
 const SignUpForm = (props: Props) => {
   const setAuthUser = useAuthStore((s) => s.setAuthUser)
 
-  const toast = useToast()
+  const { showSuccessToast } = useMyToast()
 
   const axios = useAxios()
 
@@ -55,7 +48,7 @@ const SignUpForm = (props: Props) => {
 
       setLoading(false)
       setAuthUser(res.data)
-      toast.show({ description: "Success" })
+      showSuccessToast("Success")
     } catch (err: unknown) {
       console.log({ err })
       setLoading(false)
