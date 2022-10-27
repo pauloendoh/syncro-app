@@ -9,6 +9,7 @@ import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { SortingByTypes } from "../../../types/domain/others/SortingByTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
+import SearchItemImdbSection from "../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemYourSection/SearchItemYourSection"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
@@ -45,7 +46,16 @@ const UserItemsScreen = ({
 
   const { lightBackground, ratingYellow } = useMyColors()
 
-  const [sortingBy, setSortingBy] = useState<SortingByTypes>("theirRatingDesc")
+  const authUser = useAuthStore((s) => s.authUser)
+
+  const thisIsYourList = useMemo(() => authUser?.id === route.params.userId, [
+    authUser,
+    route.params.userId,
+  ])
+
+  const [sortingBy, setSortingBy] = useState<SortingByTypes>(
+    thisIsYourList ? "theirInterestDesc" : "theirRatingDesc"
+  )
 
   const sortedItems = useMemo(() => {
     if (!items) return []
@@ -68,13 +78,6 @@ const UserItemsScreen = ({
       return -1
     })
   }, [items, sortingBy])
-
-  const authUser = useAuthStore((s) => s.authUser)
-
-  const thisIsYourList = useMemo(() => authUser?.id === route.params.userId, [
-    authUser,
-    route.params.userId,
-  ])
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
@@ -116,8 +119,13 @@ const UserItemsScreen = ({
                     </Text>
 
                     <HStack mt={2}>
-                      {!thisIsYourList && (
-                        <VStack style={{ width: 120 }}>
+                      <VStack style={{ width: 120 }}>
+                        {thisIsYourList ? (
+                          <SearchItemImdbSection
+                            avgRating={item.avgRating}
+                            ratingCount={item.ratingCount}
+                          />
+                        ) : (
                           <>
                             <Text fontWeight="semibold">Them</Text>
 
@@ -157,8 +165,8 @@ const UserItemsScreen = ({
                               <Text>{item.interests?.[0]?.interestLevel}</Text>
                             </HStack>
                           </>
-                        </VStack>
-                      )}
+                        )}
+                      </VStack>
                       <VStack>
                         <SearchItemYourSection
                           ratingValue={item.myRating}

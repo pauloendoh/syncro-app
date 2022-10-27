@@ -1,5 +1,5 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
-import { HStack, Text, theme } from "native-base"
+import { HStack, Text, useTheme } from "native-base"
 import React from "react"
 import HStackVCenter from "../../../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
@@ -10,6 +10,8 @@ interface Props {
 }
 
 const SearchItemYourSection = (props: Props) => {
+  const theme = useTheme()
+
   return (
     <>
       <Text fontWeight="semibold">You</Text>
