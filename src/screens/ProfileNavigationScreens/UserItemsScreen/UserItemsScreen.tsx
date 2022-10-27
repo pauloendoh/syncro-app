@@ -6,8 +6,10 @@ import { Pressable, ScrollView } from "react-native"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { SortingByTypes } from "../../../types/domain/others/SortingByTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
+import SearchItemYourSection from "../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemYourSection/SearchItemYourSection"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import SortingBySection from "./SortingBySection/SortingBySection"
@@ -67,6 +69,13 @@ const UserItemsScreen = ({
     })
   }, [items, sortingBy])
 
+  const authUser = useAuthStore((s) => s.authUser)
+
+  const thisIsYourList = useMemo(() => authUser?.id === route.params.userId, [
+    authUser,
+    route.params.userId,
+  ])
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 4 }}>
@@ -107,44 +116,54 @@ const UserItemsScreen = ({
                     </Text>
 
                     <HStack mt={2}>
-                      <VStack space={1} style={{ width: 120 }}>
-                        <Text fontWeight="semibold">Them</Text>
-
-                        {item.id ? (
+                      {!thisIsYourList && (
+                        <VStack style={{ width: 120 }}>
                           <>
+                            <Text fontWeight="semibold">Them</Text>
+
                             <HStack space={1}>
                               <VStackHCenter style={{ width: 24 }}>
                                 <MaterialCommunityIcons
                                   name="star"
-                                  color={ratingYellow}
+                                  color={
+                                    item.ratings?.[0]?.ratingValue
+                                      ? ratingYellow
+                                      : theme.colors.gray[500]
+                                  }
                                   size={18}
                                   style={{ position: "relative", top: 2 }}
                                 />
                               </VStackHCenter>
                               {item.ratings?.[0]?.ratingValue ? (
-                                <Text>{item.ratings?.[0]?.ratingValue}</Text>
+                                <Text>
+                                  {item.ratings?.[0]?.ratingValue || ""}
+                                </Text>
                               ) : (
                                 <Text>?</Text>
                               )}
                             </HStack>
-                            {item.interests?.[0]?.interestLevel && (
-                              <HStack space={1}>
-                                <VStackHCenter style={{ width: 24 }}>
-                                  <FontAwesome5
-                                    name={"fire"}
-                                    color={ratingYellow}
-                                    size={18}
-                                  />
-                                </VStackHCenter>
-                                <Text>
-                                  {item.interests?.[0]?.interestLevel}
-                                </Text>
-                              </HStack>
-                            )}
+                            <HStack space={1}>
+                              <VStackHCenter style={{ width: 24 }}>
+                                <FontAwesome5
+                                  name={"fire"}
+                                  color={
+                                    item.interests?.[0]?.interestLevel
+                                      ? ratingYellow
+                                      : theme.colors.gray[500]
+                                  }
+                                  size={18}
+                                />
+                              </VStackHCenter>
+                              <Text>{item.interests?.[0]?.interestLevel}</Text>
+                            </HStack>
                           </>
-                        ) : (
-                          <Text>See details</Text>
-                        )}
+                        </VStack>
+                      )}
+                      <VStack>
+                        <SearchItemYourSection
+                          ratingValue={item.myRating}
+                          interestLevel={item.myInterest}
+                        />
                       </VStack>
                     </HStack>
                   </VStack>

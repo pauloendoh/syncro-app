@@ -1,4 +1,4 @@
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 import {
   Box,
   HStack,
@@ -9,11 +9,11 @@ import {
   VStack,
 } from "native-base"
 import React from "react"
-import { getLabelByInterestValue } from "../../../../components/modals/InterestModal/getLabelByInterestValue"
 import { IImdbResultItem } from "../../../../types/domain/movie/MovieResultResponseDto"
 import { shortNumberFormatter } from "../../../../utils/math/shortNumberFormatter"
 import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
+import SearchItemYourSection from "./SearchItemYourSection/SearchItemYourSection"
 
 interface Props {
   resultItem: IImdbResultItem
@@ -76,34 +76,10 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
             </VStack>
             <VStack style={{ width: 120 }}>
               {resultItem.myRating && (
-                <>
-                  <Text fontWeight="semibold">You</Text>
-                  <HStackVCenter space={1}>
-                    <VStackHCenter style={{ width: 24 }}>
-                      <MaterialCommunityIcons
-                        name="star"
-                        color={theme.colors.secondary[500]}
-                        size={18}
-                      />
-                    </VStackHCenter>
-                    <Text>{resultItem.myRating.ratingValue}/10</Text>
-                  </HStackVCenter>
-                  <HStack space={1}>
-                    <VStackHCenter style={{ width: 24 }}>
-                      <FontAwesome5
-                        name={"fire"}
-                        color={theme.colors.secondary[500]}
-                        size={18}
-                      />
-                    </VStackHCenter>
-
-                    <Text>
-                      {getLabelByInterestValue(
-                        resultItem.myInterest?.interestLevel || null
-                      )}
-                    </Text>
-                  </HStack>
-                </>
+                <SearchItemYourSection
+                  ratingValue={resultItem.myRating.ratingValue}
+                  interestLevel={resultItem.myInterest?.interestLevel}
+                />
               )}
             </VStack>
           </HStack>
