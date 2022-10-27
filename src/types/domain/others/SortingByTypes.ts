@@ -2,11 +2,11 @@ export type SortingByTypes = "theirRatingDesc" | "theirInterestDesc"
 
 export const sortingOptions: { type: SortingByTypes; label: string }[] = [
   {
-    label: "Their interest - highest",
+    label: "Interest - highest",
     type: "theirInterestDesc",
   },
   {
-    label: "Their rating - highest",
+    label: "Rating - highest",
     type: "theirRatingDesc",
   },
 ]

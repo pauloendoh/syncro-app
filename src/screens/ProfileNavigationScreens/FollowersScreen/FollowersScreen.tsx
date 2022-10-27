@@ -1,4 +1,4 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, VStack } from "native-base"
 import React, { useMemo, useState } from "react"
 import { ScrollView } from "react-native"
@@ -12,7 +12,7 @@ import FollowersTabView from "./FollowersTabView/FollowersTabView"
 const FollowersScreen = ({
   navigation,
   route,
-}: BottomTabScreenProps<ProfileScreenTypes, "FollowersScreen">) => {
+}: NativeStackScreenProps<ProfileScreenTypes, "FollowersScreen">) => {
   const { lightBackground } = useMyColors()
 
   const [tabIndex, setTabIndex] = useState(
@@ -50,14 +50,12 @@ const FollowersScreen = ({
               key={user.id}
               user={user}
               onClickUser={() =>
-                navigation.navigate("Profile", { userId: user.id })
+                navigation.push("Profile", { userId: user.id })
               }
             />
           ))}
         </VStack>
       </ScrollView>
-
-      {/* <HomeFooter /> */}
     </VStack>
   )
 }

@@ -87,6 +87,7 @@ const MyNavigationContainer = (props: Props) => {
                   size={size}
                 />
               ),
+
               // headerStyle: {
               //   backgroundColor: "#1E1E1E",
               // },
