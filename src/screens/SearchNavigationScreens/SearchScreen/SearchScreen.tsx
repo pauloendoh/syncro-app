@@ -5,8 +5,8 @@ import { ScrollView } from "react-native"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
+import ImdbSearchResults from "./ImdbSearchResults/ImdbSearchResults"
 import TabViewExample from "./TabViewExample/TabViewExample"
-import TvSeriesSearchResults from "./TvSeriesSearchResults/TvSeriesSearchResults"
 import UserSearchResults from "./UserSearchResults/UserSearchResults"
 
 const SearchScreen = ({
@@ -37,15 +37,26 @@ const SearchScreen = ({
             {queryIsValid && (
               <VStack space={4}>
                 {tabIndex === 0 && (
-                  <TvSeriesSearchResults
+                  <ImdbSearchResults
                     query={query}
                     onClickImdbItemId={(imdbId) =>
                       navigation.navigate("ImdbItem", { imdbId })
                     }
+                    itemType="tv series"
                   />
                 )}
 
                 {tabIndex === 1 && (
+                  <ImdbSearchResults
+                    query={query}
+                    onClickImdbItemId={(imdbId) =>
+                      navigation.navigate("ImdbItem", { imdbId })
+                    }
+                    itemType="movie"
+                  />
+                )}
+
+                {tabIndex === 2 && (
                   <UserSearchResults
                     query={query}
                     onClickUser={(user) =>

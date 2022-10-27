@@ -1,19 +1,18 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
+import { CompositeScreenProps } from "@react-navigation/native"
 import { Box, HStack, Spinner, Text, useTheme, VStack } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { Pressable, ScrollView } from "react-native"
 import { useFollowersQuery } from "../../../hooks/react-query/follow/useFollowersQuery"
 import { useFollowingUsersQuery } from "../../../hooks/react-query/follow/useFollowingUsersQuery"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
-import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
+import { syncroItemTypes } from "../../../types/domain/SyncroItemType"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
-import { getRandomIntInclusive } from "../../../utils/math/getRandomIntInclusive"
 import { shortNumberFormatter } from "../../../utils/math/shortNumberFormatter"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
@@ -33,31 +32,20 @@ export type ProfileScreenNavigationProp = CompositeScreenProps<
 const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
   const theme = useTheme()
 
-  const {
-    data: userItems,
-    refetch: refetchUserRatings,
-    isLoading: isLoadingUserRatings,
-  } = useUserItemsQuery(route.params.userId)
+  const { data: followersFollows } = useFollowersQuery(route.params.userId)
+  const { data: followingUsersFollows } = useFollowingUsersQuery(
+    route.params.userId
+  )
 
   const {
     data: userInfo,
     refetch: refetchUserInfo,
-    isLoading: isLoadingUserInfo,
+    isLoading,
   } = useUserInfoQuery(route.params.userId)
 
   const authUser = useAuthStore((s) => s.authUser)
   const thisIsMyProfile = useMemo(() => authUser?.id === route.params.userId, [
     authUser,
-  ])
-
-  useFocusEffect(() => {
-    refetchUserInfo()
-    refetchUserRatings()
-  })
-
-  const isLoading = useMemo(() => isLoadingUserInfo || isLoadingUserRatings, [
-    isLoadingUserInfo,
-    isLoadingUserRatings,
   ])
 
   useEffect(() => {
@@ -79,36 +67,6 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
   }, [thisIsMyProfile])
 
   const { lightBackground } = useMyColors()
-
-  const highestTvSeriesRating = useMemo(() => {
-    if (!userItems) return null
-    return userItems.reduce((highestRating, current) => {
-      const ratingValue =
-        current.ratings &&
-        current.ratings[0] &&
-        current.ratings[0].ratingValue &&
-        current.ratings[0].ratingValue
-      if (ratingValue && ratingValue > highestRating) return ratingValue
-
-      return highestRating
-    }, 0)
-  }, [userItems])
-
-  const randomHighestImdbId = useMemo(() => {
-    if (!userItems || !highestTvSeriesRating) return null
-    const highestRatedItems = userItems.filter(
-      (item) => item.ratings?.[0]?.ratingValue === highestTvSeriesRating
-    )
-
-    return highestRatedItems[
-      getRandomIntInclusive(0, highestRatedItems.length - 1)
-    ].id
-  }, [highestTvSeriesRating, userItems])
-
-  const { data: followersFollows } = useFollowersQuery(route.params.userId)
-  const { data: followingUsersFollows } = useFollowingUsersQuery(
-    route.params.userId
-  )
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
@@ -162,24 +120,27 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
         <HStack
           mt={6}
+          space={4}
           style={{
             flexWrap: "wrap",
           }}
         >
-          {randomHighestImdbId && userItems ? (
-            <ProfileScreenRatingItem
-              thumbnailImdbItemId={randomHighestImdbId}
-              ratingsCount={userItems.length}
-              userId={route.params.userId}
-              onClick={() =>
-                navigation.navigate("UserItems", {
-                  userId: route.params.userId,
-                  itemType: "tv series",
-                })
-              }
-            />
+          {isLoading ? (
+            <Text>Loading...</Text>
           ) : (
-            !isLoading && <Text>No ratings :(</Text>
+            syncroItemTypes.map((itemType) => (
+              <ProfileScreenRatingItem
+                key={itemType}
+                itemType={itemType}
+                userId={route.params.userId}
+                onClick={() =>
+                  navigation.navigate("UserItems", {
+                    userId: route.params.userId,
+                    itemType,
+                  })
+                }
+              />
+            ))
           )}
         </HStack>
       </ScrollView>

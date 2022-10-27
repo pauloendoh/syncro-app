@@ -1,16 +1,21 @@
 import { useFocusEffect } from "@react-navigation/native"
 import { Spinner, Text, VStack } from "native-base"
 import React, { useMemo } from "react"
-import { useTvSeriesSearchQuery } from "../../../../hooks/react-query/search/useTvSeriesSearchQuery"
+import { useImdbSearchQuery } from "../../../../hooks/react-query/search/useTvSeriesSearchQuery"
+import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
 import SearchItem from "../SearchItem/SearchItem"
 
 interface Props {
   query: string
   onClickImdbItemId: (imdbItemId: string) => void
+  itemType: SyncroItemType
 }
 
-const TvSeriesSearchResults = ({ onClickImdbItemId, query }: Props) => {
-  const { data: imdbItems, isLoading, refetch } = useTvSeriesSearchQuery(query)
+const ImdbSearchResults = ({ onClickImdbItemId, query, itemType }: Props) => {
+  const { data: imdbItems, isLoading, refetch } = useImdbSearchQuery(
+    query,
+    itemType
+  )
 
   useFocusEffect(() => {
     refetch()
@@ -25,7 +30,11 @@ const TvSeriesSearchResults = ({ onClickImdbItemId, query }: Props) => {
     <VStack mt={4} space={4}>
       {isLoading && <Spinner size="lg" color="primary.500" />}
       {noResults ? (
-        <Text>No TV series found :(</Text>
+        <Text>
+          {itemType === "tv series"
+            ? "No TV series found :("
+            : "No movies found :("}
+        </Text>
       ) : (
         imdbItems?.map((imdbItem) => (
           <SearchItem
@@ -39,4 +48,4 @@ const TvSeriesSearchResults = ({ onClickImdbItemId, query }: Props) => {
   )
 }
 
-export default TvSeriesSearchResults
+export default ImdbSearchResults

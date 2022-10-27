@@ -23,7 +23,7 @@ const UserItemsScreen = ({
 
   const theme = useTheme()
 
-  const { data: items, isLoading } = useUserItemsQuery(userId)
+  const { data: items, isLoading } = useUserItemsQuery(userId, itemType)
 
   const { data: userInfo } = useUserInfoQuery(route.params.userId)
 

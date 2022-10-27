@@ -14,9 +14,9 @@ const SecondRoute = () => (
 )
 
 const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-  third: SecondRoute,
+  first: () => null,
+  second: () => null,
+  third: () => null,
 })
 
 interface Props {
@@ -29,7 +29,7 @@ export default function TabViewExample(props: Props) {
 
   const [routes] = useState([
     { key: "first", title: "TV series" },
-    // { key: "second", title: "Movies" },
+    { key: "second", title: "Movies" },
     { key: "third", title: "Users" },
   ])
 

@@ -1,6 +1,7 @@
 import queryString from "query-string"
 import envVars from "../../envVars"
 import { SearchParams } from "../types/domain/search/SearchParams"
+import { SyncroItemType } from "../types/domain/SyncroItemType"
 
 const { API_URL } = envVars
 export const urls = {
@@ -27,7 +28,8 @@ export const urls = {
     homeInterests: API_URL + "/feed/home-interests",
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
-    userItems: (userId: string) => API_URL + `/user/${userId}/items`,
+    userItems: (userId: string, itemType?: SyncroItemType) =>
+      API_URL + `/user/${userId}/items?itemType=${itemType}`,
     mySimilarUsers: API_URL + `/me/similar-users`,
     myFollowingUsers: API_URL + `/me/following-users`,
     userFollowers: (userId: string) => API_URL + `/user/${userId}/followers`,

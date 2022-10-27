@@ -4,7 +4,7 @@ import { RatingDto } from "../rating/RatingDto"
 export interface ImdbItemDto {
   id: string
   title: string
-  type: string
+  type: "tvSeries" | "movie"
   imageUrl: string
   year: number
   avgRating: number
@@ -18,7 +18,7 @@ export interface ImdbItemDto {
 export const buildImdbItemDto = (p?: Partial<ImdbItemDto>): ImdbItemDto => ({
   id: "",
   title: "",
-  type: "",
+  type: "tvSeries",
   imageUrl: "",
   year: 0,
   avgRating: 0,
