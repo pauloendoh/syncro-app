@@ -7,7 +7,7 @@ const { SENTRY_AUTH_TOKEN } = process.env
 export default () => ({
   expo: {
     owner: "pauloendoh",
-    name: "syncro",
+    name: "Syncro",
     slug: "syncro",
     version: "1.0.0",
     orientation: "portrait",
