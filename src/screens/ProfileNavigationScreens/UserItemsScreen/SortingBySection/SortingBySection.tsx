@@ -1,13 +1,14 @@
 import { Box, CheckIcon, Select } from "native-base"
 import React from "react"
 import {
+  getSortingOptions,
   SortingByTypes,
-  sortingOptions,
 } from "../../../../types/domain/others/SortingByTypes"
 
 interface Props {
   sortingBy: SortingByTypes
   onChangeSortingBy: (sortingBy: SortingByTypes) => void
+  thisIsYourList: boolean
 }
 
 const SortingBySection = (props: Props) => {
@@ -28,7 +29,7 @@ const SortingBySection = (props: Props) => {
             props.onChangeSortingBy(itemValue as SortingByTypes)
           }
         >
-          {sortingOptions.map((option) => (
+          {getSortingOptions(props.thisIsYourList).map((option) => (
             <Select.Item
               key={option.type}
               label={option.label}

@@ -1,19 +1,17 @@
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { Box, HStack, Image, Text, useTheme, VStack } from "native-base"
+import { Text, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
-import { Pressable, ScrollView } from "react-native"
+import { ScrollView } from "react-native"
+import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-position/useCustomPositionsQuery"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { SortingByTypes } from "../../../types/domain/others/SortingByTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
-import SearchItemImdbSection from "../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemImdbSection/SearchItemImdbSection"
-import SearchItemYourSection from "../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemYourSection/SearchItemYourSection"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
-import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import SortingBySection from "./SortingBySection/SortingBySection"
+import UserItem from "./UserItem/UserItem"
 
 const UserItemsScreen = ({
   navigation,
@@ -21,7 +19,7 @@ const UserItemsScreen = ({
 }: BottomTabScreenProps<ProfileScreenTypes, "UserItems">) => {
   const { itemType, userId } = route.params
 
-  const theme = useTheme()
+  const { data: customPositions } = useCustomPositionsQuery(itemType)
 
   const { data: items, isLoading } = useUserItemsQuery(userId, itemType)
 
@@ -44,7 +42,7 @@ const UserItemsScreen = ({
     [headerTitle]
   )
 
-  const { lightBackground, ratingYellow } = useMyColors()
+  const { lightBackground } = useMyColors()
 
   const authUser = useAuthStore((s) => s.authUser)
 
@@ -57,6 +55,7 @@ const UserItemsScreen = ({
     thisIsYourList ? "theirInterestDesc" : "theirRatingDesc"
   )
 
+  // PE 1/3 - put in another file
   const sortedItems = useMemo(() => {
     if (!items) return []
     if (sortingBy === "theirInterestDesc")
@@ -69,6 +68,22 @@ const UserItemsScreen = ({
         return -1
       })
 
+    if (sortingBy === "customOrdering") {
+      return items
+        .sort((a, b) => {
+          const positionA =
+            customPositions?.find((p) => p.imdbItemId === a.id)?.position ||
+            Number.POSITIVE_INFINITY
+          const positionB =
+            customPositions?.find((p) => p.imdbItemId === b.id)?.position ||
+            Number.POSITIVE_INFINITY
+
+          if (positionA < positionB) return -1
+          return 1
+        })
+        .filter((i) => i.myInterest === 3)
+    }
+
     return items.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue
       const ratingB = b.ratings?.[0]?.ratingValue
@@ -77,7 +92,7 @@ const UserItemsScreen = ({
       if (ratingB > ratingA) return 1
       return -1
     })
-  }, [items, sortingBy])
+  }, [items, sortingBy, customPositions])
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
@@ -90,93 +105,23 @@ const UserItemsScreen = ({
             <SortingBySection
               onChangeSortingBy={setSortingBy}
               sortingBy={sortingBy}
+              thisIsYourList={thisIsYourList}
             />
           </HStackVCenter>
 
           <VStack space={4} marginTop={4}>
+            {sortingBy === "customOrdering" && <Text>Min interest: 3</Text>}
             {sortedItems.map((item) => (
-              <Pressable
+              <UserItem
                 key={item.id}
+                item={item}
                 onPress={() =>
                   navigation.navigate("ImdbItem", { imdbId: item.id })
                 }
-              >
-                <HStack space="4">
-                  {item.imageUrl ? (
-                    <Image
-                      src={item.imageUrl}
-                      width="100px"
-                      height="100px"
-                      alt={item.title}
-                    />
-                  ) : (
-                    <Box width="100px" height="100px" />
-                  )}
-
-                  <VStack style={{ flexShrink: 1 }}>
-                    <Text style={{ fontWeight: "500" }}>
-                      {item.title} {item.year && `(${item.year})`}
-                    </Text>
-
-                    <HStack mt={2}>
-                      <VStack style={{ width: 120 }}>
-                        {thisIsYourList ? (
-                          <SearchItemImdbSection
-                            avgRating={item.avgRating}
-                            ratingCount={item.ratingCount}
-                          />
-                        ) : (
-                          <>
-                            <Text fontWeight="semibold">Them</Text>
-
-                            <HStack space={1}>
-                              <VStackHCenter style={{ width: 24 }}>
-                                <MaterialCommunityIcons
-                                  name="star"
-                                  color={
-                                    item.ratings?.[0]?.ratingValue
-                                      ? ratingYellow
-                                      : theme.colors.gray[500]
-                                  }
-                                  size={18}
-                                  style={{ position: "relative", top: 2 }}
-                                />
-                              </VStackHCenter>
-                              {item.ratings?.[0]?.ratingValue ? (
-                                <Text>
-                                  {item.ratings?.[0]?.ratingValue || ""}
-                                </Text>
-                              ) : (
-                                <Text>?</Text>
-                              )}
-                            </HStack>
-                            <HStack space={1}>
-                              <VStackHCenter style={{ width: 24 }}>
-                                <FontAwesome5
-                                  name={"fire"}
-                                  color={
-                                    item.interests?.[0]?.interestLevel
-                                      ? ratingYellow
-                                      : theme.colors.gray[500]
-                                  }
-                                  size={18}
-                                />
-                              </VStackHCenter>
-                              <Text>{item.interests?.[0]?.interestLevel}</Text>
-                            </HStack>
-                          </>
-                        )}
-                      </VStack>
-                      <VStack>
-                        <SearchItemYourSection
-                          ratingValue={item.myRating}
-                          interestLevel={item.myInterest}
-                        />
-                      </VStack>
-                    </HStack>
-                  </VStack>
-                </HStack>
-              </Pressable>
+                thisIsYourList={thisIsYourList}
+                itemType={itemType}
+                isCustomOrdering={sortingBy === "customOrdering"}
+              />
             ))}
           </VStack>
         </VStack>
