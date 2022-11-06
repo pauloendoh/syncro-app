@@ -20,14 +20,21 @@ const FollowUnfollowButton = (props: Props) => {
 
   const { mutate: submitToggleFollow } = useToggleFollowMutation()
 
+  const label = useMemo(() => {
+    if (isLoading) return "Loading..."
+
+    if (alreadyFollowing) return "Following"
+    return "Follow"
+  }, [isLoading, alreadyFollowing])
+
   return (
     <Button
+      isLoading={isLoading}
       width="100%"
       colorScheme={alreadyFollowing ? "gray" : "secondary"}
       onPress={() => submitToggleFollow(props.profileUserId)}
     >
-      {isLoading && "Loading"}
-      {alreadyFollowing ? "Following" : "Follow"}
+      {label}
     </Button>
   )
 }

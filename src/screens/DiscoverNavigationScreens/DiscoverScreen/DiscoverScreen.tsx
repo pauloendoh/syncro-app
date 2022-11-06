@@ -56,10 +56,7 @@ const DiscoverScreen = ({
               key={item.userB.id}
             >
               <HStack flexShrink={1}>
-                <UserProfilePicture
-                  userId={item.userB.username}
-                  widthHeigth={36}
-                />
+                <UserProfilePicture userId={item.userB.id} widthHeigth={36} />
 
                 <VStack ml={4}>
                   <Text fontWeight="semibold">{item.userB.username}</Text>
@@ -68,12 +65,6 @@ const DiscoverScreen = ({
                     rating similarity · {item.ratedSameItemsCount}{" "}
                     {item.ratedSameItemsCount <= 1 ? "item" : "items"}
                   </Text>
-                  {item.highInterestCount > 0 && (
-                    <Text>
-                      {item.highInterestCount} common high{" "}
-                      {item.highInterestCount === 1 ? "interest" : "interests"}
-                    </Text>
-                  )}
                 </VStack>
               </HStack>
             </Pressable>

@@ -1,7 +1,7 @@
 import { Image } from "react-native"
 
 import { useFocusEffect } from "@react-navigation/native"
-import { Pressable, Text } from "native-base"
+import { Box, Pressable, Text } from "native-base"
 import React, { useMemo } from "react"
 import { useImdbItemDetailsQuery } from "../../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useUserItemsQuery } from "../../../../hooks/react-query/user/useUserItemsQuery"
@@ -71,13 +71,18 @@ const ProfileScreenRatingItem = (props: Props) => {
       }}
     >
       <VStackHCenter width={150}>
-        <Image
-          source={{ uri: randomHighestItem?.imageUrl }}
-          style={{
-            width: 150,
-            height: 150,
-          }}
-        />
+        {randomHighestItem?.imageUrl ? (
+          <Image
+            source={{ uri: randomHighestItem?.imageUrl }}
+            style={{
+              width: 150,
+              height: 150,
+            }}
+          />
+        ) : (
+          <Box width={150} height={150} />
+        )}
+
         <Text style={{ fontWeight: "500" }} mt={1}>
           {label}
         </Text>

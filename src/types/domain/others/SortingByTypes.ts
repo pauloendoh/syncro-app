@@ -11,11 +11,11 @@ type SortingOption = {
 export const getSortingOptions = (thisIsYourList = false): SortingOption[] => {
   const options: SortingOption[] = [
     {
-      label: "Rating - highest",
+      label: "⭐ Rating - highest",
       type: "theirRatingDesc",
     },
     {
-      label: "Interest - highest",
+      label: "🔥 Interest - highest",
       type: "theirInterestDesc",
     },
   ]
