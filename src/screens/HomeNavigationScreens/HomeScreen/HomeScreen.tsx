@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Text, VStack } from "native-base"
+import { VStack } from "native-base"
 import React, { useMemo } from "react"
 import { RefreshControl, ScrollView } from "react-native"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
@@ -28,7 +28,7 @@ const HomeScreen = ({
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          <RefreshControl refreshing={!isReady} onRefresh={refetch} />
         }
       >
         <VStack
@@ -36,7 +36,6 @@ const HomeScreen = ({
             paddingHorizontal: 8,
           }}
         >
-          {!isReady && <Text>Loading...</Text>}
           {homeRatings && (
             <VStack mt={4} space={4}>
               {homeRatings.map((rating) => (
