@@ -1,14 +1,7 @@
-import {
-  Box,
-  HStack,
-  Image,
-  Pressable,
-  Text,
-  useTheme,
-  VStack,
-} from "native-base"
+import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
 import React from "react"
 import { IImdbResultItem } from "../../../../types/domain/movie/MovieResultResponseDto"
+import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "./SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "./SearchItemYourSection/SearchItemYourSection"
 
@@ -22,16 +15,12 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
   return (
     <Pressable onPress={onClick}>
       <HStack space="4">
-        {resultItem?.image?.url ? (
-          <Image
-            src={resultItem.image.url}
-            width="100px"
-            height="100px"
-            alt={resultItem.title}
-          />
-        ) : (
-          <Box width="100px" height="100px" />
-        )}
+        <Image
+          src={getImageUrlOrDefaultUrl(resultItem?.image?.url)}
+          width="100px"
+          height="100px"
+          alt={resultItem.title}
+        />
 
         <VStack style={{ flexShrink: 1 }}>
           <Text style={{ fontWeight: "500" }}>

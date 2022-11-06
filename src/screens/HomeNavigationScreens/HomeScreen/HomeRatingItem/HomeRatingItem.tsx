@@ -4,6 +4,7 @@ import React, { useMemo } from "react"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
+import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 
 interface Props {
   rating: RatingDto
@@ -45,7 +46,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
         </HStack>
         <HStack width={100}>
           <Image
-            src={rating.imdbItem?.imageUrl}
+            src={getImageUrlOrDefaultUrl(rating.imdbItem?.imageUrl)}
             width={100}
             height={100}
             alt={rating.imdbItem?.title}

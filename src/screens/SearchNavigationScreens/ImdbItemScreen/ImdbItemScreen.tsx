@@ -8,6 +8,7 @@ import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
+import { getImageUrlOrDefaultUrl } from "../../../utils/getImageUrlOrDefaultUrl"
 import LoadingScreen from "../../LoadingScreen/LoadingScreen"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import RatingRow from "./RatingRow/RatingRow"
@@ -58,7 +59,7 @@ const ImdbItemScreen = ({
             {/* conditional to fix message: "please provide an alt title"  */}
             {data?.title && (
               <Image
-                src={data?.imageUrl}
+                src={getImageUrlOrDefaultUrl(data?.imageUrl)}
                 height="120px"
                 width="120px"
                 alt={data?.title}

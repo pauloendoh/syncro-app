@@ -1,10 +1,11 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
-import { Box, HStack, Image, Text, theme, VStack } from "native-base"
+import { HStack, Image, Text, theme, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
 import { useMyColors } from "../../../../hooks/useMyColors"
 import { UserItemDto } from "../../../../types/domain/imdb-item/UserItemDto"
 import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
+import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "../../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "../../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemYourSection/SearchItemYourSection"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
@@ -24,16 +25,12 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   return (
     <Pressable key={item.id} onPress={props.onPress}>
       <HStack space="4">
-        {item.imageUrl ? (
-          <Image
-            src={item.imageUrl}
-            width="100px"
-            height="100px"
-            alt={item.title}
-          />
-        ) : (
-          <Box width="100px" height="100px" />
-        )}
+        <Image
+          src={getImageUrlOrDefaultUrl(item.imageUrl)}
+          width="100px"
+          height="100px"
+          alt={item.title}
+        />
 
         <VStack style={{ flexShrink: 1 }}>
           <Text style={{ fontWeight: "500" }}>
