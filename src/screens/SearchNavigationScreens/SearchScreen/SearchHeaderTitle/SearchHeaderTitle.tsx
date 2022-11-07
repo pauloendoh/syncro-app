@@ -17,7 +17,7 @@ const SearchHeaderTitle = (props: Props) => {
           <Icon as={<MaterialIcons name="search" />} color="gray.400" />
         }
         variant="unstyled"
-        placeholder={"Search your favorite TV series, movies, users..."}
+        placeholder={"Search your favorite TV series, movies, etc"}
         value={searchText}
         onChangeText={setSearchText}
         returnKeyType="search"
