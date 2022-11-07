@@ -1,4 +1,4 @@
-import { Text, VStack } from "native-base"
+import { Divider, Link, Text, VStack } from "native-base"
 import React, { useState } from "react"
 import LoginForm from "./LoginForm/LoginForm"
 import SignUpForm from "./SignUpForm/SignUpForm"
@@ -15,6 +15,7 @@ const AuthForm = (props: Props) => {
   return (
     <VStack
       paddingY="4"
+      px={4}
       bgColor="dark.100"
       width="300px"
       borderRadius={4}
@@ -45,6 +46,21 @@ const AuthForm = (props: Props) => {
       {currentForm === "login" && (
         <LoginForm onToggleForm={() => setCurrentForm("register")} />
       )}
+
+      <Divider />
+      <Text textAlign={"center"}>
+        <Text>By signing in, you agree to Syncro’s </Text>
+        <Link
+          href="https://pauloendoh.github.io/ration-app/"
+          isExternal
+          style={{ display: "flex" }}
+          _text={{
+            color: "primary.500",
+          }}
+        >
+          Conditions of Use
+        </Link>
+      </Text>
     </VStack>
   )
 }

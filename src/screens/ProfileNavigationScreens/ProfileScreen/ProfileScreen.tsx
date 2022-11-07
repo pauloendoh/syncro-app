@@ -71,12 +71,6 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <ScrollView style={{ paddingHorizontal: 8 }}>
-        {isLoading && (
-          <VStackHCenter mt={4}>
-            <Spinner size={"lg"} color="primary.500" />
-          </VStackHCenter>
-        )}
-
         <HStackVCenter mt={2} space={6}>
           <ProfileImageProfileScreen userId={route.params.userId} />
           <Pressable
@@ -118,6 +112,12 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
           )}
         </VStackHCenter>
 
+        {isLoading && (
+          <VStackHCenter mt={4}>
+            <Spinner size={"lg"} color="primary.500" />
+          </VStackHCenter>
+        )}
+
         <HStack
           mt={6}
           space={4}
@@ -125,23 +125,19 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
             flexWrap: "wrap",
           }}
         >
-          {isLoading ? (
-            <Text>Loading...</Text>
-          ) : (
-            syncroItemTypes.map((itemType) => (
-              <ProfileScreenRatingItem
-                key={itemType}
-                itemType={itemType}
-                userId={route.params.userId}
-                onClick={() =>
-                  navigation.navigate("UserItems", {
-                    userId: route.params.userId,
-                    itemType,
-                  })
-                }
-              />
-            ))
-          )}
+          {syncroItemTypes.map((itemType) => (
+            <ProfileScreenRatingItem
+              key={itemType}
+              itemType={itemType}
+              userId={route.params.userId}
+              onClick={() =>
+                navigation.navigate("UserItems", {
+                  userId: route.params.userId,
+                  itemType,
+                })
+              }
+            />
+          ))}
         </HStack>
       </ScrollView>
     </VStack>

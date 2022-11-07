@@ -46,7 +46,7 @@ const LoginForm = (props: Props) => {
   }
 
   return (
-    <VStack width="80%" space={4}>
+    <VStack width="90%" space={4}>
       <FormControl isInvalid={!!errors.identificator}>
         <FormControl.Label>Username or Email</FormControl.Label>
         <Controller

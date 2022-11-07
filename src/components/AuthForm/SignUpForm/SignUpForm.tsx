@@ -1,7 +1,6 @@
 import { Button, FormControl, Input, Link, Text, VStack } from "native-base"
 import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import envVars from "../../../../envVars"
 import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
@@ -56,7 +55,7 @@ const SignUpForm = (props: Props) => {
   }
 
   return (
-    <VStack width="80%" space={4}>
+    <VStack width="90%" space={4}>
       <FormControl isRequired isInvalid={"username" in errors}>
         <FormControl.Label>Username</FormControl.Label>
         <Controller
@@ -151,8 +150,6 @@ const SignUpForm = (props: Props) => {
             Login
           </Link>
         </VStack>
-
-        <Text fontStyle={"italic"}>{envVars.API_URL}</Text>
       </VStack>
     </VStack>
   )
