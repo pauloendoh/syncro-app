@@ -45,4 +45,8 @@ export const urls = {
       API_URL + `/custom-positions?itemType=${itemType}`,
     customPosition: API_URL + `/custom-positions`,
   },
+
+  others: {
+    imdbItem: (id: string) => `https://www.imdb.com${id}`,
+  },
 }

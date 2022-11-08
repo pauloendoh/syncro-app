@@ -11,6 +11,7 @@ import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getImageUrlOrDefaultUrl } from "../../../utils/getImageUrlOrDefaultUrl"
 import LoadingScreen from "../../LoadingScreen/LoadingScreen"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
+import ImdbItemMenu from "./ImdbItemMenu/ImdbItemMenu"
 import RatingRow from "./RatingRow/RatingRow"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
@@ -32,6 +33,7 @@ const ImdbItemScreen = ({
   useEffect(() => {
     navigation.setOptions({
       headerTitle: data?.title || "Loading...",
+      headerRight: () => <ImdbItemMenu imdbItemId={route.params.imdbId} />,
     })
   }, [data])
 
