@@ -1,17 +1,7 @@
-import { Text, useTheme, VStack } from "native-base"
+import { useTheme } from "native-base"
 import { useState } from "react"
-import { useWindowDimensions, View } from "react-native"
+import { useWindowDimensions } from "react-native"
 import { SceneMap, TabBar, TabView } from "react-native-tab-view"
-
-const FirstRoute = () => (
-  <VStack style={{ flex: 1, backgroundColor: "#ff4081" }}>
-    <Text>test</Text>
-  </VStack>
-)
-
-const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: "#00000000" }} />
-)
 
 const renderScene = SceneMap({
   first: () => null,
@@ -24,7 +14,7 @@ interface Props {
   changeTabIndex: (tabIndex: number) => void
 }
 
-export default function TabViewExample(props: Props) {
+export default function SearchScreenTabView(props: Props) {
   const layout = useWindowDimensions()
 
   const [routes] = useState([

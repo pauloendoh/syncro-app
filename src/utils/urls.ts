@@ -44,6 +44,7 @@ export const urls = {
     customPositionsByItemType: (itemType: SyncroItemType) =>
       API_URL + `/custom-positions?itemType=${itemType}`,
     customPosition: API_URL + `/custom-positions`,
+    mostFollowedUsers: API_URL + `/follow/most-followed-users`,
   },
 
   others: {
