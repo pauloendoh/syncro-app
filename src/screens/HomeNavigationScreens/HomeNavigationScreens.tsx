@@ -5,6 +5,8 @@ import React from "react"
 import { HomeScreenTypes } from "../../types/HomeScreenTypes"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import FollowersScreen from "../ProfileNavigationScreens/FollowersScreen/FollowersScreen"
+import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
+import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserItemsScreen"
 import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
 import HomeScreen from "./HomeScreen/HomeScreen"
 
@@ -30,6 +32,8 @@ const HomeNavigationScreens = ({
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
       <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="UserItems" component={UserItemsScreen} />
     </Stack.Navigator>
   )
 }

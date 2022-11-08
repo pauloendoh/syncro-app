@@ -9,6 +9,7 @@ import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultU
 interface Props {
   rating: RatingDto
   onPress: () => void
+  onPressUser: () => void
 }
 
 const HomeRatingItem = ({ rating, ...props }: Props) => {
@@ -23,7 +24,11 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
     <Pressable onPress={() => props.onPress()}>
       <HStack key={rating.id} justifyContent="space-between">
         <HStack flexShrink={1}>
-          <UserProfilePicture userId={rating.userId} widthHeigth={40} />
+          <UserProfilePicture
+            onPress={props.onPressUser}
+            userId={rating.userId}
+            widthHeigth={40}
+          />
 
           <VStack ml={4} flexShrink={1} pr={2}>
             <Text>

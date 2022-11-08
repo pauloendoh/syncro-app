@@ -43,6 +43,11 @@ const HomeScreen = ({
                       imdbId: rating.imdbItemId!,
                     })
                   }
+                  onPressUser={() =>
+                    navigation.navigate("Profile", {
+                      userId: rating.userId,
+                    })
+                  }
                 />
               ))}
             </VStack>
