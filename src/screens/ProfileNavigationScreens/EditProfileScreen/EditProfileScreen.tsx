@@ -152,6 +152,7 @@ const EditProfileScreen = ({
                   onBlur={onBlur}
                   onChangeText={(val) => onChange(val)}
                   value={value}
+                  autoCapitalize={"none"}
                 />
               )}
               name="website"

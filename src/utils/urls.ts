@@ -8,6 +8,7 @@ export const urls = {
   api: {
     register: API_URL + "/auth/register",
     login: API_URL + "/auth/login",
+    tempUser: API_URL + "/auth/temp-user",
 
     me: API_URL + "/auth/me",
 
