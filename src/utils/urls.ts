@@ -38,6 +38,7 @@ export const urls = {
     toggleFollow: (userId: string) => API_URL + `/user/${userId}/toggle-follow`,
 
     profilePicture: API_URL + "/profiles/picture",
+    myProfile: API_URL + "/me/profile",
 
     customPositionsByItemType: (itemType: SyncroItemType) =>
       API_URL + `/custom-positions?itemType=${itemType}`,

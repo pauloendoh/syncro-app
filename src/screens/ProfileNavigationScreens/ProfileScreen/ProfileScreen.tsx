@@ -1,6 +1,14 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { CompositeScreenProps } from "@react-navigation/native"
-import { Box, HStack, Spinner, Text, useTheme, VStack } from "native-base"
+import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
+import {
+  Box,
+  Button,
+  HStack,
+  Spinner,
+  Text,
+  useTheme,
+  VStack,
+} from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { Pressable, ScrollView } from "react-native"
 import { useFollowersQuery } from "../../../hooks/react-query/follow/useFollowersQuery"
@@ -19,6 +27,7 @@ import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 import FollowUnfollowButton from "./FollowUnfollowButton/FollowUnfollowButton"
 import ProfileAuthUserMenu from "./ProfileAuthUserMenu/ProfileAuthUserMenu"
 import ProfileImageProfileScreen from "./ProfileImageProfileScreen/ProfileImageProfileScreen"
+import ProfileInfoProfileScreen from "./ProfileInfoProfileScreen/ProfileInfoProfileScreen"
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
@@ -39,8 +48,8 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
   const {
     data: userInfo,
-    refetch: refetchUserInfo,
     isLoading,
+    refetch: refetchUserInfo,
   } = useUserInfoQuery(route.params.userId)
 
   const authUser = useAuthStore((s) => s.authUser)
@@ -52,7 +61,11 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
     navigation.setOptions({
       headerTitle: userInfo?.username || "Loading...",
     })
-  }, [userInfo])
+  }, [userInfo?.username])
+
+  useFocusEffect(() => {
+    refetchUserInfo()
+  })
 
   useEffect(() => {
     if (thisIsMyProfile) {
@@ -70,7 +83,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView style={{ paddingHorizontal: 8 }}>
+      <ScrollView style={{ paddingHorizontal: 16 }}>
         <HStackVCenter mt={2} space={6}>
           <ProfileImageProfileScreen userId={route.params.userId} />
           <Pressable
@@ -106,8 +119,26 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
           </Pressable>
         </HStackVCenter>
 
+        {userInfo?.profile && (
+          <Box my={4}>
+            <ProfileInfoProfileScreen userProfile={userInfo.profile} />
+          </Box>
+        )}
+
         <VStackHCenter mt={2}>
-          {thisIsMyProfile ? null : (
+          {thisIsMyProfile ? (
+            <Button
+              colorScheme="gray"
+              width="100%"
+              onPress={() =>
+                navigation.navigate("EditProfile", {
+                  initialValues: userInfo!.profile,
+                })
+              }
+            >
+              Edit profile
+            </Button>
+          ) : (
             <FollowUnfollowButton profileUserId={route.params.userId} />
           )}
         </VStackHCenter>
