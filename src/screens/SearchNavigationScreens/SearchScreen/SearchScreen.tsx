@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, VStack } from "native-base"
 import React, { useMemo, useState } from "react"
-import { ScrollView } from "react-native"
+import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
@@ -22,7 +22,9 @@ const SearchScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView style={{ paddingHorizontal: 4 }}>
+      <MyScrollView refreshing={false} onRefresh={() => {}}>
+        <VStack px={4}></VStack>
+
         <Box mt={2} />
 
         <TabViewExample tabIndex={tabIndex} changeTabIndex={setTabIndex} />
@@ -59,7 +61,7 @@ const SearchScreen = ({
             )}
           </VStack>
         )}
-      </ScrollView>
+      </MyScrollView>
     </VStack>
   )
 }

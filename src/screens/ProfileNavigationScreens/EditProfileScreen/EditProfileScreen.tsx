@@ -7,14 +7,13 @@ import {
   IconButton,
   Input,
   Pressable,
-  Spinner,
   Text,
   useTheme,
   VStack,
 } from "native-base"
 import React from "react"
 import { Controller, useForm } from "react-hook-form"
-import { ScrollView } from "react-native"
+import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import useUpdateProfileMutation from "../../../hooks/react-query/profile/useUpdateProfileMutation"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
@@ -76,99 +75,95 @@ const EditProfileScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView style={{ paddingHorizontal: 4 }}>
-        <Pressable onPress={() => openImagePickerAsync("gallery")}>
-          <VStackHCenter mt={6}>
-            <VStackHCenter space={2}>
-              <ProfileImageProfileScreen userId={authUser!.id} />
-              <Text color="primary.500">Change profile image</Text>
+      <MyScrollView refreshing={isLoading} onRefresh={() => {}}>
+        <VStack px={4}>
+          <Pressable onPress={() => openImagePickerAsync("gallery")}>
+            <VStackHCenter mt={6}>
+              <VStackHCenter space={2}>
+                <ProfileImageProfileScreen userId={authUser!.id} />
+                <Text color="primary.500">Change profile image</Text>
+              </VStackHCenter>
             </VStackHCenter>
+          </Pressable>
+
+          <VStackHCenter px={8} space={4}>
+            <FormControl isInvalid={!!errors.name}>
+              <FormControl.Label>Name</FormControl.Label>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    onBlur={onBlur}
+                    onChangeText={(val) => onChange(val)}
+                    value={value}
+                  />
+                )}
+                name="name"
+              />
+              <FormControl.ErrorMessage>
+                {errors.username?.message}
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.username}>
+              <FormControl.Label>Username</FormControl.Label>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    onBlur={onBlur}
+                    onChangeText={(val) => onChange(val)}
+                    value={value}
+                  />
+                )}
+                name="username"
+              />
+              <FormControl.ErrorMessage>
+                {errors.name?.message}
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.bio}>
+              <FormControl.Label>Bio</FormControl.Label>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    onBlur={onBlur}
+                    onChangeText={(val) => onChange(val)}
+                    value={value}
+                    multiline
+                    minHeight={16}
+                  />
+                )}
+                name="bio"
+              />
+              <FormControl.ErrorMessage>
+                {errors.bio?.message}
+              </FormControl.ErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.website}>
+              <FormControl.Label>Website</FormControl.Label>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    onBlur={onBlur}
+                    onChangeText={(val) => onChange(val)}
+                    value={value}
+                    autoCapitalize={"none"}
+                  />
+                )}
+                name="website"
+              />
+              <FormControl.ErrorMessage>
+                {errors.website?.message}
+              </FormControl.ErrorMessage>
+            </FormControl>
           </VStackHCenter>
-        </Pressable>
-
-        <VStackHCenter px={8} space={4}>
-          <FormControl isInvalid={!!errors.name}>
-            <FormControl.Label>Name</FormControl.Label>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  onBlur={onBlur}
-                  onChangeText={(val) => onChange(val)}
-                  value={value}
-                />
-              )}
-              name="name"
-            />
-            <FormControl.ErrorMessage>
-              {errors.username?.message}
-            </FormControl.ErrorMessage>
-          </FormControl>
-
-          <FormControl isInvalid={!!errors.username}>
-            <FormControl.Label>Username</FormControl.Label>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  onBlur={onBlur}
-                  onChangeText={(val) => onChange(val)}
-                  value={value}
-                />
-              )}
-              name="username"
-            />
-            <FormControl.ErrorMessage>
-              {errors.name?.message}
-            </FormControl.ErrorMessage>
-          </FormControl>
-
-          <FormControl isInvalid={!!errors.bio}>
-            <FormControl.Label>Bio</FormControl.Label>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  onBlur={onBlur}
-                  onChangeText={(val) => onChange(val)}
-                  value={value}
-                  multiline
-                  minHeight={16}
-                />
-              )}
-              name="bio"
-            />
-            <FormControl.ErrorMessage>
-              {errors.bio?.message}
-            </FormControl.ErrorMessage>
-          </FormControl>
-
-          <FormControl isInvalid={!!errors.website}>
-            <FormControl.Label>Website</FormControl.Label>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  onBlur={onBlur}
-                  onChangeText={(val) => onChange(val)}
-                  value={value}
-                  autoCapitalize={"none"}
-                />
-              )}
-              name="website"
-            />
-            <FormControl.ErrorMessage>
-              {errors.website?.message}
-            </FormControl.ErrorMessage>
-          </FormControl>
-        </VStackHCenter>
-
-        {isLoading && (
-          <VStackHCenter mt={4}>
-            <Spinner />
-          </VStackHCenter>
-        )}
-      </ScrollView>
+        </VStack>
+      </MyScrollView>
     </VStack>
   )
 }

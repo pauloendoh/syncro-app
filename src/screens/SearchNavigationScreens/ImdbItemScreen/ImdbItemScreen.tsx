@@ -2,14 +2,13 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { Divider, HStack, Image, Text, VStack } from "native-base"
 import React, { useEffect } from "react"
-import { ScrollView } from "react-native"
+import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getImageUrlOrDefaultUrl } from "../../../utils/getImageUrlOrDefaultUrl"
-import LoadingScreen from "../../LoadingScreen/LoadingScreen"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import ImdbItemMenu from "./ImdbItemMenu/ImdbItemMenu"
 import RatingRow from "./RatingRow/RatingRow"
@@ -26,7 +25,9 @@ const ImdbItemScreen = ({
   navigation,
   route,
 }: BottomTabScreenProps<SearchScreenTypes, "ImdbItem">) => {
-  const { data, isLoading } = useImdbItemDetailsQuery(route.params.imdbId)
+  const { data, isLoading, refetch } = useImdbItemDetailsQuery(
+    route.params.imdbId
+  )
 
   const { lightBackground } = useMyColors()
 
@@ -37,14 +38,10 @@ const ImdbItemScreen = ({
     })
   }, [data])
 
-  if (isLoading) {
-    return <LoadingScreen />
-  }
-
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView style={{ paddingHorizontal: 4 }}>
-        <VStack mt={4}>
+      <MyScrollView refreshing={isLoading} onRefresh={refetch}>
+        <VStack mt={4} px={4}>
           <HStackVCenter>
             <Text fontSize="lg" fontWeight={"semibold"}>
               {data?.title}
@@ -82,7 +79,7 @@ const ImdbItemScreen = ({
             />
           )}
         </VStack>
-      </ScrollView>
+      </MyScrollView>
       {/* <HomeFooter /> */}
     </VStack>
   )

@@ -1,13 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { HStack, Pressable, Spinner, Text, useTheme, VStack } from "native-base"
+import { HStack, Pressable, Text, useTheme, VStack } from "native-base"
 import React, { useCallback, useMemo } from "react"
-import { ScrollView } from "react-native"
+import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import UserProfilePicture from "../../../components/UserProfilePicture/UserProfilePicture"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
 import { useMySimilarUsersQuery } from "../../../types/domain/me/useMySimilarUsersQuery"
-import VStackHCenter from "../../_common/flexboxes/VStackHCenter"
 
 const DiscoverScreen = ({
   navigation,
@@ -38,14 +37,8 @@ const DiscoverScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView style={{ paddingHorizontal: 16 }}>
-        {isLoading && (
-          <VStackHCenter mt={4}>
-            <Spinner size={"lg"} color="primary.500" />
-          </VStackHCenter>
-        )}
-
-        <VStack mt={4} space={4}>
+      <MyScrollView onRefresh={refetch} refreshing={isLoading}>
+        <VStack mt={4} space={4} px={4}>
           {sortedRatingSimilarities.map((item) => (
             <Pressable
               onPress={() =>
@@ -70,7 +63,7 @@ const DiscoverScreen = ({
             </Pressable>
           ))}
         </VStack>
-      </ScrollView>
+      </MyScrollView>
     </VStack>
   )
 }

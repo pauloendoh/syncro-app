@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { VStack } from "native-base"
 import React, { useMemo } from "react"
-import { RefreshControl, ScrollView } from "react-native"
+import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
@@ -26,11 +26,7 @@ const HomeScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={!isReady} onRefresh={refetch} />
-        }
-      >
+      <MyScrollView refreshing={!isReady} onRefresh={refetch}>
         <VStack
           style={{
             paddingHorizontal: 8,
@@ -52,7 +48,7 @@ const HomeScreen = ({
             </VStack>
           )}
         </VStack>
-      </ScrollView>
+      </MyScrollView>
       {/* <HomeFooter /> */}
     </VStack>
   )

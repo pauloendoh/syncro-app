@@ -1,6 +1,6 @@
-import { HamburgerIcon, Menu } from "native-base"
+import { HamburgerIcon, IconButton, Menu } from "native-base"
 import React from "react"
-import { Linking, Pressable } from "react-native"
+import { Linking } from "react-native"
 import { urls } from "../../../../utils/urls"
 
 interface Props {
@@ -27,9 +27,9 @@ const ImdbItemMenu = (props: Props) => {
       placement="bottom right"
       trigger={(triggerProps) => {
         return (
-          <Pressable accessibilityLabel="More options menu" {...triggerProps}>
+          <IconButton size={"sm"} {...triggerProps}>
             <HamburgerIcon />
-          </Pressable>
+          </IconButton>
         )
       }}
     >
