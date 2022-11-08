@@ -33,7 +33,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
         />
 
         <VStack style={{ flexShrink: 1 }}>
-          <Text style={{ fontWeight: "500" }}>
+          <Text style={{ fontWeight: "500" }} noOfLines={1}>
             {item.title} {item.year && `(${item.year})`}
           </Text>
 

@@ -1,7 +1,6 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { Text, VStack } from "native-base"
+import { FlatList, Text, View, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
-import { ScrollView } from "react-native"
 import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-position/useCustomPositionsQuery"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
@@ -21,7 +20,10 @@ const UserItemsScreen = ({
 
   const { data: customPositions } = useCustomPositionsQuery(itemType)
 
-  const { data: items, isLoading } = useUserItemsQuery(userId, itemType)
+  const { data: items, isLoading, refetch } = useUserItemsQuery(
+    userId,
+    itemType
+  )
 
   const { data: userInfo } = useUserInfoQuery(route.params.userId)
 
@@ -96,36 +98,40 @@ const UserItemsScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <ScrollView style={{ paddingHorizontal: 4 }}>
-        {isLoading && <Text>"Loading... "</Text>}
+      <VStack paddingX={4} marginTop={4} paddingBottom={10} style={{ flex: 1 }}>
+        <HStackVCenter justifyContent={"space-between"}>
+          <Text fontSize="lg">{items?.length} items</Text>
+          <SortingBySection
+            onChangeSortingBy={setSortingBy}
+            sortingBy={sortingBy}
+            thisIsYourList={thisIsYourList}
+          />
+        </HStackVCenter>
 
-        <VStack paddingX={2} marginTop={4} paddingBottom={10}>
-          <HStackVCenter flex={1} justifyContent={"space-between"}>
-            <Text fontSize="lg">{items?.length} items</Text>
-            <SortingBySection
-              onChangeSortingBy={setSortingBy}
-              sortingBy={sortingBy}
-              thisIsYourList={thisIsYourList}
+        <VStack space={4} marginTop={4} style={{ flex: 1 }}>
+          {sortingBy === "customOrdering" && <Text>Min interest: 3</Text>}
+          <View style={{ flex: 1 }}>
+            <FlatList
+              refreshing={isLoading}
+              data={sortedItems}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+              renderItem={(props) => (
+                <UserItem
+                  {...props}
+                  item={props.item}
+                  onPress={() =>
+                    navigation.navigate("ImdbItem", { imdbId: props.item.id })
+                  }
+                  thisIsYourList={thisIsYourList}
+                  itemType={itemType}
+                  isCustomOrdering={sortingBy === "customOrdering"}
+                />
+              )}
             />
-          </HStackVCenter>
-
-          <VStack space={4} marginTop={4}>
-            {sortingBy === "customOrdering" && <Text>Min interest: 3</Text>}
-            {sortedItems.map((item) => (
-              <UserItem
-                key={item.id}
-                item={item}
-                onPress={() =>
-                  navigation.navigate("ImdbItem", { imdbId: item.id })
-                }
-                thisIsYourList={thisIsYourList}
-                itemType={itemType}
-                isCustomOrdering={sortingBy === "customOrdering"}
-              />
-            ))}
-          </VStack>
+          </View>
         </VStack>
-      </ScrollView>
+      </VStack>
     </VStack>
   )
 }

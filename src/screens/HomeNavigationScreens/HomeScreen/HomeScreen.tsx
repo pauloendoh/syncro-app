@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { VStack } from "native-base"
+import { FlatList, View, VStack } from "native-base"
 import React, { useMemo } from "react"
-import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
@@ -26,35 +25,40 @@ const HomeScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <MyScrollView refreshing={!isReady} onRefresh={refetch}>
-        <VStack
-          style={{
-            paddingHorizontal: 8,
-          }}
-        >
-          {homeRatings && (
-            <VStack mt={4} space={4}>
-              {homeRatings.map((rating) => (
+      <VStack
+        flex={1}
+        style={{
+          paddingHorizontal: 8,
+        }}
+      >
+        {homeRatings && (
+          <VStack mt={4} space={4} flex={1}>
+            <FlatList
+              refreshing={isLoading}
+              data={homeRatings}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+              renderItem={(props) => (
                 <HomeRatingItem
-                  rating={rating}
-                  key={rating.id}
+                  {...props}
+                  rating={props.item}
+                  key={props.item.id}
                   onPress={() =>
                     navigation.navigate("ImdbItem", {
-                      imdbId: rating.imdbItemId!,
+                      imdbId: props.item.imdbItemId!,
                     })
                   }
                   onPressUser={() =>
                     navigation.navigate("Profile", {
-                      userId: rating.userId,
+                      userId: props.item.userId,
                     })
                   }
                 />
-              ))}
-            </VStack>
-          )}
-        </VStack>
-      </MyScrollView>
-      {/* <HomeFooter /> */}
+              )}
+            />
+          </VStack>
+        )}
+      </VStack>
     </VStack>
   )
 }
