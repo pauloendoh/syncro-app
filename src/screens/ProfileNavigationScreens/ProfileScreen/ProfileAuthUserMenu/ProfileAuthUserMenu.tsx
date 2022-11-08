@@ -1,6 +1,5 @@
-import { HamburgerIcon, Menu } from "native-base"
+import { HamburgerIcon, IconButton, Menu } from "native-base"
 import React from "react"
-import { Pressable } from "react-native"
 import { useLogout } from "../../../../hooks/domain/auth/useLogout"
 
 interface Props {
@@ -15,9 +14,13 @@ const ProfileAuthUserMenu = (props: Props) => {
       w="190"
       trigger={(triggerProps) => {
         return (
-          <Pressable accessibilityLabel="More options menu" {...triggerProps}>
+          <IconButton
+            size="sm"
+            accessibilityLabel="More options menu"
+            {...triggerProps}
+          >
             <HamburgerIcon />
-          </Pressable>
+          </IconButton>
         )
       }}
     >
