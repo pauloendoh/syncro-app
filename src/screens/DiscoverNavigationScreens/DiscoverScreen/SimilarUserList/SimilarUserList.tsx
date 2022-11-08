@@ -26,7 +26,7 @@ const SimilarUserList = (props: Props) => {
   }, [ratingSimilarities])
 
   return (
-    <>
+    <VStack space={4}>
       {sortedRatingSimilarities.map((item) => (
         <Pressable
           onPress={() => props.onPressUserId(item.userB.id)}
@@ -46,7 +46,7 @@ const SimilarUserList = (props: Props) => {
           </HStack>
         </Pressable>
       ))}
-    </>
+    </VStack>
   )
 }
 
