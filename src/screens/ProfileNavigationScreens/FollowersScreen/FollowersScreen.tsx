@@ -1,9 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, VStack } from "native-base"
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useFollowersQuery } from "../../../hooks/react-query/follow/useFollowersQuery"
 import { useFollowingUsersQuery } from "../../../hooks/react-query/follow/useFollowingUsersQuery"
+import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import UserSearchItem from "../../SearchNavigationScreens/SearchScreen/UserSearchResults/UserSearchItem/UserSearchItem"
@@ -18,6 +19,13 @@ const FollowersScreen = ({
   const [tabIndex, setTabIndex] = useState(
     route.params.type === "followers" ? 0 : 1
   )
+
+  const { data: userInfo } = useUserInfoQuery(route.params.userId)
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: userInfo?.username || "Loading...",
+    })
+  }, [userInfo])
 
   const {
     data: followersFollows,
@@ -56,7 +64,7 @@ const FollowersScreen = ({
             followingUsersCount={followingUsersFollows?.length || 0}
           />
 
-          <Box mt={2} />
+          <Box mt={4} />
 
           <VStack space={4}>
             {userList.map((user) => (

@@ -1,5 +1,5 @@
 import { useTheme } from "native-base"
-import { useState } from "react"
+import { useMemo } from "react"
 import { useWindowDimensions } from "react-native"
 import { SceneMap, TabBar, TabView } from "react-native-tab-view"
 
@@ -22,15 +22,18 @@ interface Props {
 export default function FollowersTabView(props: Props) {
   const layout = useWindowDimensions()
 
-  const [routes] = useState([
-    {
-      key: "first",
-      title: `${props.followersCount} ${
-        props.followersCount > 1 ? " Followers" : " Follower"
-      }`,
-    },
-    { key: "second", title: `${props.followingUsersCount}  Following` },
-  ])
+  const routes = useMemo(
+    () => [
+      {
+        key: "first",
+        title: `${props.followersCount} ${
+          props.followersCount > 1 ? " Followers" : " Follower"
+        }`,
+      },
+      { key: "second", title: `${props.followingUsersCount}  Following` },
+    ],
+    [props.followersCount, props.followingUsersCount]
+  )
 
   const theme = useTheme()
 
