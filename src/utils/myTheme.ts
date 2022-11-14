@@ -1,6 +1,12 @@
 import { extendTheme } from "native-base"
 
 export const myTheme = extendTheme({
+  fonts: {
+    heading: "NotoSans",
+    body: "NotoSans",
+    mono: "NotoSans",
+  },
+
   colors: {
     // Add new color
     primary: {

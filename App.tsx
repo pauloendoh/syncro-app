@@ -11,6 +11,7 @@ import React, { useEffect, useMemo } from "react"
 import { View } from "react-native"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
+import { useFonts } from "expo-font"
 import * as Updates from "expo-updates"
 import * as Sentry from "sentry-expo"
 import MyNavigationContainer from "./src/components/MyNavigationContainer/MyNavigationContainer"
@@ -62,6 +63,10 @@ export default function App() {
       }
     })
   }
+
+  const [fontsLoaded] = useFonts({
+    NotoSans: require("./assets/fonts/NotoSans-Regular.ttf"),
+  })
 
   return (
     <QueryClientProvider client={myQueryClient}>
