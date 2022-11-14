@@ -5,7 +5,7 @@ import { RefreshControl } from "react-native"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
-import HomeIsEmptySection from "../HomeIsEmptySection/HomeIsEmptySection"
+import HomeIsEmptySection from "./HomeIsEmptySection/HomeIsEmptySection"
 import HomeRatingItem from "./HomeRatingItem/HomeRatingItem"
 
 const HomeScreen = ({

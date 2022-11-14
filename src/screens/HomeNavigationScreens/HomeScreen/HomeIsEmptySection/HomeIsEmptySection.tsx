@@ -1,7 +1,7 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native"
 import { Box, Text, useTheme } from "native-base"
 import React from "react"
-import { NavigationParamType } from "../../../types/NavigationParamType"
+import { NavigationParamType } from "../../../../types/NavigationParamType"
 
 interface Props {
   test?: string

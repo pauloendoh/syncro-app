@@ -8,7 +8,9 @@ import FollowersScreen from "../ProfileNavigationScreens/FollowersScreen/Followe
 import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
 import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserItemsScreen"
 import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
+import HomeHeaderRight from "./HomeScreen/HomeHeaderRight/HomeHeaderRight"
 import HomeScreen from "./HomeScreen/HomeScreen"
+import NotificationsScreen from "./NotificationsScreen/NotificationsScreen"
 
 const Stack = createNativeStackNavigator<HomeScreenTypes>()
 
@@ -32,12 +34,20 @@ const HomeNavigationScreens = ({
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerTitle: "Syncro" }}
+        options={{
+          headerTitle: "Syncro",
+          headerRight: () => <HomeHeaderRight />,
+        }}
       />
       <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
       <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{ headerTitle: "Notifications" }}
+      />
     </Stack.Navigator>
   )
 }
