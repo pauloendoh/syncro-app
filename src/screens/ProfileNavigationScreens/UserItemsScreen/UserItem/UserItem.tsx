@@ -1,10 +1,12 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
-import { HStack, Image, Text, theme, VStack } from "native-base"
+import { HStack, Image, Text, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
 import { useMyColors } from "../../../../hooks/useMyColors"
 import { UserItemDto } from "../../../../types/domain/imdb-item/UserItemDto"
 import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
+import { useGetYellowColorByInterest } from "../../../../utils/domain/item/useGetYellowColorByInterest"
+import { useGetYellowColorByRating } from "../../../../utils/domain/item/useGetYellowColorByRating"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "../../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "../../../SearchNavigationScreens/SearchScreen/SearchItem/SearchItemYourSection/SearchItemYourSection"
@@ -21,6 +23,9 @@ interface Props {
 
 const UserItem = ({ item, itemType, ...props }: Props) => {
   const { ratingYellow } = useMyColors()
+
+  const getYellowColorByInterest = useGetYellowColorByInterest()
+  const getYellowColorByRating = useGetYellowColorByRating()
 
   return (
     <Pressable key={item.id} onPress={props.onPress}>
@@ -56,11 +61,9 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                     <VStackHCenter style={{ width: 24 }}>
                       <MaterialCommunityIcons
                         name="star"
-                        color={
-                          item.ratings?.[0]?.ratingValue
-                            ? ratingYellow
-                            : theme.colors.gray[500]
-                        }
+                        color={getYellowColorByRating(
+                          item.ratings?.[0]?.ratingValue || 0
+                        )}
                         size={18}
                         style={{ position: "relative", top: 2 }}
                       />
@@ -75,11 +78,9 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                     <VStackHCenter style={{ width: 24 }}>
                       <FontAwesome5
                         name={"fire"}
-                        color={
+                        color={getYellowColorByInterest(
                           item.interests?.[0]?.interestLevel
-                            ? ratingYellow
-                            : theme.colors.gray[500]
-                        }
+                        )}
                         size={18}
                       />
                     </VStackHCenter>
