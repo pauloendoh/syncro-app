@@ -39,6 +39,7 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
               )}
             </VStack>
             <VStack style={{ width: 120 }}>
+              {/*  */}
               {resultItem.myRating?.ratingValue ||
                 (resultItem.myInterest?.interestLevel && (
                   <SearchItemYourSection
