@@ -5,6 +5,7 @@ import { RefreshControl } from "react-native"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
+import HomeIsEmptySection from "../HomeIsEmptySection/HomeIsEmptySection"
 import HomeRatingItem from "./HomeRatingItem/HomeRatingItem"
 
 const HomeScreen = ({
@@ -32,6 +33,9 @@ const HomeScreen = ({
           paddingHorizontal: 8,
         }}
       >
+        {isReady && homeRatings && homeRatings.length === 0 && (
+          <HomeIsEmptySection />
+        )}
         {homeRatings && (
           <VStack mt={4} space={4} flex={1}>
             <FlatList
