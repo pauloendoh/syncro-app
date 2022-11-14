@@ -44,6 +44,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
 
           <HStack mt={2}>
             <VStack style={{ width: 120 }}>
+              {/* PE 1/3 */}
               {props.thisIsYourList ? (
                 props.isCustomOrdering ? (
                   <CustomPositionSection itemId={item.id} itemType={itemType} />

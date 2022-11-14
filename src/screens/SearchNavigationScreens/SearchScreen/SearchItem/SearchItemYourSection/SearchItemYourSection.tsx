@@ -7,7 +7,7 @@ import HStackVCenter from "../../../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
-  ratingValue: number | null
+  ratingValue?: number | null
   interestLevel?: number | null
 }
 

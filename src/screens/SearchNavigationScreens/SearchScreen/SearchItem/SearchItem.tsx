@@ -39,12 +39,13 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
               )}
             </VStack>
             <VStack style={{ width: 120 }}>
-              {resultItem.myRating && (
-                <SearchItemYourSection
-                  ratingValue={resultItem.myRating.ratingValue}
-                  interestLevel={resultItem.myInterest?.interestLevel}
-                />
-              )}
+              {resultItem.myRating?.ratingValue ||
+                (resultItem.myInterest?.interestLevel && (
+                  <SearchItemYourSection
+                    ratingValue={resultItem.myRating?.ratingValue}
+                    interestLevel={resultItem.myInterest?.interestLevel}
+                  />
+                ))}
             </VStack>
           </HStack>
         </VStack>
