@@ -12,6 +12,8 @@ import { View } from "react-native"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
 import { useFonts } from "expo-font"
+import * as Notifications from "expo-notifications"
+import * as Permissions from "expo-permissions"
 import * as Updates from "expo-updates"
 import * as Sentry from "sentry-expo"
 import MyNavigationContainer from "./src/components/MyNavigationContainer/MyNavigationContainer"
@@ -44,9 +46,27 @@ export default function App() {
 
   const myQueryClient = useMyQueryClient()
 
+  const registerForPushNotifications = async () => {
+    let { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+    if (status !== Permissions.PermissionStatus.GRANTED) {
+      const perm = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+      status = perm.status
+    }
+    if (status !== Permissions.PermissionStatus.GRANTED) {
+      alert("Fail to get the push token")
+      return
+    }
+    const token = (await Notifications.getExpoPushTokenAsync()).data
+    return token
+  }
+
   useEffect(() => {
     checkAuthOrLogout()
     reactToUpdates()
+
+    registerForPushNotifications()
+      .then((token) => console.log(token))
+      .catch((err) => console.log(err))
   }, [])
 
   const completedLoading = useMemo(() => isLoadingComplete && !loadingUser, [
@@ -67,6 +87,8 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     NotoSans: require("./assets/fonts/NotoSans-Regular.ttf"),
   })
+
+  if (!fontsLoaded) return null
 
   return (
     <QueryClientProvider client={myQueryClient}>

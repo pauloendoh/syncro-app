@@ -67,7 +67,9 @@
     "react-native-tab-view": "^3.3.0",
     "react-native-web": "~0.18.7",
     "sentry-expo": "~5.0.0",
-    "zustand": "^4.1.1"
+    "zustand": "^4.1.1",
+    "expo-permissions": "~13.2.0",
+    "expo-notifications": "~0.16.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
