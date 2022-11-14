@@ -95,7 +95,7 @@ const AuthForm = (props: Props) => {
       <Text textAlign={"center"}>
         <Text>By signing in, you agree to Syncro’s </Text>
         <Link
-          href="https://pauloendoh.github.io/ration-app/"
+          href="https://pauloendoh.github.io/syncro-app/"
           isExternal
           style={{ display: "flex" }}
           _text={{
