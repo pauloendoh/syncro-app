@@ -134,6 +134,7 @@ const EditProfileScreen = ({
                     value={value}
                     multiline
                     minHeight={16}
+                    textAlignVertical="top"
                   />
                 )}
                 name="bio"

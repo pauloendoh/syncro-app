@@ -98,7 +98,7 @@ const UserItemsScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <VStack paddingX={4} marginTop={4} paddingBottom={10} style={{ flex: 1 }}>
+      <VStack paddingX={4} marginTop={4} style={{ flex: 1 }}>
         <HStackVCenter justifyContent={"space-between"}>
           <Text fontSize="lg">{items?.length} items</Text>
           <SortingBySection
