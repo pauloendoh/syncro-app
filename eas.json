@@ -6,7 +6,7 @@
         "buildType": "apk"
       },
       "env": {
-        "API_URL": "https://ration-server.herokuapp.com"
+        "API_URL": "https://web-production-2e76.up.railway.app"
       }
     },
 
