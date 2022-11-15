@@ -40,13 +40,15 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
             </VStack>
             <VStack style={{ width: 120 }}>
               {/*  */}
-              {resultItem.myRating?.ratingValue ||
-                (resultItem.myInterest?.interestLevel && (
-                  <SearchItemYourSection
-                    ratingValue={resultItem.myRating?.ratingValue}
-                    interestLevel={resultItem.myInterest?.interestLevel}
-                  />
-                ))}
+              {Boolean(
+                resultItem.myRating?.ratingValue ||
+                  resultItem.myInterest?.interestLevel
+              ) && (
+                <SearchItemYourSection
+                  ratingValue={resultItem.myRating?.ratingValue}
+                  interestLevel={resultItem.myInterest?.interestLevel}
+                />
+              )}
             </VStack>
           </HStack>
         </VStack>
