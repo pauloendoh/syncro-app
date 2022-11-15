@@ -86,6 +86,15 @@ const UserItemsScreen = ({
         .filter((i) => i.myInterest === 3)
     }
 
+    if (sortingBy === "avgInterest")
+      return items.sort((a, b) => {
+        const avgInterestA =
+          ((a.interests?.[0]?.interestLevel || 0) + (a.myInterest || 0)) / 2
+        const avgInterestB =
+          ((b.interests?.[0]?.interestLevel || 0) + (b.myInterest || 0)) / 2
+        return avgInterestB >= avgInterestA ? 1 : -1
+      })
+
     return items.sort((a, b) => {
       const ratingA = a.ratings?.[0]?.ratingValue
       const ratingB = b.ratings?.[0]?.ratingValue

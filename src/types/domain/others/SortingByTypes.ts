@@ -2,6 +2,7 @@ export type SortingByTypes =
   | "theirRatingDesc"
   | "theirInterestDesc"
   | "customOrdering"
+  | "avgInterest"
 
 type SortingOption = {
   type: SortingByTypes
@@ -23,5 +24,8 @@ export const getSortingOptions = (thisIsYourList = false): SortingOption[] => {
   if (thisIsYourList)
     return [...options, { label: "Custom ordering", type: "customOrdering" }]
 
-  return options
+  return [
+    ...options,
+    { label: "⭐ Average interest - highest", type: "avgInterest" },
+  ]
 }
