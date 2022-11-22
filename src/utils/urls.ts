@@ -47,6 +47,12 @@ export const urls = {
     mostFollowedUsers: API_URL + `/follow/most-followed-users`,
     notifications: API_URL + `/notifications`,
     hideNotificationDots: API_URL + `/notifications/hide-dots`,
+
+    mutualsSavedItem: (itemId: string) =>
+      API_URL + `/me/mutuals/saved-item?itemId=${itemId}`,
+
+    recommendItem: (itemId: string, userId: string) =>
+      API_URL + `/recommend-item?itemId=${itemId}&userId=${userId}`,
   },
 
   others: {

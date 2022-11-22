@@ -14,9 +14,7 @@ interface Props {
 }
 
 const FollowNotificationItem = ({ follow, ...props }: Props) => {
-  const { navigate, push } = useNavigation<
-    NativeStackNavigationProp<HomeScreenTypes>
-  >()
+  const { push } = useNavigation<NativeStackNavigationProp<HomeScreenTypes>>()
   const authUser = useAuthStore((s) => s.authUser)
 
   const theme = useTheme()

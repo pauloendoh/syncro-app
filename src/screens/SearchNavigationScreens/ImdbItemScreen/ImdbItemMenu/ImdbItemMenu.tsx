@@ -1,6 +1,7 @@
 import { HamburgerIcon, IconButton, Menu } from "native-base"
 import React from "react"
 import { Linking } from "react-native"
+import useRecommendItemActionSheetStore from "../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
 import { urls } from "../../../../utils/urls"
 
 interface Props {
@@ -11,7 +12,6 @@ const ImdbItemMenu = (props: Props) => {
   const openImdbLink = () => {
     Linking.canOpenURL(urls.others.imdbItem(props.imdbItemId)).then(
       (supported) => {
-        debugger
         if (!supported) {
           return
         }
@@ -20,11 +20,14 @@ const ImdbItemMenu = (props: Props) => {
     )
   }
 
+  const openActionSheet = useRecommendItemActionSheetStore(
+    (s) => s.openActionSheet
+  )
+
   return (
     <Menu
-      w="190"
+      w="220"
       shouldOverlapWithTrigger={false}
-      placement="bottom right"
       trigger={(triggerProps) => {
         return (
           <IconButton size={"sm"} {...triggerProps}>
@@ -34,6 +37,9 @@ const ImdbItemMenu = (props: Props) => {
       }}
     >
       <Menu.Item onPress={openImdbLink}>Open on IMDB</Menu.Item>
+      <Menu.Item onPress={() => openActionSheet(props.imdbItemId)}>
+        Recommend to mutual
+      </Menu.Item>
     </Menu>
   )
 }

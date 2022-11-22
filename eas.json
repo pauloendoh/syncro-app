@@ -10,6 +10,12 @@
       }
     },
 
-    "production": {}
+    "production": {
+      "channel": "production",
+
+      "env": {
+        "API_URL": "https://web-production-2e76.up.railway.app"
+      }
+    }
   }
 }

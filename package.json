@@ -13,7 +13,8 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "update:apk": "cross-env API_URL=\"https://web-production-2e76.up.railway.app\"  eas update --branch preview --auto",
-    "build:android": "npx eas build -p android --profile preview"
+    "build:android": "npx eas build -p android --profile preview",
+    "build:android:production": "npx eas build -p android --profile production"
   },
   "jest": {
     "preset": "jest-expo"

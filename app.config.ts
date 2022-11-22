@@ -29,8 +29,9 @@ export default () => ({
         foregroundImage: "./assets/images/adaptive-icon.png",
         backgroundColor: "#151515",
       },
-      permissions: ["android.permission.RECORD_AUDIO"],
-      package: "com.pauloendoh.endohapp",
+
+      package: "com.pauloendoh.syncro",
+      versionCode: 1,
     },
     androidNavigationBar: {
       backgroundColor: "#1E1E1E",

@@ -3,11 +3,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import { useTheme } from "native-base"
 import React from "react"
+import useRecommendItemActionSheetStore from "../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
 import DiscoverNavigationScreens from "../../screens/DiscoverNavigationScreens/DiscoverNavigationScreens"
 import HomeNavigationScreens from "../../screens/HomeNavigationScreens/HomeNavigationScreens"
 import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
 import SearchNavigationScreens from "../../screens/SearchNavigationScreens/SearchNavigationScreens"
 import { NavigationParamType } from "../../types/NavigationParamType"
+import GlobalActionSheets from "../action-sheets/GlobalActionSheets"
 import InterestModal from "../modals/InterestModal/InterestModal"
 import RatingModal from "../modals/RatingModal/RatingModal"
 
@@ -19,11 +21,14 @@ const Tab = createBottomTabNavigator<NavigationParamType>()
 
 const MyNavigationContainer = (props: Props) => {
   const theme = useTheme()
-
+  const itemId = useRecommendItemActionSheetStore((s) => s.itemId)
   return (
     <>
       <RatingModal />
       <InterestModal />
+
+      <GlobalActionSheets />
+
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName="HomeNavigation"

@@ -1,4 +1,5 @@
-import { UserSimpleDto } from "../../../../types/domain/user/UserSimpleDto"
+import { FollowDto } from "../../../../types/domain/follow/FollowDto"
+import { ItemRecommendationDto } from "./ItemRecommendationDto"
 
 export interface NotificationDto {
   id: string
@@ -7,14 +8,8 @@ export interface NotificationDto {
   updatedAt: string
   showDot: boolean
   followId?: string
-  follow?: Follow
-}
+  follow?: FollowDto
 
-interface Follow {
-  id: string
-  followerId: string
-  followingUserId: string
-  createdAt: string
-  updatedAt: string
-  follower: UserSimpleDto
+  itemRecommendationId?: string
+  itemRecommendation?: ItemRecommendationDto
 }
