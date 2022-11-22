@@ -9,7 +9,7 @@ export default () => ({
     owner: "pauloendoh",
     name: "Syncro",
     slug: "syncro",
-    version: "1.0.0",
+    version: "2.0.0",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
@@ -31,7 +31,7 @@ export default () => ({
       },
 
       package: "com.pauloendoh.syncro",
-      versionCode: 1,
+      versionCode: 2,
     },
     androidNavigationBar: {
       backgroundColor: "#1E1E1E",

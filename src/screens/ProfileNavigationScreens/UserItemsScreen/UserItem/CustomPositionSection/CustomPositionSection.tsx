@@ -1,10 +1,9 @@
-import { Input, Spinner, Text, VStack } from "native-base"
+import { Select, Spinner, Text, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
 import useChangeCustomPositionMutation from "../../../../../hooks/react-query/custom-position/useChangeCustomPositionMutation"
 import { useCustomPositionsQuery } from "../../../../../hooks/react-query/custom-position/useCustomPositionsQuery"
 import { useUserItemsQuery } from "../../../../../hooks/react-query/user/useUserItemsQuery"
 import useAuthStore from "../../../../../hooks/zustand/useAuthStore"
-import { buildCustomPositionDto } from "../../../../../types/domain/custom-position/CustomPositionDto"
 import { SyncroItemType } from "../../../../../types/domain/SyncroItemType"
 
 interface Props {
@@ -48,42 +47,50 @@ const CustomPositionSection = (props: Props) => {
 
   const { mutate: submitChangePosition } = useChangeCustomPositionMutation()
 
-  const handleSubmit = () => {
-    const position = parseInt(input)
-    if (isNaN(position) || position < 1 || position > itemsCount) {
-      setInput(currentPositionLabel)
-      return
-    }
-
-    if (!currentPosition) {
-      submitChangePosition({
+  const handleSubmit = (newPosition: string) => {
+    if (!currentPosition) return
+    submitChangePosition(
+      {
         itemType: props.itemType,
         dto: {
-          ...buildCustomPositionDto({
-            imdbItemId: props.itemId,
-            userId: authUser!.id,
-            position,
-          }),
+          ...currentPosition,
+          position: Number(newPosition),
         },
-      })
-      return
-    }
-
-    submitChangePosition({
-      itemType: props.itemType,
-      dto: {
-        ...currentPosition,
-        position,
       },
-    })
+      {
+        onSuccess: () => {
+          setInput(newPosition)
+        },
+      }
+    )
   }
+
+  const options = useMemo(() => userItems?.map((u, index) => index + 1) || [], [
+    userItems,
+  ])
 
   /////
   if (isLoading) return <Spinner />
   return (
     <VStack>
       <Text>Position</Text>
-      <Input
+      <Select
+        selectedValue={input}
+        width="72px"
+        _actionSheetBody={{
+          size: "xs",
+        }}
+        onValueChange={handleSubmit}
+      >
+        {options.map((option) => (
+          <Select.Item
+            key={option}
+            label={String(option)}
+            value={String(option)}
+          />
+        ))}
+      </Select>
+      {/* <Input
         width="40px"
         boxSize={"0.5"}
         onChangeText={(text) => {
@@ -105,7 +112,7 @@ const CustomPositionSection = (props: Props) => {
         onSubmitEditing={handleSubmit}
         type="text"
         keyboardType="numeric"
-      />
+      /> */}
     </VStack>
   )
 }

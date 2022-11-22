@@ -47,7 +47,7 @@ const ItemRecommendationNotificationItem = ({
               <Text fontWeight={"semibold"}>
                 {itemRecommendation.user.username}
               </Text>{" "}
-              recommended:
+              recommended you:
               {props.showDot && (
                 <Box>
                   <Box

@@ -6,7 +6,7 @@
         "buildType": "apk"
       },
       "env": {
-        "API_URL": "https://web-production-2e76.up.railway.app"
+        "API_URL": "https://ration-server.herokuapp.com"
       }
     },
 
@@ -14,7 +14,20 @@
       "channel": "production",
 
       "env": {
-        "API_URL": "https://web-production-2e76.up.railway.app"
+        "API_URL": "https://ration-server.herokuapp.com"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./pc-api-7351306379986613694-46-29e4224fe95e.json",
+        "track": "production"
+      },
+      "ios": {
+        "appleId": "john@turtle.com",
+        "ascAppId": "1234567890",
+        "appleTeamId": "AB12XYZ34S"
       }
     }
   }
