@@ -1,5 +1,5 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
-import { FlatList, Text, View, VStack } from "native-base"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { Text, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
 import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-position/useCustomPositionsQuery"
 import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQuery"
@@ -10,12 +10,13 @@ import { SortingByTypes } from "../../../types/domain/others/SortingByTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import SortingBySection from "./SortingBySection/SortingBySection"
-import UserItem from "./UserItem/UserItem"
+import UserItemsList from "./UserItemsList/UserItemsList"
+import { useSortedItems } from "./useSortedItems/useSortedItems"
 
 const UserItemsScreen = ({
   navigation,
   route,
-}: BottomTabScreenProps<ProfileScreenTypes, "UserItems">) => {
+}: NativeStackScreenProps<ProfileScreenTypes, "UserItems">) => {
   const { itemType, userId } = route.params
 
   const { data: customPositions } = useCustomPositionsQuery(itemType)
@@ -57,53 +58,7 @@ const UserItemsScreen = ({
     thisIsYourList ? "theirInterestDesc" : "theirRatingDesc"
   )
 
-  // PE 1/3 - put in another file
-  const sortedItems = useMemo(() => {
-    if (!items) return []
-    if (sortingBy === "theirInterestDesc")
-      return items.sort((a, b) => {
-        const interestA = a.interests?.[0]?.interestLevel
-        const interestB = b.interests?.[0]?.interestLevel
-        if (interestB && !interestA) return 1
-        if (!interestA || !interestB) return -1
-        if (interestB > interestA) return 1
-        return -1
-      })
-
-    if (sortingBy === "customOrdering") {
-      return items
-        .sort((a, b) => {
-          const positionA =
-            customPositions?.find((p) => p.imdbItemId === a.id)?.position ||
-            Number.POSITIVE_INFINITY
-          const positionB =
-            customPositions?.find((p) => p.imdbItemId === b.id)?.position ||
-            Number.POSITIVE_INFINITY
-
-          if (positionA < positionB) return -1
-          return 1
-        })
-        .filter((i) => i.myInterest === 3)
-    }
-
-    if (sortingBy === "avgInterest")
-      return items.sort((a, b) => {
-        const avgInterestA =
-          ((a.interests?.[0]?.interestLevel || 0) + (a.myInterest || 0)) / 2
-        const avgInterestB =
-          ((b.interests?.[0]?.interestLevel || 0) + (b.myInterest || 0)) / 2
-        return avgInterestB >= avgInterestA ? 1 : -1
-      })
-
-    return items.sort((a, b) => {
-      const ratingA = a.ratings?.[0]?.ratingValue
-      const ratingB = b.ratings?.[0]?.ratingValue
-      if (ratingB && !ratingA) return 1
-      if (!ratingA || !ratingB) return -1
-      if (ratingB > ratingA) return 1
-      return -1
-    })
-  }, [items, sortingBy, customPositions])
+  const sortedItems = useSortedItems({ items, sortingBy, customPositions })
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
@@ -117,29 +72,14 @@ const UserItemsScreen = ({
           />
         </HStackVCenter>
 
-        <VStack space={4} marginTop={4} style={{ flex: 1 }}>
-          {sortingBy === "customOrdering" && <Text>Min interest: 3</Text>}
-          <View style={{ flex: 1 }}>
-            <FlatList
-              refreshing={isLoading}
-              data={sortedItems}
-              keyExtractor={(item) => item.id}
-              ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-              renderItem={(props) => (
-                <UserItem
-                  {...props}
-                  item={props.item}
-                  onPress={() =>
-                    navigation.navigate("ImdbItem", { imdbId: props.item.id })
-                  }
-                  thisIsYourList={thisIsYourList}
-                  itemType={itemType}
-                  isCustomOrdering={sortingBy === "customOrdering"}
-                />
-              )}
-            />
-          </View>
-        </VStack>
+        <UserItemsList
+          isLoading={isLoading}
+          itemType={itemType}
+          onPressItem={(id) => navigation.push("ImdbItem", { imdbId: id })}
+          sortedItems={sortedItems}
+          sortingBy={sortingBy}
+          thisIsYourList={thisIsYourList}
+        />
       </VStack>
     </VStack>
   )

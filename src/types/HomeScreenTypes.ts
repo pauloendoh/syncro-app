@@ -6,4 +6,5 @@ export type HomeScreenTypes = ProfileScreenTypes & {
   ImdbItem: {
     imdbId: string
   }
+  MyNextItems: undefined
 }

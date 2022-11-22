@@ -10,6 +10,7 @@ import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserIte
 import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
 import HomeHeaderRight from "./HomeScreen/HomeHeaderRight/HomeHeaderRight"
 import HomeScreen from "./HomeScreen/HomeScreen"
+import MyNextItemsScreen from "./MyNextItemsScreen/MyNextItemsScreen"
 import NotificationsScreen from "./NotificationsScreen/NotificationsScreen"
 
 const Stack = createNativeStackNavigator<HomeScreenTypes>()
@@ -47,6 +48,11 @@ const HomeNavigationScreens = ({
         name="Notifications"
         component={NotificationsScreen}
         options={{ headerTitle: "Notifications" }}
+      />
+      <Stack.Screen
+        name="MyNextItems"
+        component={MyNextItemsScreen}
+        options={{ headerTitle: "My Next Items" }}
       />
     </Stack.Navigator>
   )

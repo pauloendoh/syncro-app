@@ -1,1 +1,3 @@
-export const asyncStorageKeys = {}
+export const asyncStorageKeys = {
+  myNextItemsScreenInitialValue: "myNextItemsScreenInitialValue",
+}

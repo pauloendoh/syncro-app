@@ -1,9 +1,11 @@
-import { Ionicons } from "@expo/vector-icons"
-import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { Ionicons, MaterialIcons } from "@expo/vector-icons"
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { Badge, Box, IconButton, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { useNotificationsQuery } from "../../../../hooks/react-query/notification/useNotificationsQuery"
 import { HomeScreenTypes } from "../../../../types/HomeScreenTypes"
+import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 
 interface Props {
   test?: string
@@ -19,10 +21,21 @@ const HomeHeaderRight = (props: Props) => {
 
   const theme = useTheme()
 
-  const { navigate } = useNavigation<NavigationProp<HomeScreenTypes>>()
+  const { navigate, push } = useNavigation<
+    NativeStackNavigationProp<HomeScreenTypes>
+  >()
 
   return (
-    <>
+    <HStackVCenter space={4}>
+      <Box>
+        <IconButton onPress={() => push("MyNextItems")}>
+          <MaterialIcons
+            name="video-library"
+            size={20}
+            color={theme.colors.dark[900]}
+          />
+        </IconButton>
+      </Box>
       <Box>
         {unseenNotifications.length > 0 && (
           <Badge // bg="red.400"
@@ -42,7 +55,7 @@ const HomeHeaderRight = (props: Props) => {
           </Badge>
         )}
 
-        <IconButton onPress={() => navigate("Notifications")}>
+        <IconButton onPress={() => push("Notifications")}>
           <Ionicons
             name="md-notifications"
             size={20}
@@ -50,7 +63,7 @@ const HomeHeaderRight = (props: Props) => {
           />
         </IconButton>
       </Box>
-    </>
+    </HStackVCenter>
   )
 }
 
