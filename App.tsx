@@ -13,7 +13,7 @@ import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
 import { useFonts } from "expo-font"
 import * as Notifications from "expo-notifications"
-import * as Permissions from "expo-permissions"
+import * as Permissions from "expo-permissions" // PE 1/3 - change this. It's deprecated
 import * as Updates from "expo-updates"
 import * as Sentry from "sentry-expo"
 import MyNavigationContainer from "./src/components/MyNavigationContainer/MyNavigationContainer"

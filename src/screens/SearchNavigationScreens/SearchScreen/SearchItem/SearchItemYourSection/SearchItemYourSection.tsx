@@ -1,21 +1,16 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
 import { HStack, Text, useTheme } from "native-base"
 import React from "react"
-import { useGetSecondaryColorByInterest } from "../../../../../utils/domain/item/useGetSecondaryColorByInterest"
-import { useGetSecondaryColorByRating } from "../../../../../utils/domain/item/useGetSecondaryColorByRating"
 import HStackVCenter from "../../../../_common/flexboxes/HStackVCenter"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
-  ratingValue?: number | null
+  ratingValue: number | null
   interestLevel?: number | null
 }
 
 const SearchItemYourSection = (props: Props) => {
   const theme = useTheme()
-
-  const getSecondaryColorByRating = useGetSecondaryColorByRating()
-  const getSecondaryColorByInterest = useGetSecondaryColorByInterest()
 
   return (
     <>
@@ -24,9 +19,11 @@ const SearchItemYourSection = (props: Props) => {
         <VStackHCenter style={{ width: 24 }}>
           <MaterialCommunityIcons
             name="star"
-            color={getSecondaryColorByRating(
-              props.ratingValue && props.ratingValue
-            )}
+            color={
+              props.ratingValue && props.ratingValue > 0
+                ? theme.colors.secondary[500]
+                : theme.colors.gray[500]
+            }
             size={18}
           />
         </VStackHCenter>
@@ -36,7 +33,11 @@ const SearchItemYourSection = (props: Props) => {
         <VStackHCenter style={{ width: 24 }}>
           <FontAwesome5
             name={"fire"}
-            color={getSecondaryColorByInterest(props.interestLevel)}
+            color={
+              props.interestLevel
+                ? theme.colors.secondary[500]
+                : theme.colors.gray[500]
+            }
             size={18}
           />
         </VStackHCenter>
