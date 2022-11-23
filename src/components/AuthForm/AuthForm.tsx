@@ -11,7 +11,7 @@ import LoginForm from "./LoginForm/LoginForm"
 import SignUpForm from "./SignUpForm/SignUpForm"
 
 interface Props {
-  test?: string
+  onChangeForm: () => void
 }
 
 const AuthForm = (props: Props) => {
@@ -65,7 +65,10 @@ const AuthForm = (props: Props) => {
         <SignUpForm onToggleForm={() => setCurrentForm("login")} />
       )}
       {currentForm === "login" && (
-        <LoginForm onToggleForm={() => setCurrentForm("register")} />
+        <LoginForm
+          onToggleForm={() => setCurrentForm("register")}
+          onPressPasswordReset={props.onChangeForm}
+        />
       )}
 
       <VStackHCenter backgroundColor="red" width="100%" px={4}>

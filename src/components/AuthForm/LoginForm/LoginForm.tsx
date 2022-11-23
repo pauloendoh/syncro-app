@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
+import HStackVCenter from "../../../screens/_common/flexboxes/HStackVCenter"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
 import { urls } from "../../../utils/urls"
 import { useMyToast } from "../../toasts/useMyToast"
@@ -14,6 +15,7 @@ interface LoginDto {
 
 interface Props {
   onToggleForm: () => void
+  onPressPasswordReset: () => void
 }
 
 const LoginForm = (props: Props) => {
@@ -87,6 +89,15 @@ const LoginForm = (props: Props) => {
           {errors.password?.message}
         </FormControl.ErrorMessage>
       </FormControl>
+
+      <HStackVCenter justifyContent="flex-end">
+        <Link
+          onPress={props.onPressPasswordReset}
+          _text={{ color: "primary.500" }}
+        >
+          Forgot your password?
+        </Link>
+      </HStackVCenter>
 
       <Button
         onPress={handleSubmit(onSubmit)}

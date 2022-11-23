@@ -53,6 +53,10 @@ export const urls = {
 
     recommendItem: (itemId: string, userId: string) =>
       API_URL + `/recommend-item?itemId=${itemId}&userId=${userId}`,
+
+    sendPasswordResetEmail: API_URL + `/auth/password-reset-email`,
+    confirmPasswordResetCode: API_URL + `/auth/confirm-password-reset-code`,
+    endPasswordReset: API_URL + `/auth/end-password-reset`,
   },
 
   others: {
