@@ -37,7 +37,7 @@ const SearchScreen = ({
                 <ImdbSearchResults
                   query={query}
                   onClickImdbItemId={(imdbId) =>
-                    navigation.navigate("ImdbItem", { imdbId })
+                    navigation.push("ImdbItem", { imdbId })
                   }
                   itemType="tv series"
                 />
@@ -47,7 +47,7 @@ const SearchScreen = ({
                 <ImdbSearchResults
                   query={query}
                   onClickImdbItemId={(imdbId) =>
-                    navigation.navigate("ImdbItem", { imdbId })
+                    navigation.push("ImdbItem", { imdbId })
                   }
                   itemType="movie"
                 />
@@ -57,7 +57,7 @@ const SearchScreen = ({
                 <UserSearchResults
                   query={query}
                   onClickUser={(user) =>
-                    navigation.navigate("Profile", { userId: user.id })
+                    navigation.push("Profile", { userId: user.id })
                   }
                 />
               )}

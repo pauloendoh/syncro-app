@@ -1,5 +1,5 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, Button, HStack, Text, useTheme, VStack } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { Pressable } from "react-native"
@@ -24,10 +24,10 @@ import ProfileInfoProfileScreen from "./ProfileInfoProfileScreen/ProfileInfoProf
 import ProfileScreenRatingItem from "./ProfileScreenRatingItem/ProfileScreenRatingItem"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
-  BottomTabScreenProps<ProfileScreenTypes, "Profile">,
+  NativeStackScreenProps<ProfileScreenTypes, "Profile">,
   CompositeScreenProps<
-    BottomTabScreenProps<SearchScreenTypes, "Profile">,
-    BottomTabScreenProps<DiscoverScreenTypes, "Profile">
+    NativeStackScreenProps<SearchScreenTypes, "Profile">,
+    NativeStackScreenProps<DiscoverScreenTypes, "Profile">
   >
 >
 
@@ -82,7 +82,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
             <ProfileImageProfileScreen userId={route.params.userId} />
             <Pressable
               onPress={() =>
-                navigation.navigate("FollowersScreen", {
+                navigation.push("FollowersScreen", {
                   type: "followers",
                   userId: route.params.userId,
                 })
@@ -98,7 +98,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
             <Pressable
               onPress={() =>
-                navigation.navigate("FollowersScreen", {
+                navigation.push("FollowersScreen", {
                   type: "following-users",
                   userId: route.params.userId,
                 })
@@ -125,7 +125,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
                 colorScheme="gray"
                 width="100%"
                 onPress={() =>
-                  navigation.navigate("EditProfile", {
+                  navigation.push("EditProfile", {
                     initialValues: userInfo!.profile,
                   })
                 }
@@ -150,7 +150,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
                 itemType={itemType}
                 userId={route.params.userId}
                 onClick={() =>
-                  navigation.navigate("UserItems", {
+                  navigation.push("UserItems", {
                     userId: route.params.userId,
                     itemType,
                   })

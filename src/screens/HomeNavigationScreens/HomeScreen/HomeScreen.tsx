@@ -52,12 +52,12 @@ const HomeScreen = ({
                   rating={props.item}
                   key={props.item.id}
                   onPress={() =>
-                    navigation.navigate("ImdbItem", {
+                    navigation.push("ImdbItem", {
                       imdbId: props.item.imdbItemId!,
                     })
                   }
                   onPressUser={() =>
-                    navigation.navigate("Profile", {
+                    navigation.push("Profile", {
                       userId: props.item.userId,
                     })
                   }
