@@ -74,13 +74,11 @@ export default function App() {
     checkAuthOrLogout()
     reactToUpdates()
 
-    registerForPushNotifications()
-      .then((token) => {
-        if (token) AsyncStorage.setItem(storageKeys.pushToken, token)
+    registerForPushNotifications().then((token) => {
+      if (token) AsyncStorage.setItem(storageKeys.pushToken, token)
 
-        console.log(token)
-      })
-      .catch((err) => console.log(err))
+      console.log(token)
+    })
   }, [])
 
   const completedLoading = useMemo(() => isLoadingComplete && !loadingUser, [
