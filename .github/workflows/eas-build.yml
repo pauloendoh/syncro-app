@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: EAS  updates
         run: npm run update:apk --auto
       - name: Build on EAS
