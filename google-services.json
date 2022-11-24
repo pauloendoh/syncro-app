@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1028724754577",
+    "project_id": "syncro-1669124934985",
+    "storage_bucket": "syncro-1669124934985.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028724754577:android:d93c42c391d0aa7ab8d730",
+        "android_client_info": {
+          "package_name": "com.pauloendoh.syncro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028724754577-7mnjsvp4bk5pm9ouip4r6i99i7kurmqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS6pSbUW0ccfNA-cr0WiigsvMk7vmjjbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028724754577-7mnjsvp4bk5pm9ouip4r6i99i7kurmqo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
