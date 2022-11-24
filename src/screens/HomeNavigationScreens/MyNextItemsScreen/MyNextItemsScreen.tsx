@@ -8,7 +8,7 @@ import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { SyncroItemType } from "../../../types/domain/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
-import { asyncStorageKeys } from "../../../utils/asyncStorageKeys"
+import { storageKeys } from "../../../utils/storageKeys"
 import UserItemsList from "../../ProfileNavigationScreens/UserItemsScreen/UserItemsList/UserItemsList"
 import { useSortedItems } from "../../ProfileNavigationScreens/UserItemsScreen/useSortedItems/useSortedItems"
 import { selectItemTypes } from "./utils/selectItemTypes"
@@ -23,7 +23,7 @@ const MyNextItemsScreen = ({
   )
 
   useEffect(() => {
-    AsyncStorage.getItem(asyncStorageKeys.myNextItemsScreenInitialValue).then(
+    AsyncStorage.getItem(storageKeys.myNextItemsScreenInitialValue).then(
       (value) => {
         if (value) setSelectedItemType(value as SyncroItemType)
       }
@@ -32,13 +32,13 @@ const MyNextItemsScreen = ({
 
   useEffect(() => {
     AsyncStorage.setItem(
-      asyncStorageKeys.myNextItemsScreenInitialValue,
+      storageKeys.myNextItemsScreenInitialValue,
       selectedItemType
     )
   }, [selectedItemType])
 
   const authUser = useAuthStore((s) => s.authUser)
-  const { data: items, isLoading, refetch } = useUserItemsQuery(
+  const { data: items, isLoading } = useUserItemsQuery(
     authUser!.id,
     selectedItemType
   )

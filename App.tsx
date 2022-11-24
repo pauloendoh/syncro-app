@@ -11,6 +11,7 @@ import React, { useEffect, useMemo } from "react"
 import { View } from "react-native"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useFonts } from "expo-font"
 import * as Notifications from "expo-notifications"
 import * as Permissions from "expo-permissions" // PE 1/3 - change this. It's deprecated
@@ -22,6 +23,7 @@ import useAuthStore from "./src/hooks/zustand/useAuthStore"
 import AuthScreen from "./src/screens/AuthScreen/AuthScreen"
 import LoadingScreen from "./src/screens/LoadingScreen/LoadingScreen"
 import { myTheme } from "./src/utils/myTheme"
+import { storageKeys } from "./src/utils/storageKeys"
 import { useMyQueryClient } from "./src/utils/useMyQueryClient"
 
 Sentry.init({
@@ -37,6 +39,14 @@ if (Platform.OS === "android") {
     ;(Intl as any).__disableRegExpRestore()
   }
 }
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+})
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -65,7 +75,11 @@ export default function App() {
     reactToUpdates()
 
     registerForPushNotifications()
-      .then((token) => console.log(token))
+      .then((token) => {
+        if (token) AsyncStorage.setItem(storageKeys.pushToken, token)
+
+        console.log(token)
+      })
       .catch((err) => console.log(err))
   }, [])
 

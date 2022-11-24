@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Button, FormControl, Input, Link, Text, VStack } from "native-base"
 import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -5,6 +6,7 @@ import { useAxios } from "../../../hooks/useAxios"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import HStackVCenter from "../../../screens/_common/flexboxes/HStackVCenter"
 import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto"
+import { storageKeys } from "../../../utils/storageKeys"
 import { urls } from "../../../utils/urls"
 import { useMyToast } from "../../toasts/useMyToast"
 
@@ -38,8 +40,11 @@ const LoginForm = (props: Props) => {
 
   const onSubmit = async (data: LoginDto) => {
     setLoading(true)
+
+    const pushToken = await AsyncStorage.getItem(storageKeys.pushToken)
+
     axios
-      .post<AuthUserGetDto>(urls.api.login, data)
+      .post<AuthUserGetDto>(urls.api.login(pushToken), data)
       .then((res) => {
         showSuccessToast("Success")
 

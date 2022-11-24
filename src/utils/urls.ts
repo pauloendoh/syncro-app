@@ -7,7 +7,8 @@ const { API_URL } = envVars
 export const urls = {
   api: {
     register: API_URL + "/auth/register",
-    login: API_URL + "/auth/login",
+    login: (pushToken: string | null) =>
+      API_URL + `/auth/login?pushToken=${pushToken}`,
     tempUser: API_URL + "/auth/temp-user",
 
     me: API_URL + "/auth/me",
@@ -57,6 +58,8 @@ export const urls = {
     sendPasswordResetEmail: API_URL + `/auth/password-reset-email`,
     confirmPasswordResetCode: API_URL + `/auth/confirm-password-reset-code`,
     endPasswordReset: API_URL + `/auth/end-password-reset`,
+    logoutPushToken: (pushToken: string) =>
+      API_URL + `/me/push-token/${pushToken}`,
   },
 
   others: {
