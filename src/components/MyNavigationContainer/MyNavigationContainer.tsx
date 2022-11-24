@@ -12,6 +12,7 @@ import { NavigationParamType } from "../../types/NavigationParamType"
 import GlobalActionSheets from "../action-sheets/GlobalActionSheets"
 import InterestModal from "../modals/InterestModal/InterestModal"
 import RatingModal from "../modals/RatingModal/RatingModal"
+import PushNotificationHandler from "./PushNotificationHandler"
 
 interface Props {
   test?: string
@@ -22,6 +23,7 @@ const Tab = createBottomTabNavigator<NavigationParamType>()
 const MyNavigationContainer = (props: Props) => {
   const theme = useTheme()
   const itemId = useRecommendItemActionSheetStore((s) => s.itemId)
+
   return (
     <>
       <RatingModal />
@@ -30,6 +32,9 @@ const MyNavigationContainer = (props: Props) => {
       <GlobalActionSheets />
 
       <NavigationContainer>
+        {/* must be inside navigation container */}
+        <PushNotificationHandler />
+
         <Tab.Navigator
           initialRouteName="HomeNavigation"
           screenOptions={{
