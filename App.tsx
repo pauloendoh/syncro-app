@@ -14,7 +14,6 @@ import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useFonts } from "expo-font"
 import * as Notifications from "expo-notifications"
-import * as Permissions from "expo-permissions" // PE 1/3 - change this. It's deprecated
 import * as Updates from "expo-updates"
 import * as Sentry from "sentry-expo"
 import MyNavigationContainer from "./src/components/MyNavigationContainer/MyNavigationContainer"
@@ -57,16 +56,17 @@ export default function App() {
   const myQueryClient = useMyQueryClient()
 
   const registerForPushNotifications = async () => {
-    let { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-    if (status !== Permissions.PermissionStatus.GRANTED) {
-      const perm = await Permissions.askAsync(Permissions.NOTIFICATIONS)
-      status = perm.status
-    }
-    if (status !== Permissions.PermissionStatus.GRANTED) {
+    const { granted } = await Notifications.requestPermissionsAsync()
+    if (!granted) {
       alert("Fail to get the push token")
       return
     }
-    const token = (await Notifications.getExpoPushTokenAsync()).data
+
+    const token = (
+      await Notifications.getExpoPushTokenAsync({
+        experienceId: "@pauloendoh/syncro",
+      })
+    ).data
     return token
   }
 
