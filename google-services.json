@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1028724754577-54vjp568a3rv6tv9loh4elkhkvqpj33d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pauloendoh.syncro",
+            "certificate_hash": "1592c3dd4b438022cafa80da7bb3eb30387189e9"
+          }
+        },
+        {
           "client_id": "1028724754577-7mnjsvp4bk5pm9ouip4r6i99i7kurmqo.apps.googleusercontent.com",
           "client_type": 3
         }
