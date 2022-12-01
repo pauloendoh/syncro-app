@@ -48,3 +48,4 @@ jobs:
         run: eas build -p android --profile preview
       - name: Build on EAS (production)
         run: eas build -p android --profile production --auto-submit
+        continue-on-error: true

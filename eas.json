@@ -14,7 +14,8 @@
       "channel": "production",
       "env": {
         "API_URL": "https://ration-server.herokuapp.com"
-      }
+      },
+      "autoIncrement": true
     }
   },
   "submit": {
