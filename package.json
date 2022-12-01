@@ -16,7 +16,7 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "update:apk": "cross-env API_URL=\"https://ration-server.herokuapp.com\"  eas update --branch preview --auto",
-    "update:apk:prod": "cross-env API_URL=\"https://ration-server.herokuapp.com\"  eas update --branch production --auto",
+    "update:prod": "cross-env API_URL=\"https://ration-server.herokuapp.com\"  eas update --branch production --auto",
     "build:android": "npx eas build -p android --profile preview",
     "build:android:production": "npx eas build -p android --profile production"
   },

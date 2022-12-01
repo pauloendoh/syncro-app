@@ -39,7 +39,12 @@ jobs:
           else
           npm i
           fi
-      - name: EAS  updates
+      - name: EAS  updates (apk)
         run: npm run update:apk --auto
-      - name: Build on EAS
+      - name: EAS  updates (production)
+        run: npm run update:prod --auto
+
+      - name: Build on EAS (apk)
         run: eas build -p android --profile preview
+      - name: Build on EAS (production)
+        run: eas build -p android --profile production --auto-submit
