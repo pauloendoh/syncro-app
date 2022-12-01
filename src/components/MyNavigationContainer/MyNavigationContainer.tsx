@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import { useTheme } from "native-base"
 import React from "react"
 import useRecommendItemActionSheetStore from "../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
+import useNavigationStore from "../../hooks/zustand/useNavigationStore"
 import DiscoverNavigationScreens from "../../screens/DiscoverNavigationScreens/DiscoverNavigationScreens"
 import HomeNavigationScreens from "../../screens/HomeNavigationScreens/HomeNavigationScreens"
 import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
@@ -23,6 +24,7 @@ const Tab = createBottomTabNavigator<NavigationParamType>()
 const MyNavigationContainer = (props: Props) => {
   const theme = useTheme()
   const itemId = useRecommendItemActionSheetStore((s) => s.itemId)
+  const { setIsReady } = useNavigationStore()
 
   return (
     <>
@@ -31,7 +33,12 @@ const MyNavigationContainer = (props: Props) => {
 
       <GlobalActionSheets />
 
-      <NavigationContainer>
+      <NavigationContainer
+        onReady={() => {
+          console.log({ navigationIsReady: true })
+          setIsReady(true)
+        }}
+      >
         {/* must be inside navigation container */}
         <PushNotificationHandler />
 
