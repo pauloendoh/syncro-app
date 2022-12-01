@@ -11,7 +11,7 @@ import { getLabelByRatingValue } from "./getLabelByRatingValue"
 const RatingModal = () => {
   const { isOpen, initialValue, closeModal } = useRatingModalStore()
 
-  const { mutate } = useSaveRatingMutation()
+  const { mutate, isLoading } = useSaveRatingMutation()
   // const { mutate: mutateDeleteTag } = useDeleteTagMutation()
 
   const onSubmit = async (data: RatingDto) => {
@@ -78,6 +78,7 @@ const RatingModal = () => {
             }}
             colorScheme={"secondary"}
             width="100%"
+            isLoading={isLoading}
           >
             {getLabelByRatingValue(rating)}
           </Button>

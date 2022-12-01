@@ -1,6 +1,6 @@
 import React from "react"
 import useRecommendItemActionSheetStore from "../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
-import RecommendItemActionSheet from "./RecommendItemActionSheet"
+import RecommendItemActionSheet from "./RecommendItemActionSheet/RecommendItemActionSheet"
 
 interface Props {
   test?: string

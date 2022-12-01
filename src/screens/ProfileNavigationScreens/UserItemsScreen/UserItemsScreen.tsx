@@ -1,3 +1,4 @@
+import { useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Text, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
@@ -44,6 +45,10 @@ const UserItemsScreen = ({
       }),
     [headerTitle]
   )
+
+  useFocusEffect(() => {
+    refetch()
+  })
 
   const { lightBackground } = useMyColors()
 

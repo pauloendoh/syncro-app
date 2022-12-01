@@ -12,7 +12,7 @@ import { getLabelByInterestValue } from "./getLabelByInterestValue"
 const InterestModal = () => {
   const { isOpen, initialValue, closeModal } = useInterestModalStore()
 
-  const { mutate } = useSaveInterestMutation()
+  const { mutate, isLoading } = useSaveInterestMutation()
   // const { mutate: mutateDeleteTag } = useDeleteTagMutation()
 
   const onSubmit = async (data: InterestDto) => {
@@ -81,6 +81,7 @@ const InterestModal = () => {
             }}
             colorScheme={"secondary"}
             width="100%"
+            isLoading={isLoading}
           >
             {getLabelByInterestValue(localInterest)}
           </Button>

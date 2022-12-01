@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { useQueryClient } from "@tanstack/react-query"
 import { Box, Select, Text, VStack } from "native-base"
 import React, { useEffect, useState } from "react"
 import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-position/useCustomPositionsQuery"
@@ -9,6 +11,7 @@ import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { SyncroItemType } from "../../../types/domain/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { storageKeys } from "../../../utils/storageKeys"
+import { urls } from "../../../utils/urls"
 import UserItemsList from "../../ProfileNavigationScreens/UserItemsScreen/UserItemsList/UserItemsList"
 import { useSortedItems } from "../../ProfileNavigationScreens/UserItemsScreen/useSortedItems/useSortedItems"
 import { selectItemTypes } from "./utils/selectItemTypes"
@@ -38,7 +41,7 @@ const MyNextItemsScreen = ({
   }, [selectedItemType])
 
   const authUser = useAuthStore((s) => s.authUser)
-  const { data: items, isLoading } = useUserItemsQuery(
+  const { data: items, isLoading, refetch } = useUserItemsQuery(
     authUser!.id,
     selectedItemType
   )
@@ -49,6 +52,13 @@ const MyNextItemsScreen = ({
     items,
     sortingBy: "customOrdering",
     customPositions,
+  })
+
+  const qc = useQueryClient()
+
+  useFocusEffect(() => {
+    qc.invalidateQueries([urls.api.userItems(authUser!.id, selectedItemType)])
+    qc.invalidateQueries([urls.api.customPosition])
   })
 
   return (
@@ -67,7 +77,7 @@ const MyNextItemsScreen = ({
         ))}
       </Select>
 
-      {sortedItems.length === 0 ? (
+      {sortedItems.length === 0 && !isLoading ? (
         <Box mt={4}>
           <Text>No items were found :( </Text>
           <Box mt={2} />

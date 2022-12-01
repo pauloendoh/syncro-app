@@ -68,7 +68,7 @@ const CustomPositionSection = (props: Props) => {
       <Text>Position</Text>
       <Select
         selectedValue={currentPositionLabel}
-        width="72px"
+        width="80px"
         _actionSheetBody={{
           size: "xs",
         }}
