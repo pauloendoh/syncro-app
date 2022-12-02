@@ -9,7 +9,7 @@ export default () => ({
     owner: "pauloendoh",
     name: "Syncro",
     slug: "syncro",
-    version: "2.0.2",
+    version: "3",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
