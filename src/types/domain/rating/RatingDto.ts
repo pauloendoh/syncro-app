@@ -1,14 +1,14 @@
-import { ImdbItemDto } from "../imdb-item/ImdbItemDto"
+import { SyncroItemDto } from "../syncro-item/SyncroItemDto"
 
 export type RatingDto = {
   id: string
-  imdbItemId: string | null
+  syncroItemId: string | null
   userId: string
   ratingValue: number | null
   createdAt: string
   updatedAt: string
 
-  imdbItem?: ImdbItemDto
+  syncroItem?: SyncroItemDto
   user?: {
     username: string
   }
@@ -16,7 +16,7 @@ export type RatingDto = {
 
 export const buildRatingDto = (p?: Partial<RatingDto>): RatingDto => ({
   id: "",
-  imdbItemId: "",
+  syncroItemId: "",
   userId: "",
   ratingValue: null,
   createdAt: new Date().toISOString(),

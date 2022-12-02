@@ -19,7 +19,7 @@ const MyInterestButton = (props: Props) => {
   const openModal = useInterestModalStore((s) => s.openModal)
 
   const savedInterest = useMemo(
-    () => myRatings?.find((r) => r.imdbItemId === props.itemId),
+    () => myRatings?.find((r) => r.syncroItemId === props.itemId),
     [props.itemId, myRatings]
   )
 
@@ -34,7 +34,7 @@ const MyInterestButton = (props: Props) => {
     <Pressable
       onPress={() =>
         openModal(
-          savedInterest || buildInterestDto({ imdbItemId: props.itemId })
+          savedInterest || buildInterestDto({ syncroItemId: props.itemId })
         )
       }
     >

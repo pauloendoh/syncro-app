@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
-import { UserItemDto } from "../../../types/domain/imdb-item/UserItemDto"
+import { UserItemDto } from "../../../types/domain/syncro-item/UserItemDto"
 import { SyncroItemType } from "../../../types/domain/SyncroItemType"
 
 import { urls } from "../../../utils/urls"

@@ -30,11 +30,11 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
 
   const itemIsInMyList = useMemo(() => {
     const rated =
-      myRatings?.find((r) => r.imdbItemId === rating.imdbItemId) || null
+      myRatings?.find((r) => r.syncroItemId === rating.syncroItemId) || null
     const interested =
-      myInterests?.find((r) => r.imdbItemId === rating.imdbItemId) || null
+      myInterests?.find((r) => r.syncroItemId === rating.syncroItemId) || null
     return Boolean(rated || interested)
-  }, [myRatings, myInterests, rating.imdbItemId])
+  }, [myRatings, myInterests, rating.syncroItemId])
 
   return (
     <Pressable onPress={() => props.onPress()}>
@@ -59,8 +59,8 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
               </Text>
             </Text>
             <Text numberOfLines={1}>
-              {rating.imdbItem?.title}{" "}
-              {rating.imdbItem?.year && `(${rating.imdbItem?.year})`}
+              {rating.syncroItem?.title}{" "}
+              {rating.syncroItem?.year && `(${rating.syncroItem?.year})`}
             </Text>
             <Text fontSize="xs">{timeAgo}</Text>
 
@@ -82,10 +82,10 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
         </HStack>
         <HStack width={100}>
           <Image
-            src={getImageUrlOrDefaultUrl(rating.imdbItem?.imageUrl)}
+            src={getImageUrlOrDefaultUrl(rating.syncroItem?.imageUrl)}
             width={100}
             height={100}
-            alt={rating.imdbItem?.title}
+            alt={rating.syncroItem?.title}
           />
         </HStack>
       </HStack>

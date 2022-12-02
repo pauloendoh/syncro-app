@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
-import { ImdbItemDto } from "../../../types/domain/imdb-item/ImdbItemDto"
+import { SyncroItemDto } from "../../../types/domain/syncro-item/SyncroItemDto"
 
 import { urls } from "../../../utils/urls"
 
 export const useItemsRatedByUserQuery = (userId: string) => {
-  return useQuery<ImdbItemDto[], Error>([urls.api.itemsRatedByUserId(userId)])
+  return useQuery<SyncroItemDto[], Error>([urls.api.itemsRatedByUserId(userId)])
 }

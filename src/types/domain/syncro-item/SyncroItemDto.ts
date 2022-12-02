@@ -1,7 +1,7 @@
 import { InterestDto } from "../interest/InterestDto"
 import { RatingDto } from "../rating/RatingDto"
 
-export interface ImdbItemDto {
+export interface SyncroItemDto {
   id: string
   title: string
   type: "tvSeries" | "movie"
@@ -15,7 +15,9 @@ export interface ImdbItemDto {
   interests?: InterestDto[]
 }
 
-export const buildImdbItemDto = (p?: Partial<ImdbItemDto>): ImdbItemDto => ({
+export const buildSyncroItemDto = (
+  p?: Partial<SyncroItemDto>
+): SyncroItemDto => ({
   id: "",
   title: "",
   type: "tvSeries",

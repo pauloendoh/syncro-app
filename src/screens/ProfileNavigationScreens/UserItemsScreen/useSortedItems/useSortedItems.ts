@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 import { CustomPositionDto } from "../../../../types/domain/custom-position/CustomPositionDto"
-import { UserItemDto } from "../../../../types/domain/imdb-item/UserItemDto"
 import { SortingByTypes } from "../../../../types/domain/others/SortingByTypes"
+import { UserItemDto } from "../../../../types/domain/syncro-item/UserItemDto"
 
 type Params = {
   items?: UserItemDto[]
@@ -30,10 +30,10 @@ export const useSortedItems = ({
       return items
         .sort((a, b) => {
           const positionA =
-            customPositions?.find((p) => p.imdbItemId === a.id)?.position ||
+            customPositions?.find((p) => p.syncroItemId === a.id)?.position ||
             Number.POSITIVE_INFINITY
           const positionB =
-            customPositions?.find((p) => p.imdbItemId === b.id)?.position ||
+            customPositions?.find((p) => p.syncroItemId === b.id)?.position ||
             Number.POSITIVE_INFINITY
 
           if (positionA < positionB) return -1

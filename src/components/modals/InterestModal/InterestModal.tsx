@@ -23,7 +23,7 @@ const InterestModal = () => {
 
   const theme = useTheme()
 
-  const { data: imdbItem } = useImdbItemDetailsQuery(initialValue?.imdbItemId)
+  const { data: imdbItem } = useImdbItemDetailsQuery(initialValue?.syncroItemId)
 
   const [localInterest, setLocalInterest] = useState<number | null>(null)
   useEffect(() => {

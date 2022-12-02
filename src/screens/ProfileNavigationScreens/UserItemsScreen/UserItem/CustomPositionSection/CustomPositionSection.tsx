@@ -20,7 +20,7 @@ const CustomPositionSection = (props: Props) => {
   const { data: userItems } = useUserItemsQuery(authUser!.id, props.itemType)
 
   const currentPosition = useMemo(
-    () => customPositions?.find((p) => p.imdbItemId === props.itemId),
+    () => customPositions?.find((p) => p.syncroItemId === props.itemId),
     [customPositions, props.itemId]
   )
 
@@ -38,7 +38,7 @@ const CustomPositionSection = (props: Props) => {
         itemType: props.itemType,
         dto: {
           ...buildCustomPositionDto({
-            imdbItemId: props.itemId,
+            syncroItemId: props.itemId,
             userId: authUser!.id,
             position: Number(newPosition),
           }),

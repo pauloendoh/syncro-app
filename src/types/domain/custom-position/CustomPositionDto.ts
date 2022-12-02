@@ -1,6 +1,6 @@
 export interface CustomPositionDto {
   id: string
-  imdbItemId: string
+  syncroItemId: string
   userId: string
   position: number
 
@@ -12,7 +12,7 @@ export const buildCustomPositionDto = (
   p?: Partial<CustomPositionDto>
 ): CustomPositionDto => ({
   id: "",
-  imdbItemId: "",
+  syncroItemId: "",
   userId: "",
   position: 0,
 

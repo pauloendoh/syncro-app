@@ -21,7 +21,7 @@ const MyRatingButton = (props: Props) => {
     () =>
       myRatings?.find(
         (r) =>
-          r.imdbItemId === props.itemId && r.ratingValue && r.ratingValue > 0
+          r.syncroItemId === props.itemId && r.ratingValue && r.ratingValue > 0
       ),
     [props.itemId, myRatings]
   )
@@ -30,7 +30,7 @@ const MyRatingButton = (props: Props) => {
   return (
     <Pressable
       onPress={() =>
-        openModal(savedRating || buildRatingDto({ imdbItemId: props.itemId }))
+        openModal(savedRating || buildRatingDto({ syncroItemId: props.itemId }))
       }
     >
       <VStackHCenter alignItems={"center"}>

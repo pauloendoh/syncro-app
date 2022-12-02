@@ -53,7 +53,7 @@ const HomeScreen = ({
                   key={props.item.id}
                   onPress={() =>
                     navigation.push("ImdbItem", {
-                      imdbId: props.item.imdbItemId!,
+                      imdbId: props.item.syncroItemId!,
                     })
                   }
                   onPressUser={() =>
