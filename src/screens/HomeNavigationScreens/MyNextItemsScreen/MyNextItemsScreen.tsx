@@ -8,13 +8,16 @@ import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-posit
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
-import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
+import { syncroItemMapping } from "../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
+import {
+  SyncroItemType,
+  syncroItemTypes,
+} from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { storageKeys } from "../../../utils/storageKeys"
 import { urls } from "../../../utils/urls"
 import UserItemsList from "../../ProfileNavigationScreens/UserItemsScreen/UserItemsList/UserItemsList"
 import { useSortedItems } from "../../ProfileNavigationScreens/UserItemsScreen/useSortedItems/useSortedItems"
-import { selectItemTypes } from "./utils/selectItemTypes"
 
 const MyNextItemsScreen = ({
   navigation,
@@ -72,8 +75,12 @@ const MyNextItemsScreen = ({
         selectedValue={selectedItemType}
         onValueChange={(value) => setSelectedItemType(value as SyncroItemType)}
       >
-        {selectItemTypes.map((item) => (
-          <Select.Item key={item.key} label={item.label} value={item.key} />
+        {syncroItemTypes.map((type) => (
+          <Select.Item
+            key={type}
+            label={syncroItemMapping[type].labelPlural}
+            value={type}
+          />
         ))}
       </Select>
 

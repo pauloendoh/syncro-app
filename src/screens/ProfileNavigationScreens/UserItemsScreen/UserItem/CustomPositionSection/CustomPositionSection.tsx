@@ -61,7 +61,6 @@ const CustomPositionSection = (props: Props) => {
     userItems,
   ])
 
-  /////
   if (isLoading) return <Spinner />
   return (
     <VStack>
