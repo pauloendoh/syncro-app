@@ -1,5 +1,5 @@
 import { ProfileDto } from "./domain/profile/ProfileDto"
-import { SyncroItemType } from "./domain/SyncroItemType"
+import { SyncroItemType } from "./domain/syncro-item/SyncroItemType/SyncroItemType"
 
 export type ProfileScreenTypes = {
   Profile: { userId: string }

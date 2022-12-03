@@ -8,7 +8,7 @@ import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-posit
 import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
-import { SyncroItemType } from "../../../types/domain/SyncroItemType"
+import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { storageKeys } from "../../../utils/storageKeys"
 import { urls } from "../../../utils/urls"

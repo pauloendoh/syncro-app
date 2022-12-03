@@ -80,7 +80,8 @@ const EditProfileScreen = ({
           <Pressable onPress={() => openImagePickerAsync("gallery")}>
             <VStackHCenter mt={6}>
               <VStackHCenter space={2}>
-                <ProfileImageProfileScreen userId={authUser!.id} />
+                {authUser && <ProfileImageProfileScreen userId={authUser.id} />}
+
                 <Text color="primary.500">Change profile image</Text>
               </VStackHCenter>
             </VStackHCenter>

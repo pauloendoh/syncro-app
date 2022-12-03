@@ -1,17 +1,17 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { Divider, HStack, Image, Text, VStack } from "native-base"
-import React, { useEffect } from "react"
+import React, { useEffect, useMemo } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
-import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
+import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getImageUrlOrDefaultUrl } from "../../../utils/getImageUrlOrDefaultUrl"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
-import ImdbItemMenu from "./ImdbItemMenu/ImdbItemMenu"
 import RatingRow from "./RatingRow/RatingRow"
+import SyncroItemHeaderMenu from "./SyncroItemHeaderMenu/SyncroItemHeaderMenu"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
   BottomTabScreenProps<SearchScreenTypes, "SyncroItem">,
@@ -25,7 +25,7 @@ const SyncroItemScreen = ({
   navigation,
   route,
 }: BottomTabScreenProps<SearchScreenTypes, "SyncroItem">) => {
-  const { data, isLoading, refetch } = useImdbItemDetailsQuery(
+  const { data, isLoading, refetch } = useSyncroItemDetailsQuery(
     route.params.itemId
   )
 
@@ -34,8 +34,19 @@ const SyncroItemScreen = ({
   useEffect(() => {
     navigation.setOptions({
       headerTitle: data?.title || "Loading...",
-      headerRight: () => <ImdbItemMenu imdbItemId={route.params.itemId} />,
+      headerRight: () => {
+        if (!data) return <></>
+        return <SyncroItemHeaderMenu syncroItem={data} />
+      },
     })
+  }, [data])
+
+  const itemType = useMemo(() => {
+    if (!data) return ""
+    if (data.type === "game") return "Game"
+    if (data.type === "movie") return "Movie"
+    if (data.type === "tvSeries") return "TV Series"
+    return ""
   }, [data])
 
   return (
@@ -49,7 +60,7 @@ const SyncroItemScreen = ({
           </HStackVCenter>
 
           <HStackVCenter mt="4" space="4">
-            <Text>{data?.type === "tvSeries" ? "TV Series" : "Movie"}</Text>
+            <Text>{itemType}</Text>
 
             <Text>{data?.year}</Text>
           </HStackVCenter>
@@ -71,13 +82,7 @@ const SyncroItemScreen = ({
           </HStack>
           <Divider mt={2} />
 
-          {data && (
-            <RatingRow
-              imdbAvgRating={data.avgRating}
-              imdbRatingCount={data.ratingCount}
-              itemId={data.id}
-            />
-          )}
+          {data && <RatingRow syncroItem={data} />}
         </VStack>
       </MyScrollView>
       {/* <HomeFooter /> */}

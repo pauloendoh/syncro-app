@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { IImdbResultItem } from "../../../types/domain/movie/MovieResultResponseDto"
 import { SyncroItemDto } from "../../../types/domain/syncro-item/SyncroItemDto"
-import { SyncroItemType } from "../../../types/domain/SyncroItemType"
+import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 
 import { urls } from "../../../utils/urls"
 

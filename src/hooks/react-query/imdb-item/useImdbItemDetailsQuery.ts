@@ -7,7 +7,7 @@ import myAxios from "../../../utils/myAxios"
 
 import { urls } from "../../../utils/urls"
 
-export const useImdbItemDetailsQuery = (id?: string | null) => {
+export const useSyncroItemDetailsQuery = (id?: string | null) => {
   return useQuery<SyncroItemDto, Error>(
     [urls.api.syncroItemDetails(id)],
     async () => {

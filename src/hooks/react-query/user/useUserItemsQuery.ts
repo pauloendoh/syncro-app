@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
+import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { UserItemDto } from "../../../types/domain/syncro-item/UserItemDto"
-import { SyncroItemType } from "../../../types/domain/SyncroItemType"
 
 import { urls } from "../../../utils/urls"
 import { useAxios } from "../../useAxios"
@@ -21,6 +21,9 @@ export const useUserItemsQuery = (
 
       if (itemType === "tv series")
         return res.data?.filter((d) => d.type === "tvSeries") || []
+
+      if (itemType === "game")
+        return res.data?.filter((d) => d.type === "game") || []
 
       return res?.data || []
     }

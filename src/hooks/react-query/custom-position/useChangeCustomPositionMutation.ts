@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useMyToast } from "../../../components/toasts/useMyToast"
 import { CustomPositionDto } from "../../../types/domain/custom-position/CustomPositionDto"
-import { SyncroItemType } from "../../../types/domain/SyncroItemType"
+import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import myAxios from "../../../utils/myAxios"
 import { urls } from "../../../utils/urls"
 

@@ -1,5 +1,5 @@
 import { IsString } from "class-validator"
-import { SyncroItemType } from "../SyncroItemType"
+import { SyncroItemType } from "../syncro-item/SyncroItemType/SyncroItemType"
 
 export class SearchParams {
   @IsString()

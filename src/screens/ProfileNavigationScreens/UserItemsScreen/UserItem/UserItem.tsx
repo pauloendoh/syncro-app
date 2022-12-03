@@ -3,8 +3,8 @@ import { HStack, Image, Text, theme, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
 import { useMyColors } from "../../../../hooks/useMyColors"
+import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { UserItemDto } from "../../../../types/domain/syncro-item/UserItemDto"
-import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "../../../SearchNavigationScreens/SearchScreen/SyncroItemSearchResults/ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "../../../SearchNavigationScreens/SearchScreen/SyncroItemSearchResults/ImdbSearchItem/SearchItemYourSection/SearchItemYourSection"
@@ -46,6 +46,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                   <SearchItemImdbSection
                     avgRating={item.avgRating}
                     ratingCount={item.ratingCount}
+                    title={item.type === "game" ? "IGDB" : "IMDB"}
                   />
                 )
               ) : (

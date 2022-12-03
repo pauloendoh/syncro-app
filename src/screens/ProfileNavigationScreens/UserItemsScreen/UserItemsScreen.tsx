@@ -8,6 +8,7 @@ import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQ
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { SortingByTypes } from "../../../types/domain/others/SortingByTypes"
+import { syncroItemMapping } from "../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import SortingBySection from "./SortingBySection/SortingBySection"
@@ -32,10 +33,7 @@ const UserItemsScreen = ({
   const headerTitle = useMemo(() => {
     if (!userInfo?.username) return "User items"
 
-    if (route.params.itemType === "movie")
-      return `${userInfo.username} - Movies`
-
-    return `${userInfo.username} - TV Series`
+    return `${userInfo.username} - ${syncroItemMapping[itemType].labelPlural}`
   }, [userInfo, route.params.itemType])
 
   useEffect(

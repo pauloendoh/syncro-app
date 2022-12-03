@@ -1,4 +1,4 @@
-import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
+import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 
 export const selectItemTypes = [
   {

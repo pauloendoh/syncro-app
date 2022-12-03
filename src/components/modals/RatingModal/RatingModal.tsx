@@ -2,7 +2,7 @@ import { AirbnbRating } from "react-native-ratings"
 
 import { Button, HStack, Modal, Text, useTheme } from "native-base"
 import React, { useEffect, useState } from "react"
-import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
+import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import useSaveRatingMutation from "../../../hooks/react-query/rating/useSaveRatingMutation"
 import useRatingModalStore from "../../../hooks/zustand/modals/useRatingModalStore"
 import { RatingDto } from "../../../types/domain/rating/RatingDto"
@@ -22,7 +22,9 @@ const RatingModal = () => {
 
   const theme = useTheme()
 
-  const { data: imdbItem } = useImdbItemDetailsQuery(initialValue?.syncroItemId)
+  const { data: imdbItem } = useSyncroItemDetailsQuery(
+    initialValue?.syncroItemId
+  )
 
   const [rating, setRating] = useState<number | null>(null)
   useEffect(() => {

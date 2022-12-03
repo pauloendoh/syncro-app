@@ -10,7 +10,7 @@ import { useUserInfoQuery } from "../../../hooks/react-query/user/useUserInfoQue
 import { useMyColors } from "../../../hooks/useMyColors"
 import useAuthStore from "../../../hooks/zustand/useAuthStore"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
-import { syncroItemTypes } from "../../../types/domain/SyncroItemType"
+import { syncroItemTypes } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"

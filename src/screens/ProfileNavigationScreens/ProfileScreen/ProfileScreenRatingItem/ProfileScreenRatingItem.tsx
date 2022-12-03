@@ -3,9 +3,10 @@ import { Image } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
 import { Box, Pressable, Text } from "native-base"
 import React, { useMemo } from "react"
-import { useImdbItemDetailsQuery } from "../../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
+import { useSyncroItemDetailsQuery } from "../../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useUserItemsQuery } from "../../../../hooks/react-query/user/useUserItemsQuery"
-import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
+import { syncroItemMapping } from "../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
+import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { getRandomIntInclusive } from "../../../../utils/math/getRandomIntInclusive"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
 
@@ -53,14 +54,13 @@ const ProfileScreenRatingItem = (props: Props) => {
     ].id
   }, [highestItemRating, userItems])
 
-  const { data: randomHighestItem } = useImdbItemDetailsQuery(
+  const { data: randomHighestItem } = useSyncroItemDetailsQuery(
     randomHighestItemId
   )
 
-  const label = useMemo(
-    () => (props.itemType === "movie" ? "Movies" : "TV Series"),
-    [props.itemType]
-  )
+  const label = useMemo(() => syncroItemMapping[props.itemType].labelPlural, [
+    props.itemType,
+  ])
 
   if (userItems?.length === 0) return null
 

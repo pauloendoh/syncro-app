@@ -5,7 +5,7 @@ import { useCustomPositionsQuery } from "../../../../../hooks/react-query/custom
 import { useUserItemsQuery } from "../../../../../hooks/react-query/user/useUserItemsQuery"
 import useAuthStore from "../../../../../hooks/zustand/useAuthStore"
 import { buildCustomPositionDto } from "../../../../../types/domain/custom-position/CustomPositionDto"
-import { SyncroItemType } from "../../../../../types/domain/SyncroItemType"
+import { SyncroItemType } from "../../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 
 interface Props {
   itemType: SyncroItemType

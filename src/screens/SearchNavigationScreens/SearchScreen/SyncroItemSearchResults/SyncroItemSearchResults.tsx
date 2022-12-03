@@ -4,7 +4,7 @@ import React, { useMemo } from "react"
 import { useOverallSearchQuery } from "../../../../hooks/react-query/search/useOverallSearchQuery"
 import { IImdbResultItem } from "../../../../types/domain/movie/MovieResultResponseDto"
 import { SyncroItemDto } from "../../../../types/domain/syncro-item/SyncroItemDto"
-import { SyncroItemType } from "../../../../types/domain/SyncroItemType"
+import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import ImdbSearchItem from "./ImdbSearchItem/ImdbSearchItem"
 import SyncroSearchItem from "./SyncroSearchItem/SyncroSearchItem"
 

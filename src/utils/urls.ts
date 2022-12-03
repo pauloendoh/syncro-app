@@ -1,7 +1,7 @@
 import queryString from "query-string"
 import envVars from "../../envVars"
 import { SearchParams } from "../types/domain/search/SearchParams"
-import { SyncroItemType } from "../types/domain/SyncroItemType"
+import { SyncroItemType } from "../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 
 const { API_URL } = envVars
 export const urls = {

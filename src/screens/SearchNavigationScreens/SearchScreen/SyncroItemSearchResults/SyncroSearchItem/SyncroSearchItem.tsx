@@ -4,6 +4,7 @@ import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/u
 import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
 import { SyncroItemDto } from "../../../../../types/domain/syncro-item/SyncroItemDto"
 import { getImageUrlOrDefaultUrl } from "../../../../../utils/getImageUrlOrDefaultUrl"
+import SearchItemImdbSection from "../ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "../ImdbSearchItem/SearchItemYourSection/SearchItemYourSection"
 
 interface Props {
@@ -48,14 +49,15 @@ const SyncroSearchItem = ({ syncroItem, onClick }: Props) => {
 
           <HStack mt={2}>
             <VStack style={{ width: 120 }}>
-              {/* {syncroItem.ratingCount ? (
+              {syncroItem.ratingCount ? (
                 <SearchItemImdbSection
-                  avgRating={syncroItem.ratingCount}
+                  avgRating={syncroItem.avgRating}
                   ratingCount={syncroItem.ratingCount}
+                  title={syncroItem.type === "game" ? "IGDB" : "IMDB"}
                 />
-              ) : ( */}
-              <Text>See details</Text>
-              {/* )} */}
+              ) : (
+                <Text>See details</Text>
+              )}
             </VStack>
             <VStack style={{ width: 120 }}>
               {Boolean(myRatingValue || myInterestLevel) && (

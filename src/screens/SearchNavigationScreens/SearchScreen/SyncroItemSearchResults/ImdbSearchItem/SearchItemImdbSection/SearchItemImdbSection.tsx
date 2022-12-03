@@ -8,12 +8,13 @@ import VStackHCenter from "../../../../../_common/flexboxes/VStackHCenter"
 interface Props {
   avgRating: number
   ratingCount: number
+  title?: string
 }
 
 const SearchItemImdbSection = (props: Props) => {
   return (
     <>
-      <Text fontWeight="semibold">IMDB</Text>
+      <Text fontWeight="semibold">{props.title || "IMDB"}</Text>
 
       <HStackVCenter space={1}>
         <VStackHCenter style={{ width: 24 }}>

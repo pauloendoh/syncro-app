@@ -2,7 +2,7 @@ import { AirbnbRating } from "react-native-ratings"
 
 import { Button, HStack, Modal, Text, useTheme } from "native-base"
 import React, { useEffect, useState } from "react"
-import { useImdbItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
+import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import useSaveInterestMutation from "../../../hooks/react-query/interest/useSaveInterestMutation"
 import useInterestModalStore from "../../../hooks/zustand/modals/useInterestModalStore"
 import { InterestDto } from "../../../types/domain/interest/InterestDto"
@@ -23,7 +23,9 @@ const InterestModal = () => {
 
   const theme = useTheme()
 
-  const { data: imdbItem } = useImdbItemDetailsQuery(initialValue?.syncroItemId)
+  const { data: imdbItem } = useSyncroItemDetailsQuery(
+    initialValue?.syncroItemId
+  )
 
   const [localInterest, setLocalInterest] = useState<number | null>(null)
   useEffect(() => {
