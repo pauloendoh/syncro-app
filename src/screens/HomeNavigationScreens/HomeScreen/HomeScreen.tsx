@@ -52,8 +52,8 @@ const HomeScreen = ({
                   rating={props.item}
                   key={props.item.id}
                   onPress={() =>
-                    navigation.push("ImdbItem", {
-                      imdbId: props.item.syncroItemId!,
+                    navigation.push("SyncroItem", {
+                      itemId: props.item.syncroItemId!,
                     })
                   }
                   onPressUser={() =>

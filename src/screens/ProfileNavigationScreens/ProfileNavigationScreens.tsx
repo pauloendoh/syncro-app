@@ -5,7 +5,7 @@ import React from "react"
 import useAuthStore from "../../hooks/zustand/useAuthStore"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import { ProfileScreenTypes } from "../../types/ProfileScreenTypes"
-import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
+import SyncroItemScreen from "../SearchNavigationScreens/SyncroItemScreen/SyncroItemScreen"
 import EditProfileScreen from "./EditProfileScreen/EditProfileScreen"
 import FollowersScreen from "./FollowersScreen/FollowersScreen"
 import ProfileScreen from "./ProfileScreen/ProfileScreen"
@@ -39,7 +39,7 @@ const ProfileNavigationScreens = ({
         initialParams={{ userId: authUser!.id }}
       />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
-      <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
+      <Stack.Screen name="SyncroItem" component={SyncroItemScreen} />
       <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>

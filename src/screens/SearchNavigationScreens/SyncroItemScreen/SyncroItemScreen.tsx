@@ -14,19 +14,19 @@ import ImdbItemMenu from "./ImdbItemMenu/ImdbItemMenu"
 import RatingRow from "./RatingRow/RatingRow"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
-  BottomTabScreenProps<SearchScreenTypes, "ImdbItem">,
+  BottomTabScreenProps<SearchScreenTypes, "SyncroItem">,
   CompositeScreenProps<
-    BottomTabScreenProps<ProfileScreenTypes, "ImdbItem">,
-    BottomTabScreenProps<HomeScreenTypes, "ImdbItem">
+    BottomTabScreenProps<ProfileScreenTypes, "SyncroItem">,
+    BottomTabScreenProps<HomeScreenTypes, "SyncroItem">
   >
 >
 
-const ImdbItemScreen = ({
+const SyncroItemScreen = ({
   navigation,
   route,
-}: BottomTabScreenProps<SearchScreenTypes, "ImdbItem">) => {
+}: BottomTabScreenProps<SearchScreenTypes, "SyncroItem">) => {
   const { data, isLoading, refetch } = useImdbItemDetailsQuery(
-    route.params.imdbId
+    route.params.itemId
   )
 
   const { lightBackground } = useMyColors()
@@ -34,7 +34,7 @@ const ImdbItemScreen = ({
   useEffect(() => {
     navigation.setOptions({
       headerTitle: data?.title || "Loading...",
-      headerRight: () => <ImdbItemMenu imdbItemId={route.params.imdbId} />,
+      headerRight: () => <ImdbItemMenu imdbItemId={route.params.itemId} />,
     })
   }, [data])
 
@@ -85,4 +85,4 @@ const ImdbItemScreen = ({
   )
 }
 
-export default ImdbItemScreen
+export default SyncroItemScreen

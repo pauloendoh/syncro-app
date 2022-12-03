@@ -33,7 +33,7 @@ const ItemRecommendationNotificationItem = ({
   // copy of UserSearchItem
   return (
     <Pressable
-      onPress={() => push("ImdbItem", { imdbId: itemRecommendation.item.id })}
+      onPress={() => push("SyncroItem", { itemId: itemRecommendation.item.id })}
     >
       <HStack justifyContent="space-between" p={4}>
         <HStack>

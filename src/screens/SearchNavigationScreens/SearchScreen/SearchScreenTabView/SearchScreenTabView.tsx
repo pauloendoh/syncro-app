@@ -7,6 +7,7 @@ const renderScene = SceneMap({
   first: () => null,
   second: () => null,
   third: () => null,
+  forth: () => null,
 })
 
 interface Props {
@@ -20,7 +21,8 @@ export default function SearchScreenTabView(props: Props) {
   const [routes] = useState([
     { key: "first", title: "TV series" },
     { key: "second", title: "Movies" },
-    { key: "third", title: "Users" },
+    { key: "third", title: "Games" },
+    { key: "forth", title: "Users" },
   ])
 
   const theme = useTheme()
@@ -29,6 +31,7 @@ export default function SearchScreenTabView(props: Props) {
     <TabView
       renderTabBar={(p) => (
         <TabBar
+          scrollEnabled
           {...p}
           style={{ backgroundColor: "#00000000" }}
           pressColor="#00000000"

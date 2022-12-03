@@ -87,7 +87,7 @@ const MyNextItemsScreen = ({
         <UserItemsList
           isLoading={isLoading}
           itemType={selectedItemType}
-          onPressItem={(id) => navigation.push("ImdbItem", { imdbId: id })}
+          onPressItem={(id) => navigation.push("SyncroItem", { itemId: id })}
           sortedItems={sortedItems}
           sortingBy={"customOrdering"}
           thisIsYourList={true}

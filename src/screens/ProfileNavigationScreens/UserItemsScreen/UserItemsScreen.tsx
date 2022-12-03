@@ -80,7 +80,7 @@ const UserItemsScreen = ({
         <UserItemsList
           isLoading={isLoading}
           itemType={itemType}
-          onPressItem={(id) => navigation.push("ImdbItem", { imdbId: id })}
+          onPressItem={(id) => navigation.push("SyncroItem", { itemId: id })}
           sortedItems={sortedItems}
           sortingBy={sortingBy}
           thisIsYourList={thisIsYourList}

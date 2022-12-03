@@ -1,7 +1,7 @@
 import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
 import React from "react"
-import { IImdbResultItem } from "../../../../types/domain/movie/MovieResultResponseDto"
-import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
+import { IImdbResultItem } from "../../../../../types/domain/movie/MovieResultResponseDto"
+import { getImageUrlOrDefaultUrl } from "../../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "./SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "./SearchItemYourSection/SearchItemYourSection"
 
@@ -10,7 +10,7 @@ interface Props {
   onClick: () => void
 }
 
-const SearchItem = ({ resultItem, onClick }: Props) => {
+const ImdbSearchItem = ({ resultItem, onClick }: Props) => {
   const theme = useTheme()
   return (
     <Pressable onPress={onClick}>
@@ -57,4 +57,4 @@ const SearchItem = ({ resultItem, onClick }: Props) => {
   )
 }
 
-export default SearchItem
+export default ImdbSearchItem

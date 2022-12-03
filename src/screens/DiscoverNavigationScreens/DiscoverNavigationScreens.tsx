@@ -7,7 +7,7 @@ import { NavigationParamType } from "../../types/NavigationParamType"
 import FollowersScreen from "../ProfileNavigationScreens/FollowersScreen/FollowersScreen"
 import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
 import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserItemsScreen"
-import ImdbItemScreen from "../SearchNavigationScreens/ImdbItemScreen/ImdbItemScreen"
+import SyncroItemScreen from "../SearchNavigationScreens/SyncroItemScreen/SyncroItemScreen"
 import DiscoverScreen from "./DiscoverScreen/DiscoverScreen"
 
 const Stack = createNativeStackNavigator<DiscoverScreenTypes>()
@@ -33,7 +33,7 @@ const DiscoverNavigationScreens = ({
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
       <Stack.Screen name="FollowersScreen" component={FollowersScreen} />
-      <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
+      <Stack.Screen name="SyncroItem" component={SyncroItemScreen} />
     </Stack.Navigator>
   )
 }

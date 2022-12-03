@@ -9,10 +9,12 @@ import { urls } from "../../../utils/urls"
 
 export const useImdbItemDetailsQuery = (id?: string | null) => {
   return useQuery<SyncroItemDto, Error>(
-    [urls.api.imdbItemDetails(id)],
+    [urls.api.syncroItemDetails(id)],
     async () => {
       if (id)
-        return myAxios.get(urls.api.imdbItemDetails(id)).then((res) => res.data)
+        return myAxios
+          .get(urls.api.syncroItemDetails(id))
+          .then((res) => res.data)
 
       return buildSyncroItemDto()
     }

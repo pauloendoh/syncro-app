@@ -9,7 +9,7 @@ export type ProfileScreenTypes = {
     userId: string
     itemType: SyncroItemType
   }
-  ImdbItem: {
-    imdbId: string
+  SyncroItem: {
+    itemId: string
   }
 }

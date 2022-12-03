@@ -1,9 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { Text, theme } from "native-base"
 import React from "react"
-import { shortNumberFormatter } from "../../../../../utils/math/shortNumberFormatter"
-import HStackVCenter from "../../../../_common/flexboxes/HStackVCenter"
-import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
+import { shortNumberFormatter } from "../../../../../../utils/math/shortNumberFormatter"
+import HStackVCenter from "../../../../../_common/flexboxes/HStackVCenter"
+import VStackHCenter from "../../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
   avgRating: number

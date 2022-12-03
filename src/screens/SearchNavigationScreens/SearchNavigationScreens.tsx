@@ -7,9 +7,9 @@ import { SearchScreenTypes } from "../../types/SearchScreenTypes"
 import FollowersScreen from "../ProfileNavigationScreens/FollowersScreen/FollowersScreen"
 import ProfileScreen from "../ProfileNavigationScreens/ProfileScreen/ProfileScreen"
 import UserItemsScreen from "../ProfileNavigationScreens/UserItemsScreen/UserItemsScreen"
-import ImdbItemScreen from "./ImdbItemScreen/ImdbItemScreen"
 import SearchHeaderTitle from "./SearchScreen/SearchHeaderTitle/SearchHeaderTitle"
 import SearchScreen from "./SearchScreen/SearchScreen"
+import SyncroItemScreen from "./SyncroItemScreen/SyncroItemScreen"
 
 const Stack = createNativeStackNavigator<SearchScreenTypes>()
 
@@ -37,7 +37,7 @@ const SearchNavigationScreens = ({
           headerTitle: (props) => <SearchHeaderTitle {...props} />,
         }}
       />
-      <Stack.Screen name="ImdbItem" component={ImdbItemScreen} />
+      <Stack.Screen name="SyncroItem" component={SyncroItemScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
       <Stack.Screen name="FollowersScreen" component={FollowersScreen} />

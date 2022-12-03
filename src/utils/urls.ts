@@ -16,7 +16,8 @@ export const urls = {
     search: (params: SearchParams) =>
       API_URL + "/search?" + queryString.stringify(params),
 
-    imdbItemDetails: (id?: string | null) => API_URL + `/imdb-item?id=${id}`,
+    syncroItemDetails: (id?: string | null) =>
+      API_URL + `/syncro-item?id=${id}`,
     myRatings: API_URL + `/me/ratings`,
     myInterests: API_URL + `/me/interests`,
 

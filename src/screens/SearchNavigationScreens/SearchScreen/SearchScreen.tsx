@@ -5,8 +5,8 @@ import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
-import ImdbSearchResults from "./ImdbSearchResults/ImdbSearchResults"
 import SearchScreenTabView from "./SearchScreenTabView/SearchScreenTabView"
+import SyncroItemSearchResults from "./SyncroItemSearchResults/SyncroItemSearchResults"
 import UserSearchResults from "./UserSearchResults/UserSearchResults"
 
 const SearchScreen = ({
@@ -34,26 +34,36 @@ const SearchScreen = ({
           {queryIsValid && (
             <VStack space={4}>
               {tabIndex === 0 && (
-                <ImdbSearchResults
+                <SyncroItemSearchResults
                   query={query}
-                  onClickImdbItemId={(imdbId) =>
-                    navigation.push("ImdbItem", { imdbId })
+                  onClickItemId={(imdbId) =>
+                    navigation.push("SyncroItem", { itemId: imdbId })
                   }
                   itemType="tv series"
                 />
               )}
 
               {tabIndex === 1 && (
-                <ImdbSearchResults
+                <SyncroItemSearchResults
                   query={query}
-                  onClickImdbItemId={(imdbId) =>
-                    navigation.push("ImdbItem", { imdbId })
+                  onClickItemId={(imdbId) =>
+                    navigation.push("SyncroItem", { itemId: imdbId })
                   }
                   itemType="movie"
                 />
               )}
 
               {tabIndex === 2 && (
+                <SyncroItemSearchResults
+                  query={query}
+                  onClickItemId={(imdbId) =>
+                    navigation.push("SyncroItem", { itemId: imdbId })
+                  }
+                  itemType="game"
+                />
+              )}
+
+              {tabIndex === 3 && (
                 <UserSearchResults
                   query={query}
                   onClickUser={(user) =>
