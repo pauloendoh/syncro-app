@@ -11,6 +11,7 @@ import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/Pro
 import SearchNavigationScreens from "../../screens/SearchNavigationScreens/SearchNavigationScreens"
 import { NavigationParamType } from "../../types/NavigationParamType"
 import GlobalActionSheets from "../action-sheets/GlobalActionSheets"
+import GlobalModals from "../modals/GlobalModals"
 import InterestModal from "../modals/InterestModal/InterestModal"
 import RatingModal from "../modals/RatingModal/RatingModal"
 import PushNotificationHandler from "./PushNotificationHandler"
@@ -32,6 +33,7 @@ const MyNavigationContainer = (props: Props) => {
       <InterestModal />
 
       <GlobalActionSheets />
+      <GlobalModals />
 
       <NavigationContainer
         onReady={() => {

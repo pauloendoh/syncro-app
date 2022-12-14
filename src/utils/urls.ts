@@ -22,6 +22,8 @@ export const urls = {
     myInterests: API_URL + `/me/interests`,
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
+    importRatings: API_URL + `/import-ratings`,
+
     userInterests: (userId: string) => API_URL + `/user/${userId}/interests`,
     itemsRatedByUserId: (userId: string) =>
       API_URL + `/user/${userId}/imdb-items`,

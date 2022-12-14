@@ -31,6 +31,8 @@ const SearchScreen = ({
             changeTabIndex={setTabIndex}
           />
 
+          {/* {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />} */}
+
           {queryIsValid && (
             <VStack space={4}>
               {tabIndex === 0 && (
