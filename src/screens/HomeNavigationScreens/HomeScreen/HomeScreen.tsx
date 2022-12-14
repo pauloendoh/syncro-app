@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FlatList, View, VStack } from "native-base"
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { RefreshControl } from "react-native"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
@@ -25,6 +25,8 @@ const HomeScreen = ({
     homeRatings,
   ])
 
+  const [refreshedAt, setRefreshedAt] = useState(new Date().toISOString())
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <VStack
@@ -41,10 +43,16 @@ const HomeScreen = ({
             <FlatList
               refreshing={!isReady}
               refreshControl={
-                <RefreshControl refreshing={!isReady} onRefresh={refetch} />
+                <RefreshControl
+                  refreshing={!isReady}
+                  onRefresh={() => {
+                    refetch()
+                    setRefreshedAt(new Date().toISOString())
+                  }}
+                />
               }
               data={homeRatings}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => refreshedAt + item.id}
               ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
               renderItem={(props) => (
                 <HomeRatingItem
