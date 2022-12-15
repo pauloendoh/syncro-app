@@ -45,7 +45,7 @@ jobs:
         run: npm run update:prod --auto
 
       - name: Build on EAS (apk)
-        run: eas build -p android --profile preview
+        run: eas build -p android --profile preview --non-interactive
       - name: Build on EAS (production)
-        run: eas build -p android --profile production --auto-submit
+        run: eas build -p android --profile production --auto-submit --non-interactive
         continue-on-error: true
