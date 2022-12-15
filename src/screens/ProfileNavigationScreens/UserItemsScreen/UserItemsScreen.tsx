@@ -57,9 +57,7 @@ const UserItemsScreen = ({
     route.params.userId,
   ])
 
-  const [sortingBy, setSortingBy] = useState<SortingByTypes>(
-    thisIsYourList ? "theirInterestDesc" : "theirRatingDesc"
-  )
+  const [sortingBy, setSortingBy] = useState<SortingByTypes>("theirRatingDesc")
 
   const sortedItems = useSortedItems({ items, sortingBy, customPositions })
 
