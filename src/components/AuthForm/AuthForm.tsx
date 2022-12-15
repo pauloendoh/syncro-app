@@ -27,7 +27,7 @@ const AuthForm = (props: Props) => {
     // PE 2/3
     axios.get<AuthUserGetDto>(urls.api.tempUser).then((res) => {
       setAuthUser(res.data)
-      showSuccessToast("Logged with temp user!")
+      showSuccessToast("Entered with temp user!")
     })
   }
 
