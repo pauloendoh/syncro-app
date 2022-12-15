@@ -9,7 +9,7 @@ import { urls } from "../../../utils/urls"
 
 const useSaveRatingMutation = () => {
   const queryClient = useQueryClient()
-  const { showSuccessToast } = useMyToast()
+  const { showSuccessToast, showErrorToast } = useMyToast()
   // const { setSuccessMessage, setErrorMessage } = useSnackbarStore()
 
   return useMutation(
@@ -26,6 +26,7 @@ const useSaveRatingMutation = () => {
               (curr) => removeFromArray(curr, (i) => i.id === payload.id)
             )
           }
+
           showSuccessToast("Rating removed!")
 
           return

@@ -33,6 +33,7 @@ export default function SearchScreenTabView(props: Props) {
         <TabBar
           scrollEnabled
           {...p}
+          tabStyle={{ width: 100 }}
           style={{ backgroundColor: "#00000000" }}
           pressColor="#00000000"
           indicatorStyle={{

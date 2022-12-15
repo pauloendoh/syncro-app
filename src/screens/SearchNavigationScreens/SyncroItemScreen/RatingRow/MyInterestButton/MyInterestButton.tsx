@@ -51,14 +51,20 @@ const MyInterestButton = (props: Props) => {
         />
 
         <Text
-          textAlign={"center"}
           color={
             currentInterestLevel > 0 ? theme.colors.secondary[500] : undefined
           }
         >
-          {currentInterestLevel > 0
-            ? `${currentInterestLevel}/3`
-            : "Add to interest list"}
+          {currentInterestLevel > 0 ? (
+            <>
+              <Text fontWeight="500" fontSize="md">
+                {currentInterestLevel}
+              </Text>
+              /3
+            </>
+          ) : (
+            "Add to interest list"
+          )}
         </Text>
 
         {currentInterestLevel > 0 && (

@@ -40,39 +40,34 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
     <Actionsheet.Item
       key={mutual.user.id}
       disabled={isDisabled}
-      pr={6}
       width="100%"
+      p={0}
       _pressed={{
         background: "unset",
       }}
     >
-      <HStack justifyContent="space-between" width="100%">
-        <HStackVCenter width="160px">
+      <HStack justifyContent="space-between" flex={1}>
+        <HStackVCenter width="200px">
           <UserProfilePicture userId={mutual.user.id} widthHeigth={36} />
 
           <VStack ml={4}>
-            <Text>{mutual.user.username}</Text>
+            <Text noOfLines={1} width="120px">
+              {mutual.user.username}
+            </Text>
             {/* <Text></Text> */}
           </VStack>
         </HStackVCenter>
         <HStack width={140}>
           <Button
             width="100%"
-            disabled={mutual.isSaved}
+            disabled={isDisabled}
             isLoading={isLoading}
             colorScheme={isDisabled ? "gray" : "primary"}
             onPress={() => {
-              submitRecommendItem(
-                {
-                  userId: mutual.user.id,
-                  itemId: itemId!,
-                },
-                {
-                  onSuccess: () => {
-                    closeActionSheet()
-                  },
-                }
-              )
+              submitRecommendItem({
+                userId: mutual.user.id,
+                itemId: itemId!,
+              })
             }}
           >
             {buttonLabel}

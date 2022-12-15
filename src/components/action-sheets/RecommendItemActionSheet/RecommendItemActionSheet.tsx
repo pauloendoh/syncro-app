@@ -1,4 +1,4 @@
-import { Actionsheet } from "native-base"
+import { Actionsheet, FlatList, View } from "native-base"
 import React from "react"
 import { useMutualsSavedItemQuery } from "../../../hooks/react-query/user/useMutualsSavedItemQuery"
 import useRecommendItemActionSheetStore from "../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
@@ -17,13 +17,17 @@ const RecommendItemActionSheet = (props: Props) => {
   return (
     <Actionsheet isOpen={isOpen} onClose={closeActionSheet}>
       <Actionsheet.Content>
-        {mutuals?.map((mutual) => (
-          <RecommendMutualItem
-            key={mutual.user.id}
-            mutual={mutual}
-            itemId={itemId!}
-          />
-        ))}
+        <FlatList
+          data={mutuals}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+          renderItem={(props) => (
+            <RecommendMutualItem
+              {...props}
+              mutual={props.item}
+              itemId={itemId!}
+            />
+          )}
+        />
       </Actionsheet.Content>
     </Actionsheet>
   )

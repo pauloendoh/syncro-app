@@ -33,11 +33,14 @@ const ProfileNavigationScreens = ({
         headerTintColor: theme.colors.light[100],
       }}
     >
-      <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        initialParams={{ userId: authUser!.id }}
-      />
+      {authUser && (
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          initialParams={{ userId: authUser.id }}
+        />
+      )}
+
       <Stack.Screen name="UserItems" component={UserItemsScreen} />
       <Stack.Screen name="SyncroItem" component={SyncroItemScreen} />
       <Stack.Screen name="FollowersScreen" component={FollowersScreen} />

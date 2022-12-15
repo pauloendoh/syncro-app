@@ -43,9 +43,16 @@ const MyRatingButton = (props: Props) => {
         />
 
         <Text color={savedRating && theme.colors.secondary[500]}>
-          {savedRating?.ratingValue
-            ? `${savedRating.ratingValue}/10`
-            : "Rate this"}
+          {savedRating?.ratingValue ? (
+            <>
+              <Text fontWeight="500" fontSize="md">
+                {savedRating.ratingValue}
+              </Text>
+              /10
+            </>
+          ) : (
+            "Rate this"
+          )}
         </Text>
 
         <Text color={savedRating && theme.colors.secondary[500]}>

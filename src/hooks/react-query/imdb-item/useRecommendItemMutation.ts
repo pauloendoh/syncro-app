@@ -27,6 +27,7 @@ const useRecommendItemMutation = () => {
             )
           }
         )
+
         showSuccessToast("Recommended!")
       },
     }

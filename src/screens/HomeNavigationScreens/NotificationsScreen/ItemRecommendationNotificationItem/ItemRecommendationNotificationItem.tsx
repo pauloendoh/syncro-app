@@ -33,19 +33,19 @@ const ItemRecommendationNotificationItem = ({
   // copy of UserSearchItem
   return (
     <Pressable
-      onPress={() => push("SyncroItem", { itemId: itemRecommendation.item.id })}
+      onPress={() => push("SyncroItem", { itemId: itemRecommendation.itemId })}
     >
       <HStack justifyContent="space-between" p={4}>
-        <HStack>
+        <HStack flexShrink={1}>
           <UserProfilePicture
-            userId={itemRecommendation.fromUser.id}
+            userId={itemRecommendation.fromUserId}
             widthHeigth={36}
           />
 
-          <VStack ml={4}>
+          <VStack ml={4} pr={10}>
             <Text maxWidth={200}>
               <Text fontWeight={"semibold"}>
-                {itemRecommendation.fromUser.username}
+                {itemRecommendation.fromUser?.username}
               </Text>{" "}
               recommended you:
               {props.showDot && (
@@ -63,19 +63,19 @@ const ItemRecommendationNotificationItem = ({
               )}
             </Text>
             <Text style={{ fontWeight: "500" }} noOfLines={1}>
-              {itemRecommendation.item.title}{" "}
-              {itemRecommendation.item.year &&
-                `(${itemRecommendation.item.year})`}
+              {itemRecommendation.item?.title}{" "}
+              {itemRecommendation.item?.year &&
+                `(${itemRecommendation.item?.year})`}
             </Text>
 
             <Text fontSize="sm">{format(itemRecommendation.createdAt)}</Text>
           </VStack>
         </HStack>
         <Image
-          src={getImageUrlOrDefaultUrl(itemRecommendation.item.imageUrl)}
+          src={getImageUrlOrDefaultUrl(itemRecommendation.item?.imageUrl)}
           width="100px"
           height="100px"
-          alt={itemRecommendation.item.title}
+          alt={itemRecommendation.item?.title}
         />
       </HStack>
     </Pressable>

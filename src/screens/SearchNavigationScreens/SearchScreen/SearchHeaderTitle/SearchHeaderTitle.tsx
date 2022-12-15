@@ -21,6 +21,7 @@ const SearchHeaderTitle = (props: Props) => {
         value={searchText}
         onChangeText={setSearchText}
         returnKeyType="search"
+        selectTextOnFocus
         onSubmitEditing={(e) => {
           onSubmit(searchText)
         }}

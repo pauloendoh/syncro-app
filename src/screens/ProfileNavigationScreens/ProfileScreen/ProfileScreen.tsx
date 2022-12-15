@@ -1,6 +1,6 @@
 import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Box, Button, HStack, Text, useTheme, VStack } from "native-base"
+import { Box, Button, HStack, Text, VStack } from "native-base"
 import React, { useEffect, useMemo } from "react"
 import { Pressable } from "react-native"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
@@ -32,12 +32,14 @@ export type ProfileScreenNavigationProp = CompositeScreenProps<
 >
 
 const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
-  const theme = useTheme()
-
-  const { data: followersFollows } = useFollowersQuery(route.params.userId)
-  const { data: followingUsersFollows } = useFollowingUsersQuery(
-    route.params.userId
-  )
+  const {
+    data: followersFollows,
+    refetch: refetchFollowers,
+  } = useFollowersQuery(route.params.userId)
+  const {
+    data: followingUsersFollows,
+    refetch: refetchFollowing,
+  } = useFollowingUsersQuery(route.params.userId)
 
   const {
     data: userInfo,
@@ -58,6 +60,8 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
   useFocusEffect(() => {
     refetchUserInfo()
+    refetchFollowing()
+    refetchFollowers()
   })
 
   useEffect(() => {
