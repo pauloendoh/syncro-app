@@ -2,7 +2,12 @@ import { SyncroItemDto } from "../../../../types/domain/syncro-item/SyncroItemDt
 import { UserSimpleDto } from "../../../../types/domain/user/UserSimpleDto"
 
 export interface ItemRecommendationDto {
-  item: SyncroItemDto
-  user: UserSimpleDto
+  id: string
+  item?: SyncroItemDto
+  itemId: string
+  fromUser?: UserSimpleDto
+  fromUserId: string
+  toUser?: UserSimpleDto
+  toUserId: string
   createdAt: string
 }

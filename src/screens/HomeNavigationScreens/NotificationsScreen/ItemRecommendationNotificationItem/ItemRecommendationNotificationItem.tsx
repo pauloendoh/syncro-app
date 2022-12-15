@@ -38,14 +38,14 @@ const ItemRecommendationNotificationItem = ({
       <HStack justifyContent="space-between" p={4}>
         <HStack>
           <UserProfilePicture
-            userId={itemRecommendation.user.id}
+            userId={itemRecommendation.fromUser.id}
             widthHeigth={36}
           />
 
           <VStack ml={4}>
             <Text maxWidth={200}>
               <Text fontWeight={"semibold"}>
-                {itemRecommendation.user.username}
+                {itemRecommendation.fromUser.username}
               </Text>{" "}
               recommended you:
               {props.showDot && (

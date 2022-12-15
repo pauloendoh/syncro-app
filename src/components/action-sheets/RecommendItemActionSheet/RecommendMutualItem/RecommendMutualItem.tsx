@@ -1,6 +1,7 @@
 import { Actionsheet, Button, HStack, Text, VStack } from "native-base"
-import React from "react"
+import React, { useMemo } from "react"
 import useRecommendItemMutation from "../../../../hooks/react-query/imdb-item/useRecommendItemMutation"
+import { useItemsRecommendationsFromMeQuery } from "../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery"
 import { MutualSavedItemDto } from "../../../../hooks/react-query/user/useMutualsSavedItemQuery"
 import useRecommendItemActionSheetStore from "../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
 import HStackVCenter from "../../../../screens/_common/flexboxes/HStackVCenter"
@@ -14,7 +15,26 @@ interface Props {
 const RecommendMutualItem = ({ mutual, itemId }: Props) => {
   const { mutate: submitRecommendItem, isLoading } = useRecommendItemMutation()
 
+  const { data: itemsRecommended } = useItemsRecommendationsFromMeQuery()
   const { closeActionSheet } = useRecommendItemActionSheetStore()
+
+  const isAlreadyRecommended = useMemo(() => {
+    if (!itemsRecommended) return false
+    return !!itemsRecommended.find(
+      (r) => r.toUserId === mutual.user.id && r.itemId === itemId
+    )
+  }, [itemsRecommended])
+
+  const buttonColor = useMemo(() => {
+    if (isAlreadyRecommended || mutual.isSaved) return "gray"
+    return "primary"
+  }, [isAlreadyRecommended, mutual.isSaved])
+
+  const buttonLabel = useMemo(() => {
+    if (isAlreadyRecommended) return "Recommended"
+    if (mutual.isSaved) return "Already saved."
+    return "Recommend"
+  }, [isAlreadyRecommended, mutual.isSaved])
 
   return (
     <Actionsheet.Item
@@ -40,7 +60,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
             width="100%"
             disabled={mutual.isSaved}
             isLoading={isLoading}
-            colorScheme={mutual.isSaved ? "gray" : "primary"}
+            colorScheme={buttonColor}
             onPress={() => {
               submitRecommendItem(
                 {
@@ -55,7 +75,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
               )
             }}
           >
-            {mutual.isSaved ? "Already saved" : "Recommend"}
+            {buttonLabel}
           </Button>
 
           {/* {!itsAuthUser && <FollowUnfollowButton profileUserId={user.id} />} */}

@@ -66,6 +66,7 @@ const LoginForm = (props: Props) => {
               value={value}
               autoCapitalize="none"
               autoComplete="username"
+              textContentType="username"
             />
           )}
           name="identificator"
@@ -83,6 +84,7 @@ const LoginForm = (props: Props) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
               onBlur={onBlur}
+              textContentType="password"
               type="password"
               onChangeText={(val) => onChange(val)}
               value={value}

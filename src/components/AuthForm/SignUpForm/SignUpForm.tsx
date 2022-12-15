@@ -66,6 +66,7 @@ const SignUpForm = (props: Props) => {
               onChangeText={(val) => onChange(val)}
               value={value}
               autoCapitalize="none"
+              textContentType="username"
             />
           )}
           name="username"
@@ -87,6 +88,7 @@ const SignUpForm = (props: Props) => {
               value={value}
               autoCapitalize="none"
               autoComplete="email"
+              textContentType="emailAddress"
             />
           )}
           name="email"
@@ -105,6 +107,7 @@ const SignUpForm = (props: Props) => {
             <Input
               onBlur={onBlur}
               type="password"
+              textContentType="password"
               onChangeText={(val) => onChange(val)}
               value={value}
             />

@@ -1,20 +1,32 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useMyToast } from "../../../components/toasts/useMyToast"
 import { useAxios } from "../../../hooks/useAxios"
+import upsert from "../../../utils/array/upsert"
 import { urls } from "../../../utils/urls"
-import { NotificationDto } from "../notification/types/NotificationDto"
+import { ItemRecommendationDto } from "../notification/types/ItemRecommendationDto"
 
 const useRecommendItemMutation = () => {
   const { showSuccessToast } = useMyToast()
 
   const axios = useAxios()
+  const qc = useQueryClient()
   return useMutation(
     ({ userId, itemId }: { userId: string; itemId: string }) =>
       axios
-        .post<NotificationDto>(urls.api.recommendItem(itemId, userId))
+        .post<ItemRecommendationDto>(urls.api.recommendItem(itemId, userId))
         .then((res) => res.data),
     {
-      onSuccess: (data, payload) => {
+      onSuccess: (returnedRecommendation, payload) => {
+        qc.setQueryData<ItemRecommendationDto[]>(
+          [urls.api.recommendationsFromMe],
+          (curr) => {
+            return upsert(
+              curr,
+              returnedRecommendation,
+              (r) => r.itemId === returnedRecommendation.id
+            )
+          }
+        )
         showSuccessToast("Recommended!")
       },
     }
