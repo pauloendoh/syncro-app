@@ -25,9 +25,9 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
     )
   }, [itemsRecommended])
 
-  const buttonColor = useMemo(() => {
-    if (isAlreadyRecommended || mutual.isSaved) return "gray"
-    return "primary"
+  const isDisabled = useMemo(() => {
+    if (isAlreadyRecommended || mutual.isSaved) return true
+    return false
   }, [isAlreadyRecommended, mutual.isSaved])
 
   const buttonLabel = useMemo(() => {
@@ -39,7 +39,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
   return (
     <Actionsheet.Item
       key={mutual.user.id}
-      disabled={mutual.isSaved}
+      disabled={isDisabled}
       pr={6}
       width="100%"
       _pressed={{
@@ -60,7 +60,7 @@ const RecommendMutualItem = ({ mutual, itemId }: Props) => {
             width="100%"
             disabled={mutual.isSaved}
             isLoading={isLoading}
-            colorScheme={buttonColor}
+            colorScheme={isDisabled ? "gray" : "primary"}
             onPress={() => {
               submitRecommendItem(
                 {
