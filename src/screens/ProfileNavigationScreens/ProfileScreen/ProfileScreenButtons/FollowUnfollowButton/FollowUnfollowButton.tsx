@@ -1,7 +1,7 @@
 import { Button } from "native-base"
 import React, { useMemo } from "react"
-import { useMyFollowingUsersQuery } from "../../../../hooks/react-query/follow/useMyFollowingUsersQuery"
-import useToggleFollowMutation from "../../../../hooks/react-query/follow/useToggleFollowMutation"
+import { useMyFollowingUsersQuery } from "../../../../../hooks/react-query/follow/useMyFollowingUsersQuery"
+import useToggleFollowMutation from "../../../../../hooks/react-query/follow/useToggleFollowMutation"
 
 interface Props {
   profileUserId: string
@@ -30,7 +30,7 @@ const FollowUnfollowButton = (props: Props) => {
   return (
     <Button
       isLoading={isLoading}
-      width="100%"
+      flex={1}
       colorScheme={alreadyFollowing ? "gray" : "secondary"}
       onPress={() => submitToggleFollow(props.profileUserId)}
     >

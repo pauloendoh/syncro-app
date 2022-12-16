@@ -4,7 +4,7 @@ import { Pressable } from "react-native"
 import UserProfilePicture from "../../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../../hooks/zustand/useAuthStore"
 import { UserSimpleDto } from "../../../../../types/domain/user/UserSimpleDto"
-import FollowUnfollowButton from "../../../../ProfileNavigationScreens/ProfileScreen/FollowUnfollowButton/FollowUnfollowButton"
+import FollowUnfollowButton from "../../../../ProfileNavigationScreens/ProfileScreen/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton"
 
 interface Props {
   user: UserSimpleDto

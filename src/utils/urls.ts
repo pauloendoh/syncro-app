@@ -25,8 +25,6 @@ export const urls = {
     importRatings: API_URL + `/import-ratings`,
 
     userInterests: (userId: string) => API_URL + `/user/${userId}/interests`,
-    itemsRatedByUserId: (userId: string) =>
-      API_URL + `/user/${userId}/imdb-items`,
 
     apiImages: (imageName: string) => API_URL + `/public/images/${imageName}`,
     homeRatings: API_URL + "/feed/home-ratings",
@@ -58,6 +56,9 @@ export const urls = {
     recommendItem: (itemId: string, userId: string) =>
       API_URL + `/recommend-item?itemId=${itemId}&userId=${userId}`,
     recommendationsFromMe: API_URL + `/item-recommendations-from-me`,
+    itemsToRecommendToUser: (userId: string, itemType: SyncroItemType) =>
+      API_URL +
+      `/items-to-recommend-to-user?userId=${userId}&itemType=${itemType}`,
 
     sendPasswordResetEmail: API_URL + `/auth/password-reset-email`,
     confirmPasswordResetCode: API_URL + `/auth/confirm-password-reset-code`,

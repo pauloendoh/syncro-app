@@ -7,7 +7,7 @@ import UserProfilePicture from "../../../../components/UserProfilePicture/UserPr
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { FollowDto } from "../../../../types/domain/follow/FollowDto"
 import { HomeScreenTypes } from "../../../../types/HomeScreenTypes"
-import FollowUnfollowButton from "../../../ProfileNavigationScreens/ProfileScreen/FollowUnfollowButton/FollowUnfollowButton"
+import FollowUnfollowButton from "../../../ProfileNavigationScreens/ProfileScreen/ProfileScreenButtons/FollowUnfollowButton/FollowUnfollowButton"
 interface Props {
   follow: FollowDto
   showDot: boolean
