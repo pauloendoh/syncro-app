@@ -36,70 +36,69 @@ const SyncroItemImage = (props: Props) => {
   const theme = useTheme()
 
   return (
-    <Box position="relative">
+    <Box>
       <Image
         src={getImageUrlOrDefaultUrl(props.syncroItem.imageUrl)}
         width={100}
         height={100}
         alt={props.syncroItem?.title}
       />
-      <Pressable
-        onPress={() =>
-          openRatingModal(
-            myRating || buildRatingDto({ syncroItemId: props.syncroItem.id })
-          )
-        }
-      >
-        <HStackVCenter
-          position="absolute"
-          bottom={0}
-          left={0}
-          backgroundColor="gray.800"
-          width="51px"
-          py={0.5}
-          justifyContent="center"
-          space={1}
-        >
-          <MaterialCommunityIcons
-            name={myRating ? "star" : "star-outline"}
-            color={
-              myRating ? theme.colors.secondary[500] : theme.colors.light[100]
-            }
-            size={14}
-          />
 
-          <Text>{myRating?.ratingValue}</Text>
-        </HStackVCenter>
-      </Pressable>
-      <Pressable
-        onPress={() =>
-          openInterestModal(
-            myInterest ||
-              buildInterestDto({ syncroItemId: props.syncroItem.id })
-          )
-        }
-      >
-        <HStackVCenter
-          position="absolute"
-          bottom={0}
-          right={0}
-          backgroundColor="gray.800"
-          width="50px"
-          py={0.5}
-          justifyContent="center"
-          space={1}
+      <HStackVCenter>
+        <Pressable
+          onPress={() =>
+            openRatingModal(
+              myRating || buildRatingDto({ syncroItemId: props.syncroItem.id })
+            )
+          }
         >
-          <FontAwesome5
-            name={myInterest ? "fire" : "fire"}
-            color={
-              myInterest ? theme.colors.secondary[500] : theme.colors.light[100]
-            }
-            size={13}
-          />
+          <HStackVCenter
+            backgroundColor="gray.800"
+            width="51px"
+            py={0.5}
+            justifyContent="center"
+            space={1}
+          >
+            <MaterialCommunityIcons
+              name={myRating ? "star" : "star-outline"}
+              color={
+                myRating ? theme.colors.secondary[500] : theme.colors.light[100]
+              }
+              size={14}
+            />
 
-          <Text>{myInterest?.interestLevel}</Text>
-        </HStackVCenter>
-      </Pressable>
+            <Text>{myRating?.ratingValue}</Text>
+          </HStackVCenter>
+        </Pressable>
+        <Pressable
+          onPress={() =>
+            openInterestModal(
+              myInterest ||
+                buildInterestDto({ syncroItemId: props.syncroItem.id })
+            )
+          }
+        >
+          <HStackVCenter
+            backgroundColor="gray.800"
+            width="50px"
+            py={0.5}
+            justifyContent="center"
+            space={1}
+          >
+            <FontAwesome5
+              name={myInterest ? "fire" : "fire"}
+              color={
+                myInterest
+                  ? theme.colors.secondary[500]
+                  : theme.colors.light[100]
+              }
+              size={13}
+            />
+
+            <Text>{myInterest?.interestLevel}</Text>
+          </HStackVCenter>
+        </Pressable>
+      </HStackVCenter>
     </Box>
   )
 }
