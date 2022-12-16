@@ -1,14 +1,13 @@
 // https://github.com/formatjs/formatjs/issues/1591#issuecomment-592328534
 import "intl"
 import "intl/locale-data/jsonp/en"
-import { Platform } from "react-native"
+import { Platform, SafeAreaView } from "react-native"
 
 import { StatusBar } from "expo-status-bar"
 
 import { QueryClientProvider } from "@tanstack/react-query"
 import { Alert, NativeBaseProvider } from "native-base"
 import React, { useEffect, useMemo } from "react"
-import { View } from "react-native"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -105,7 +104,7 @@ export default function App() {
   return (
     <QueryClientProvider client={myQueryClient}>
       <NativeBaseProvider theme={myTheme}>
-        <View
+        <SafeAreaView
           style={{
             flex: 1,
           }}
@@ -116,7 +115,7 @@ export default function App() {
           {completedLoading && (
             <>{!authUser ? <AuthScreen /> : <MyNavigationContainer />}</>
           )}
-        </View>
+        </SafeAreaView>
       </NativeBaseProvider>
     </QueryClientProvider>
   )
