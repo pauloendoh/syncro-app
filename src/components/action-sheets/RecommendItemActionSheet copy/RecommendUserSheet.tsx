@@ -37,7 +37,7 @@ const RecommendUserSheet = (props: Props) => {
   )
 
   const sortedItemsToRecommend = useMemo(
-    () => itemsToRecommend?.sort((a, b) => a.myRating - b.myRating) || [],
+    () => itemsToRecommend?.sort((a, b) => b.myRating - a.myRating) || [],
     [itemsToRecommend]
   )
 
