@@ -2,6 +2,7 @@ import { Button } from "native-base"
 import React, { useMemo } from "react"
 import { useMyFollowingUsersQuery } from "../../../../../hooks/react-query/follow/useMyFollowingUsersQuery"
 import useToggleFollowMutation from "../../../../../hooks/react-query/follow/useToggleFollowMutation"
+import useConfirmationModalStore from "../../../../../hooks/zustand/modals/useConfirmationModalStore"
 
 interface Props {
   profileUserId: string
@@ -27,12 +28,25 @@ const FollowUnfollowButton = (props: Props) => {
     return "Follow"
   }, [isLoading, alreadyFollowing])
 
+  const { openConfirmDialog } = useConfirmationModalStore()
+  const handleClick = () => {
+    if (alreadyFollowing) {
+      openConfirmDialog({
+        title: "Unfollow?",
+        onConfirm: () => submitToggleFollow(props.profileUserId),
+        confirmText: "Save",
+      })
+      return
+    }
+    submitToggleFollow(props.profileUserId)
+  }
+
   return (
     <Button
       isLoading={isLoading}
       flex={1}
       colorScheme={alreadyFollowing ? "gray" : "secondary"}
-      onPress={() => submitToggleFollow(props.profileUserId)}
+      onPress={handleClick}
     >
       {label}
     </Button>

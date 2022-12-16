@@ -9,6 +9,7 @@ interface Props {
   onCancel?: () => void
   saveText?: string
   onEnabledAndCtrlEnter?: () => void
+  saveButtonWidth?: string
 }
 
 const SaveCancelButtons = (props: Props) => {
@@ -16,6 +17,7 @@ const SaveCancelButtons = (props: Props) => {
     <HStackVCenter>
       <Button
         isLoading={props.isLoadingAndDisabled}
+        width={props.saveButtonWidth || "64px"}
         // type="submit"
         variant="solid"
         color="primary.500"
