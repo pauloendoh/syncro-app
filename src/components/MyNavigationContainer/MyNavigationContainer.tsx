@@ -12,8 +12,6 @@ import SearchNavigationScreens from "../../screens/SearchNavigationScreens/Searc
 import { NavigationParamType } from "../../types/NavigationParamType"
 import GlobalActionSheets from "../action-sheets/GlobalActionSheets"
 import GlobalModals from "../modals/GlobalModals"
-import InterestModal from "../modals/InterestModal/InterestModal"
-import RatingModal from "../modals/RatingModal/RatingModal"
 import PushNotificationHandler from "./PushNotificationHandler"
 
 interface Props {
@@ -29,9 +27,6 @@ const MyNavigationContainer = (props: Props) => {
 
   return (
     <>
-      <RatingModal />
-      <InterestModal />
-
       <GlobalActionSheets />
       <GlobalModals />
 

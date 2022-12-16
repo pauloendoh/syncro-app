@@ -1,9 +1,9 @@
-import { Button, HStack, Image, Text, VStack } from "native-base"
+import { Button, HStack, Text, VStack } from "native-base"
 import React, { useMemo } from "react"
 import useRecommendItemMutation from "../../../../hooks/react-query/imdb-item/useRecommendItemMutation"
 import { useItemsRecommendationsFromMeQuery } from "../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery"
 import { ItemToRecommendDto } from "../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery"
-import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
+import SyncroItemImage from "../../../../screens/_common/SyncroItemImage/SyncroItemImage"
 
 interface Props {
   itemToRecommend: ItemToRecommendDto
@@ -40,12 +40,7 @@ const ItemToRecommendOption = ({
 
   return (
     <HStack space="4" flex={1}>
-      <Image
-        src={getImageUrlOrDefaultUrl(item.imageUrl)}
-        width="100px"
-        height="100px"
-        alt={item.title}
-      />
+      <SyncroItemImage syncroItem={item} />
 
       <VStack space={2}>
         <Text flexWrap={"wrap"} width="90%">

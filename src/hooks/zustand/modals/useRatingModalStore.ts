@@ -4,7 +4,7 @@ import { RatingDto } from "../../../types/domain/rating/RatingDto"
 interface IRatingModalStore {
   initialValue: RatingDto | null
   isOpen: boolean
-  openModal: (tag: RatingDto) => void
+  openModal: (ratingDto: RatingDto) => void
   closeModal: () => void
 }
 

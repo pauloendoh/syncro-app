@@ -1,14 +1,13 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { DateTime } from "luxon"
-import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
+import { HStack, Pressable, Text, useTheme, VStack } from "native-base"
 import React, { useMemo } from "react"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import { useMyInterestsQuery } from "../../../../hooks/react-query/interest/useMyInterestsQuery"
 import { useMyRatingsQuery } from "../../../../hooks/react-query/rating/useMyRatingsQuery"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
-import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
+import SyncroItemImage from "../../../_common/SyncroItemImage/SyncroItemImage"
 
 interface Props {
   rating: RatingDto
@@ -65,7 +64,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
             <Text fontSize="xs">{timeAgo}</Text>
 
             <HStackVCenter mt={1}>
-              {itemIsInMyList && (
+              {/* {itemIsInMyList && (
                 <HStackVCenter space={1}>
                   <MaterialCommunityIcons
                     name="bookmark-box-multiple"
@@ -76,17 +75,12 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
                     Saved
                   </Text>
                 </HStackVCenter>
-              )}
+              )} */}
             </HStackVCenter>
           </VStack>
         </HStack>
         <HStack width={100}>
-          <Image
-            src={getImageUrlOrDefaultUrl(rating.syncroItem?.imageUrl)}
-            width={100}
-            height={100}
-            alt={rating.syncroItem?.title}
-          />
+          <SyncroItemImage syncroItem={rating.syncroItem!} />
         </HStack>
       </HStack>
     </Pressable>
