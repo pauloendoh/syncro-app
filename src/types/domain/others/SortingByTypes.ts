@@ -21,8 +21,7 @@ export const getSortingOptions = (thisIsYourList = false): SortingOption[] => {
     },
   ]
 
-  if (thisIsYourList)
-    return [...options, { label: "Custom ordering", type: "customOrdering" }]
+  if (thisIsYourList) return [...options]
 
   return [
     ...options,
