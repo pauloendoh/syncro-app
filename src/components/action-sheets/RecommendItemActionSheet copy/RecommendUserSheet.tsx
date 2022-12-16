@@ -69,7 +69,7 @@ const RecommendUserSheet = (props: Props) => {
         </Box>
 
         <FlatList
-          style={{ marginTop: 16 }}
+          style={{ marginTop: 16, minHeight: 480 }}
           data={sortedItemsToRecommend}
           ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
           renderItem={(props) => (

@@ -24,7 +24,7 @@ export const useSyncroItemTypeMap = (by: {
       tabIndex: 1,
     },
     {
-      itemType: "movie",
+      itemType: "game",
       labelPlural: "Games",
       site: "IGDB",
       tabIndex: 2,
