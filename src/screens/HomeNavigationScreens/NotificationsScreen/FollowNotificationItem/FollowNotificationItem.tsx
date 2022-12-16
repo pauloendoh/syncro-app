@@ -1,6 +1,14 @@
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { Box, HStack, Pressable, Text, useTheme, VStack } from "native-base"
+import {
+  Box,
+  HStack,
+  Pressable,
+  Text,
+  useTheme,
+  View,
+  VStack,
+} from "native-base"
 import React from "react"
 import { format } from "timeago.js"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
@@ -53,7 +61,9 @@ const FollowNotificationItem = ({ follow, ...props }: Props) => {
         </HStack>
         <HStack width={100}>
           <Box>
-            {<FollowUnfollowButton profileUserId={follow.followerId} />}
+            <View>
+              {<FollowUnfollowButton profileUserId={follow.followerId} />}
+            </View>
           </Box>
         </HStack>
       </HStack>
