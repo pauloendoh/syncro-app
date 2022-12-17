@@ -29,6 +29,12 @@ export const useSyncroItemTypeMap = (by: {
       site: "IGDB",
       tabIndex: 2,
     },
+    {
+      itemType: "manga",
+      labelPlural: "Manga",
+      site: "MyAnimeList",
+      tabIndex: 3,
+    },
   ]
 
   const item = useMemo(() => {

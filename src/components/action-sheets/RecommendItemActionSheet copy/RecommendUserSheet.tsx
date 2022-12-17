@@ -24,6 +24,7 @@ const RecommendUserSheet = (props: Props) => {
     { key: "first", title: "TV series" },
     { key: "second", title: "Movies" },
     { key: "third", title: "Games" },
+    { key: "forth", title: "Manga" },
   ])
 
   const [tabIndex, setTabIndex] = useState(0)
