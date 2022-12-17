@@ -36,7 +36,7 @@ const useSaveRatingMutation = () => {
           return upsert(curr, savedRating, (i) => i.id === savedRating.id)
         })
 
-        showSuccessToast("Rating saved!")
+        showSuccessToast("Rating saved!", { duration: 10000000 })
       },
       onError: (err: AxiosError<any>) => {
         alert(err?.response?.data?.message || "Error saving idea")

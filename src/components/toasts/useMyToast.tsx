@@ -16,16 +16,13 @@ export const useMyToast = () => {
           width={240}
           px={4}
         >
-          <HStack space={1}>
-            <MaterialIcons
-              name="check-circle-outline"
-              color={"white"}
-              size={16}
-              style={{ marginTop: 2 }}
-            />
-            <Text textAlign="center">{children}</Text>
-          </HStack>
-
+          <MaterialIcons
+            name="check-circle-outline"
+            color={"white"}
+            size={16}
+            style={{ marginTop: 2 }}
+          />
+          <Text textAlign="center">{children}</Text>
           <IconButton
             size="xs"
             position="relative"
@@ -51,15 +48,13 @@ export const useMyToast = () => {
           width={240}
           px={4}
         >
-          <HStack space={1}>
-            <MaterialIcons
-              name="error-outline"
-              color={"white"}
-              size={16}
-              style={{ marginTop: 2 }}
-            />
-            <Text textAlign="center">{children}</Text>
-          </HStack>
+          <MaterialIcons
+            name="error-outline"
+            color={"white"}
+            size={16}
+            style={{ marginTop: 2 }}
+          />
+          <Text textAlign="center">{children}</Text>
 
           <IconButton
             size="xs"

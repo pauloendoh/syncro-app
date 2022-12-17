@@ -51,6 +51,7 @@ const MyInterestButton = (props: Props) => {
         />
 
         <Text
+          textAlign={"center"}
           color={
             currentInterestLevel > 0 ? theme.colors.secondary[500] : undefined
           }
