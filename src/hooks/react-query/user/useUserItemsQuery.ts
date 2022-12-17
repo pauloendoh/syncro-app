@@ -19,7 +19,7 @@ export const useUserItemsQuery = (
       if (itemType === "movie")
         return res.data?.filter((d) => d.type === "movie") || []
 
-      if (itemType === "tv series")
+      if (itemType === "tvSeries")
         return res.data?.filter((d) => d.type === "tvSeries") || []
 
       if (itemType === "game")

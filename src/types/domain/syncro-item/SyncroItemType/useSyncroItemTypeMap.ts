@@ -12,7 +12,7 @@ export const useSyncroItemTypeMap = (by: {
     tabIndex: number
   }[] = [
     {
-      itemType: "tv series",
+      itemType: "tvSeries",
       labelPlural: "TV Series",
       site: "IMDB",
       tabIndex: 0,

@@ -30,13 +30,13 @@ const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
   )
 
   const notFoundMessage = useMemo(() => {
-    if (itemType === "tv series") return "No TV series found :("
+    if (itemType === "tvSeries") return "No TV series found :("
     if (itemType === "movie") return "No movies found :("
     return "No games found :("
   }, [itemType])
 
   const imdbItems = useMemo(() => {
-    if (itemType !== "movie" && itemType !== "tv series") return []
+    if (itemType !== "movie" && itemType !== "tvSeries") return []
 
     if (!searchResultItems) return []
     const items = [...searchResultItems] as IImdbResultItem[]

@@ -23,7 +23,7 @@ const MyNextItemsScreen = ({
   const { lightBackground } = useMyColors()
 
   const [selectedItemType, setSelectedItemType] = useState<SyncroItemType>(
-    "tv series"
+    "tvSeries"
   )
 
   useEffect(() => {

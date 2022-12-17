@@ -41,7 +41,7 @@ const SearchScreen = ({
                   onClickItemId={(imdbId) =>
                     navigation.push("SyncroItem", { itemId: imdbId })
                   }
-                  itemType="tv series"
+                  itemType="tvSeries"
                 />
               )}
 

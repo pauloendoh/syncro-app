@@ -7,7 +7,7 @@ export const syncroItemMapping: {
     tabIndex: number
   }
 } = {
-  "tv series": {
+  tvSeries: {
     labelPlural: "TV Series",
     site: "IMDB",
     tabIndex: 0,
