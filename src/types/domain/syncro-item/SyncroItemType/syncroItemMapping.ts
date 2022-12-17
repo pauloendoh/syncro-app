@@ -23,7 +23,7 @@ export const syncroItemMapping: {
     tabIndex: 2,
   },
   manga: {
-    labelPlural: "Mangas",
+    labelPlural: "Manga",
     site: "MyAnimeList",
     tabIndex: 3,
   },

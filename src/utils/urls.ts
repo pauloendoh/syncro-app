@@ -31,7 +31,7 @@ export const urls = {
     homeInterests: API_URL + "/feed/home-interests",
 
     userInfo: (userId: string) => API_URL + `/user/${userId}`,
-    userItems: (userId: string, itemType?: SyncroItemType) =>
+    userItems: (userId: string, itemType: SyncroItemType) =>
       API_URL + `/user/${userId}/items?itemType=${itemType}`,
     mySimilarUsers: API_URL + `/me/similar-users`,
     myFollowingUsers: API_URL + `/me/following-users`,
