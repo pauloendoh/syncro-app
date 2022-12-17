@@ -13,6 +13,7 @@ export interface SyncroItemDto {
   plotSummary: string
 
   igdbUrl: string | null
+  mangaMalUrl: string | null
   ratings?: RatingDto[]
   interests?: InterestDto[]
 }
@@ -27,6 +28,8 @@ export const buildSyncroItemDto = (
   year: 0,
 
   igdbUrl: null,
+  mangaMalUrl: null,
+
   avgRating: 0,
   ratingCount: 0,
   plotSummary: "",

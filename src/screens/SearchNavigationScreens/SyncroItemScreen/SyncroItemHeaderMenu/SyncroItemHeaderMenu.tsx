@@ -17,6 +17,7 @@ const SyncroItemHeaderMenu = ({ syncroItem }: Props) => {
           return
         }
 
+        // PE 1/3 - dry
         if (syncroItem.type === "game") {
           if (!syncroItem.igdbUrl) {
             alert("No external link available")
@@ -25,6 +26,15 @@ const SyncroItemHeaderMenu = ({ syncroItem }: Props) => {
           Linking.openURL(syncroItem.igdbUrl)
           return
         }
+        if (syncroItem.type === "manga") {
+          if (!syncroItem.mangaMalUrl) {
+            alert("No external link available")
+            return
+          }
+          Linking.openURL(syncroItem.mangaMalUrl)
+          return
+        }
+
         Linking.openURL(urls.others.imdbItem(syncroItem.id))
       }
     )
@@ -36,6 +46,7 @@ const SyncroItemHeaderMenu = ({ syncroItem }: Props) => {
 
   const linkLabel = useMemo(() => {
     if (syncroItem.type === "game") return "Open on IGDB"
+    if (syncroItem.type === "manga") return "Open on MyAnimeList"
     return "Open on IMDB"
   }, [syncroItem.type])
 
