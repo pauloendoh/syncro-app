@@ -8,6 +8,7 @@ const renderScene = SceneMap({
   second: () => null,
   third: () => null,
   forth: () => null,
+  fifth: () => null,
 })
 
 interface Props {
@@ -22,7 +23,8 @@ export default function SearchScreenTabView(props: Props) {
     { key: "first", title: "TV series" },
     { key: "second", title: "Movies" },
     { key: "third", title: "Games" },
-    { key: "forth", title: "Users" },
+    { key: "forth", title: "Manga" },
+    { key: "fifth", title: "Users" },
   ])
 
   const theme = useTheme()

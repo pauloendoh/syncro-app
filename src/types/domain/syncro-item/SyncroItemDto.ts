@@ -1,10 +1,11 @@
 import { InterestDto } from "../interest/InterestDto"
 import { RatingDto } from "../rating/RatingDto"
+import { SyncroItemType } from "./SyncroItemType/SyncroItemType"
 
 export interface SyncroItemDto {
   id: string
   title: string
-  type: "tvSeries" | "movie" | "game"
+  type: SyncroItemType
   imageUrl: string
   year: number
   avgRating: number

@@ -44,7 +44,7 @@ const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
   }, [searchResultItems, itemType])
 
   const syncroItems = useMemo(() => {
-    if (itemType !== "game") return []
+    if (itemType !== "game" && itemType !== "manga") return []
 
     if (!searchResultItems) return []
 

@@ -22,4 +22,9 @@ export const syncroItemMapping: {
     site: "IGDB",
     tabIndex: 2,
   },
+  manga: {
+    labelPlural: "Mangas",
+    site: "MyAnimeList",
+    tabIndex: 3,
+  },
 }

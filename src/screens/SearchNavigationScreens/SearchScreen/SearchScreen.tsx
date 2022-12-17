@@ -66,6 +66,16 @@ const SearchScreen = ({
               )}
 
               {tabIndex === 3 && (
+                <SyncroItemSearchResults
+                  query={query}
+                  onClickItemId={(imdbId) =>
+                    navigation.push("SyncroItem", { itemId: imdbId })
+                  }
+                  itemType="manga"
+                />
+              )}
+
+              {tabIndex === 4 && (
                 <UserSearchResults
                   query={query}
                   onClickUser={(user) =>
