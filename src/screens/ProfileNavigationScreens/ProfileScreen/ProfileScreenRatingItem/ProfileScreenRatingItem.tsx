@@ -2,7 +2,7 @@ import { Image } from "react-native"
 
 import { Box, Pressable, Text } from "native-base"
 import React, { useEffect, useMemo } from "react"
-import { useSyncroItemDetailsQuery } from "../../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
+import { useSyncroItemDetailsQuery } from "../../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import { useUserItemsQuery } from "../../../../hooks/react-query/user/useUserItemsQuery"
 import { syncroItemMapping } from "../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
 import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"

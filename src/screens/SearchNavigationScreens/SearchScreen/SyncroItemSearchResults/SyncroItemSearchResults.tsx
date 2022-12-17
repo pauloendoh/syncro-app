@@ -10,7 +10,7 @@ import SyncroSearchItem from "./SyncroSearchItem/SyncroSearchItem"
 
 interface Props {
   query: string
-  onClickItemId: (imdbItemId: string) => void
+  onClickItemId: (itemId: string) => void
   itemType: SyncroItemType
 }
 
@@ -35,6 +35,7 @@ const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
     return "No games found :("
   }, [itemType])
 
+  // PE 1/3 - remove imdbItems?
   const imdbItems = useMemo(() => {
     if (itemType !== "movie" && itemType !== "tvSeries") return []
 
@@ -43,7 +44,7 @@ const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
     return items
   }, [searchResultItems, itemType])
 
-  const syncroItems = useMemo(() => {
+  const otherSyncroItems = useMemo(() => {
     if (itemType !== "game" && itemType !== "manga") return []
 
     if (!searchResultItems) return []
@@ -64,7 +65,7 @@ const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
         />
       ))}
 
-      {syncroItems?.map((syncroItem) => (
+      {otherSyncroItems?.map((syncroItem) => (
         <SyncroSearchItem
           syncroItem={syncroItem}
           key={syncroItem.id}

@@ -29,10 +29,10 @@ const ImdbSearchItem = ({ resultItem, onClick }: Props) => {
 
           <HStack mt={2}>
             <VStack style={{ width: 120 }}>
-              {resultItem.imdbItem ? (
+              {resultItem.syncroItem ? (
                 <SearchItemImdbSection
-                  avgRating={resultItem.imdbItem?.avgRating}
-                  ratingCount={resultItem.imdbItem?.ratingCount}
+                  avgRating={resultItem.syncroItem?.avgRating}
+                  ratingCount={resultItem.syncroItem?.ratingCount}
                 />
               ) : (
                 <Text>See details</Text>

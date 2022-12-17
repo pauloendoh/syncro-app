@@ -3,6 +3,7 @@ import React, { useMemo } from "react"
 import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
 import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
 import { SyncroItemDto } from "../../../../../types/domain/syncro-item/SyncroItemDto"
+import { syncroItemMapping } from "../../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
 import { getImageUrlOrDefaultUrl } from "../../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "../ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection"
 import SearchItemYourSection from "../ImdbSearchItem/SearchItemYourSection/SearchItemYourSection"
@@ -53,7 +54,7 @@ const SyncroSearchItem = ({ syncroItem, onClick }: Props) => {
                 <SearchItemImdbSection
                   avgRating={syncroItem.avgRating}
                   ratingCount={syncroItem.ratingCount}
-                  title={syncroItem.type === "game" ? "IGDB" : "IMDB"}
+                  title={syncroItemMapping[syncroItem.type].site}
                 />
               ) : (
                 <Text>See details</Text>

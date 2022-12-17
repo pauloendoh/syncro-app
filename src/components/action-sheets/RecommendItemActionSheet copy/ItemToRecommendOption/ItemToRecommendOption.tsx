@@ -1,8 +1,8 @@
 import { Button, HStack, Text, VStack } from "native-base"
 import React, { useMemo } from "react"
-import useRecommendItemMutation from "../../../../hooks/react-query/imdb-item/useRecommendItemMutation"
 import { useItemsRecommendationsFromMeQuery } from "../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery"
 import { ItemToRecommendDto } from "../../../../hooks/react-query/item-recommendation/useItemsToRecommendQuery"
+import useRecommendItemMutation from "../../../../hooks/react-query/syncro-item/useRecommendItemMutation"
 import SyncroItemImage from "../../../../screens/_common/SyncroItemImage/SyncroItemImage"
 
 interface Props {

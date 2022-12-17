@@ -2,8 +2,8 @@ import { AirbnbRating } from "react-native-ratings"
 
 import { Button, HStack, Modal, Text, useTheme } from "native-base"
 import React, { useEffect, useState } from "react"
-import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import useSaveRatingMutation from "../../../hooks/react-query/rating/useSaveRatingMutation"
+import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import useRatingModalStore from "../../../hooks/zustand/modals/useRatingModalStore"
 import { RatingDto } from "../../../types/domain/rating/RatingDto"
 import { getLabelByRatingValue } from "./getLabelByRatingValue"
@@ -22,7 +22,7 @@ const RatingModal = () => {
 
   const theme = useTheme()
 
-  const { data: imdbItem } = useSyncroItemDetailsQuery(
+  const { data: syncroItem } = useSyncroItemDetailsQuery(
     initialValue?.syncroItemId
   )
 
@@ -51,7 +51,7 @@ const RatingModal = () => {
                 width: "100%",
               }}
             >
-              How would you rate {imdbItem?.title}?
+              How would you rate {syncroItem?.title}?
             </Text>
 
             {/* <AntDesign

@@ -1,7 +1,7 @@
 import { Actionsheet, Button, HStack, Text, VStack } from "native-base"
 import React, { useMemo } from "react"
-import useRecommendItemMutation from "../../../../hooks/react-query/imdb-item/useRecommendItemMutation"
 import { useItemsRecommendationsFromMeQuery } from "../../../../hooks/react-query/item-recommendation/useItemsRecommendationsFromMeQuery"
+import useRecommendItemMutation from "../../../../hooks/react-query/syncro-item/useRecommendItemMutation"
 import { MutualSavedItemDto } from "../../../../hooks/react-query/user/useMutualsSavedItemQuery"
 import useRecommendItemActionSheetStore from "../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
 import HStackVCenter from "../../../../screens/_common/flexboxes/HStackVCenter"

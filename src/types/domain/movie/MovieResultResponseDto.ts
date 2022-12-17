@@ -89,7 +89,7 @@ export interface IImdbResultItem {
   legacyNameText: string
   name: string
   knownFor: KnownFor[]
-  imdbItem?: SyncroItemDto
+  syncroItem?: SyncroItemDto
   myRating?: RatingDto
   myInterest?: InterestDto
 }

@@ -2,8 +2,8 @@ import { AirbnbRating } from "react-native-ratings"
 
 import { Button, HStack, Modal, Text, useTheme } from "native-base"
 import React, { useEffect, useState } from "react"
-import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import useSaveInterestMutation from "../../../hooks/react-query/interest/useSaveInterestMutation"
+import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import useInterestModalStore from "../../../hooks/zustand/modals/useInterestModalStore"
 import { InterestDto } from "../../../types/domain/interest/InterestDto"
 import { urls } from "../../../utils/urls"
@@ -23,7 +23,7 @@ const InterestModal = () => {
 
   const theme = useTheme()
 
-  const { data: imdbItem } = useSyncroItemDetailsQuery(
+  const { data: syncroItem } = useSyncroItemDetailsQuery(
     initialValue?.syncroItemId
   )
 
@@ -54,7 +54,7 @@ const InterestModal = () => {
                 width: "100%",
               }}
             >
-              How interested are you in watching {imdbItem?.title}?
+              How interested are you in watching {syncroItem?.title}?
             </Text>
 
             {/* <AntDesign
