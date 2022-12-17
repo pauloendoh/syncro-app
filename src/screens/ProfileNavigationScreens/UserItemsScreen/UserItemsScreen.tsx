@@ -1,4 +1,3 @@
-import { useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Text, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
@@ -44,10 +43,6 @@ const UserItemsScreen = ({
     [headerTitle]
   )
 
-  useFocusEffect(() => {
-    refetch()
-  })
-
   const { lightBackground } = useMyColors()
 
   const authUser = useAuthStore((s) => s.authUser)
@@ -74,6 +69,7 @@ const UserItemsScreen = ({
         </HStackVCenter>
 
         <UserItemsList
+          onRefresh={refetch}
           isLoading={isLoading}
           itemType={itemType}
           onPressItem={(id) => navigation.push("SyncroItem", { itemId: id })}

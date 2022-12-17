@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useFocusEffect } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { useQueryClient } from "@tanstack/react-query"
 import { Box, Select, Text, VStack } from "native-base"
@@ -15,7 +14,6 @@ import {
 } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { storageKeys } from "../../../utils/storageKeys"
-import { urls } from "../../../utils/urls"
 import UserItemsList from "../../ProfileNavigationScreens/UserItemsScreen/UserItemsList/UserItemsList"
 import { useSortedItems } from "../../ProfileNavigationScreens/UserItemsScreen/useSortedItems/useSortedItems"
 
@@ -44,12 +42,16 @@ const MyNextItemsScreen = ({
   }, [selectedItemType])
 
   const authUser = useAuthStore((s) => s.authUser)
-  const { data: items, isLoading, refetch } = useUserItemsQuery(
-    authUser!.id,
-    selectedItemType
-  )
+  const {
+    data: items,
+    isLoading,
+    refetch: refetchUserItems,
+  } = useUserItemsQuery(authUser!.id, selectedItemType)
 
-  const { data: customPositions } = useCustomPositionsQuery(selectedItemType)
+  const {
+    data: customPositions,
+    refetch: refetchCustomPositions,
+  } = useCustomPositionsQuery(selectedItemType)
 
   const sortedItems = useSortedItems({
     items,
@@ -58,11 +60,6 @@ const MyNextItemsScreen = ({
   })
 
   const qc = useQueryClient()
-
-  useFocusEffect(() => {
-    qc.invalidateQueries([urls.api.userItems(authUser!.id, selectedItemType)])
-    qc.invalidateQueries([urls.api.customPosition])
-  })
 
   return (
     <VStack
@@ -92,6 +89,10 @@ const MyNextItemsScreen = ({
         </Box>
       ) : (
         <UserItemsList
+          onRefresh={() => {
+            refetchUserItems()
+            refetchCustomPositions()
+          }}
           isLoading={isLoading}
           itemType={selectedItemType}
           onPressItem={(id) => navigation.push("SyncroItem", { itemId: id })}

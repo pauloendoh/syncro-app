@@ -1,7 +1,7 @@
-import { CompositeScreenProps, useFocusEffect } from "@react-navigation/native"
+import { CompositeScreenProps } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, Button, HStack, Text, VStack } from "native-base"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Pressable } from "react-native"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useFollowersQuery } from "../../../hooks/react-query/follow/useFollowersQuery"
@@ -34,6 +34,7 @@ export type ProfileScreenNavigationProp = CompositeScreenProps<
 const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
   const {
     data: followersFollows,
+
     refetch: refetchFollowers,
   } = useFollowersQuery(route.params.userId)
   const {
@@ -58,12 +59,6 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
     })
   }, [userInfo?.username])
 
-  useFocusEffect(() => {
-    refetchUserInfo()
-    refetchFollowing()
-    refetchFollowers()
-  })
-
   useEffect(() => {
     if (thisIsMyProfile) {
       navigation.setOptions({
@@ -78,9 +73,19 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
   const { lightBackground } = useMyColors()
 
+  const [refreshedAt, setRefreshedAt] = useState(new Date().toISOString())
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <MyScrollView refreshing={isLoading} onRefresh={refetchUserInfo}>
+      <MyScrollView
+        refreshing={isLoading}
+        onRefresh={() => {
+          setRefreshedAt(new Date().toISOString())
+          refetchUserInfo()
+          refetchFollowing()
+          refetchFollowers()
+        }}
+      >
         <VStack px={4}>
           <HStackVCenter mt={2} space={6}>
             <ProfileImageProfileScreen userId={route.params.userId} />
@@ -153,6 +158,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
                 key={itemType}
                 itemType={itemType}
                 userId={route.params.userId}
+                refreshedAt={refreshedAt}
                 onClick={() =>
                   navigation.push("UserItems", {
                     userId: route.params.userId,

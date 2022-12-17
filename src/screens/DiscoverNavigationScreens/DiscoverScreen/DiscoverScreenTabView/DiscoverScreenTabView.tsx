@@ -18,7 +18,7 @@ export default function DiscoverScreenTabView(props: Props) {
 
   const [routes] = useState([
     { key: "first", title: "Popular Users" },
-    { key: "second", title: "Similar Users" },
+    { key: "second", title: "Rating Similarity" },
   ])
 
   const theme = useTheme()

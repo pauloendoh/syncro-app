@@ -1,8 +1,7 @@
 import { Image } from "react-native"
 
-import { useFocusEffect } from "@react-navigation/native"
 import { Box, Pressable, Text } from "native-base"
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo } from "react"
 import { useSyncroItemDetailsQuery } from "../../../../hooks/react-query/imdb-item/useImdbItemDetailsQuery"
 import { useUserItemsQuery } from "../../../../hooks/react-query/user/useUserItemsQuery"
 import { syncroItemMapping } from "../../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
@@ -14,6 +13,7 @@ interface Props {
   userId: string
   onClick: () => void
   itemType: SyncroItemType
+  refreshedAt: string
 }
 
 const ProfileScreenRatingItem = (props: Props) => {
@@ -23,9 +23,9 @@ const ProfileScreenRatingItem = (props: Props) => {
     isLoading: isLoadingUserRatings,
   } = useUserItemsQuery(props.userId, props.itemType)
 
-  useFocusEffect(() => {
+  useEffect(() => {
     refetchUserRatings()
-  })
+  }, [props.refreshedAt])
 
   const highestItemRating = useMemo(() => {
     if (!userItems) return null
