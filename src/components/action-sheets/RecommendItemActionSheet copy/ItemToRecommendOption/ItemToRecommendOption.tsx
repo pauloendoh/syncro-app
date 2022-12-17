@@ -43,9 +43,11 @@ const ItemToRecommendOption = ({
       <SyncroItemImage syncroItem={item} />
 
       <VStack space={2}>
-        <Text flexWrap={"wrap"} width="90%">
-          {item.title} {item.year && `(${item.year})`}
-        </Text>
+        <HStack flex={1}>
+          <Text flex={1}>
+            {item.title} {item.year && `(${item.year})`}
+          </Text>
+        </HStack>
         <Button
           disabled={isDisabled}
           colorScheme={isDisabled ? "gray" : "secondary"}
