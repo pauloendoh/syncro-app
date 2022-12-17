@@ -10,6 +10,7 @@ import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import { getImageUrlOrDefaultUrl } from "../../../utils/getImageUrlOrDefaultUrl"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
+import MyViewMoreText from "../../_common/text/MyViewMoreText/MyViewMoreText"
 import RatingRow from "./RatingRow/RatingRow"
 import SyncroItemHeaderMenu from "./SyncroItemHeaderMenu/SyncroItemHeaderMenu"
 
@@ -77,7 +78,9 @@ const SyncroItemScreen = ({
             )}
 
             <VStack style={{ flexShrink: 1 }}>
-              <Text>{data?.plotSummary}</Text>
+              <MyViewMoreText numberOfLines={10}>
+                <Text>{data?.plotSummary}</Text>
+              </MyViewMoreText>
             </VStack>
           </HStack>
           <Divider mt={2} />
