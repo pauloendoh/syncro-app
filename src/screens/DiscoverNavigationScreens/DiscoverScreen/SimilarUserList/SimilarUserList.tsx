@@ -38,9 +38,10 @@ const SimilarUserList = (props: Props) => {
             <VStack ml={4}>
               <Text fontWeight="semibold">{item.userB.username}</Text>
               <Text>
+                {item.ratedSameItemsCount}{" "}
+                {item.ratedSameItemsCount <= 1 ? "item" : "items"} ·{" "}
                 {Math.floor(item.ratingsSimilarityAvgPercentage * 100)}% rating
-                similarity · {item.ratedSameItemsCount}{" "}
-                {item.ratedSameItemsCount <= 1 ? "item" : "items"}
+                similarity
               </Text>
             </VStack>
           </HStack>
