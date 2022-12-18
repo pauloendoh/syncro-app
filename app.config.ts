@@ -24,6 +24,7 @@ export default () => ({
     ios: {
       supportsTablet: true,
     },
+
     android: {
       googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
       adaptiveIcon: {

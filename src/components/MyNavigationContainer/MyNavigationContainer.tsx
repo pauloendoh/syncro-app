@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import { useTheme } from "native-base"
 import React from "react"
+import { Platform } from "react-native"
 import useRecommendItemActionSheetStore from "../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
 import useNavigationStore from "../../hooks/zustand/useNavigationStore"
 import DiscoverNavigationScreens from "../../screens/DiscoverNavigationScreens/DiscoverNavigationScreens"
@@ -46,7 +47,9 @@ const MyNavigationContainer = (props: Props) => {
             headerShown: false,
             tabBarStyle: {
               backgroundColor: theme.colors.light[900],
-              borderTopColor: theme.colors.light[700],
+              borderTopColor: theme.colors.light[800],
+              height: Platform.OS === "android" ? 56 : 56,
+              paddingBottom: 0,
             },
             tabBarActiveTintColor: theme.colors.primary[700],
           }}

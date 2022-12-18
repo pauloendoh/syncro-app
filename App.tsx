@@ -1,9 +1,13 @@
+import { StatusBar } from "expo-status-bar"
 // https://github.com/formatjs/formatjs/issues/1591#issuecomment-592328534
 import "intl"
 import "intl/locale-data/jsonp/en"
-import { Platform, SafeAreaView } from "react-native"
-
-import { StatusBar } from "expo-status-bar"
+import {
+  Keyboard,
+  Platform,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+} from "react-native"
 
 import { QueryClientProvider } from "@tanstack/react-query"
 import { Alert, NativeBaseProvider } from "native-base"
@@ -14,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useFonts } from "expo-font"
 import * as Notifications from "expo-notifications"
 import * as Updates from "expo-updates"
+import { SafeAreaProvider } from "react-native-safe-area-context"
 import * as Sentry from "sentry-expo"
 import MyNavigationContainer from "./src/components/MyNavigationContainer/MyNavigationContainer"
 import useCachedResources from "./src/hooks/useCachedResources"
@@ -104,18 +109,26 @@ export default function App() {
   return (
     <QueryClientProvider client={myQueryClient}>
       <NativeBaseProvider theme={myTheme}>
-        <SafeAreaView
-          style={{
-            flex: 1,
-          }}
-        >
-          <StatusBar style="light" translucent />
+        <SafeAreaProvider>
+          <TouchableWithoutFeedback
+            onPress={Keyboard.dismiss}
+            accessible={false}
+          >
+            <SafeAreaView
+              style={{
+                flex: 1,
+                backgroundColor: myTheme.colors.light[900],
+              }}
+            >
+              <StatusBar style="light" />
 
-          {!completedLoading && <LoadingScreen />}
-          {completedLoading && (
-            <>{!authUser ? <AuthScreen /> : <MyNavigationContainer />}</>
-          )}
-        </SafeAreaView>
+              {!completedLoading && <LoadingScreen />}
+              {completedLoading && (
+                <>{!authUser ? <AuthScreen /> : <MyNavigationContainer />}</>
+              )}
+            </SafeAreaView>
+          </TouchableWithoutFeedback>
+        </SafeAreaProvider>
       </NativeBaseProvider>
     </QueryClientProvider>
   )

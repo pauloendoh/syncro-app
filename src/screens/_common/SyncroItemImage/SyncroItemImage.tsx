@@ -12,7 +12,7 @@ import { getImageUrlOrDefaultUrl } from "../../../utils/getImageUrlOrDefaultUrl"
 import HStackVCenter from "../flexboxes/HStackVCenter"
 
 interface Props {
-  syncroItem: SyncroItemDto
+  syncroItem?: SyncroItemDto
 }
 
 const SyncroItemImage = (props: Props) => {
@@ -22,15 +22,15 @@ const SyncroItemImage = (props: Props) => {
   const { openModal: openRatingModal } = useRatingModalStore()
 
   const myRating = useMemo(
-    () => myRatings?.find((r) => r.syncroItemId === props.syncroItem.id),
-    [myRatings, props.syncroItem.id]
+    () => myRatings?.find((r) => r.syncroItemId === props.syncroItem?.id),
+    [myRatings, props.syncroItem?.id]
   )
 
   const { openModal: openInterestModal } = useInterestModalStore()
 
   const myInterest = useMemo(
-    () => myInterests?.find((r) => r.syncroItemId === props.syncroItem.id),
-    [myInterests, props.syncroItem.id]
+    () => myInterests?.find((r) => r.syncroItemId === props.syncroItem?.id),
+    [myInterests, props.syncroItem?.id]
   )
 
   const theme = useTheme()
@@ -38,7 +38,7 @@ const SyncroItemImage = (props: Props) => {
   return (
     <Box>
       <Image
-        src={getImageUrlOrDefaultUrl(props.syncroItem.imageUrl)}
+        src={getImageUrlOrDefaultUrl(props.syncroItem?.imageUrl)}
         width={100}
         height={100}
         alt={props.syncroItem?.title}
@@ -48,7 +48,7 @@ const SyncroItemImage = (props: Props) => {
         <Pressable
           onPress={() =>
             openRatingModal(
-              myRating || buildRatingDto({ syncroItemId: props.syncroItem.id })
+              myRating || buildRatingDto({ syncroItemId: props.syncroItem?.id })
             )
           }
         >
@@ -74,7 +74,7 @@ const SyncroItemImage = (props: Props) => {
           onPress={() =>
             openInterestModal(
               myInterest ||
-                buildInterestDto({ syncroItemId: props.syncroItem.id })
+                buildInterestDto({ syncroItemId: props.syncroItem?.id })
             )
           }
         >
