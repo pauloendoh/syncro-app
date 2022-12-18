@@ -1,13 +1,14 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
-import { HStack, Text, theme, VStack } from "native-base"
+import { HStack, Image, Text, theme, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
 import { useMyColors } from "../../../../hooks/useMyColors"
 import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { UserItemDto } from "../../../../types/domain/syncro-item/UserItemDto"
+import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "../../../SearchNavigationScreens/SearchScreen/SyncroItemSearchResults/ImdbSearchItem/SearchItemImdbSection/SearchItemImdbSection"
+import SearchItemYourSection from "../../../SearchNavigationScreens/SearchScreen/SyncroItemSearchResults/ImdbSearchItem/SearchItemYourSection/SearchItemYourSection"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
-import SyncroItemImage from "../../../_common/SyncroItemImage/SyncroItemImage"
 import CustomPositionSection from "./CustomPositionSection/CustomPositionSection"
 
 interface Props {
@@ -24,7 +25,12 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
   return (
     <Pressable key={item.id} onPress={props.onPress}>
       <HStack space="4">
-        <SyncroItemImage syncroItem={item} />
+        <Image
+          src={getImageUrlOrDefaultUrl(item.imageUrl)}
+          width="100px"
+          height="100px"
+          alt={item.title}
+        />
 
         <VStack style={{ flexShrink: 1 }}>
           <Text style={{ fontWeight: "500" }} noOfLines={1}>
@@ -82,6 +88,12 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                   </HStack>
                 </>
               )}
+            </VStack>
+            <VStack>
+              <SearchItemYourSection
+                ratingValue={item.myRating}
+                interestLevel={item.myInterest}
+              />
             </VStack>
           </HStack>
         </VStack>
