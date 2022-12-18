@@ -1,9 +1,7 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { Box, Button, Divider, Link, Text, useTheme, VStack } from "native-base"
+import { Divider, Link, Text, useTheme, VStack } from "native-base"
 import React, { useState } from "react"
 import { useAxios } from "../../hooks/useAxios"
 import useAuthStore from "../../hooks/zustand/useAuthStore"
-import VStackHCenter from "../../screens/_common/flexboxes/VStackHCenter"
 import { AuthUserGetDto } from "../../types/domain/auth/AuthUserGetDto"
 import { urls } from "../../utils/urls"
 import { useMyToast } from "../toasts/useMyToast"
@@ -71,7 +69,7 @@ const AuthForm = (props: Props) => {
         />
       )}
 
-      <VStackHCenter backgroundColor="red" width="100%" px={4}>
+      {/* <VStackHCenter backgroundColor="red" width="100%" px={4}>
         <Text>or</Text>
         <Box mt={4} />
 
@@ -92,7 +90,7 @@ const AuthForm = (props: Props) => {
         >
           Enter with temp user
         </Button>
-      </VStackHCenter>
+      </VStackHCenter> */}
 
       <Divider />
       <Text textAlign={"center"}>
