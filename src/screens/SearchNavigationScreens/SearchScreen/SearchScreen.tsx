@@ -5,6 +5,7 @@ import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
+import SearchScreenImportSection from "./SearchScreenImportSection/SearchScreenImportSection"
 import SearchScreenTabView from "./SearchScreenTabView/SearchScreenTabView"
 import SyncroItemSearchResults from "./SyncroItemSearchResults/SyncroItemSearchResults"
 import UserSearchResults from "./UserSearchResults/UserSearchResults"
@@ -31,7 +32,7 @@ const SearchScreen = ({
             changeTabIndex={setTabIndex}
           />
 
-          {/* {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />} */}
+          {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />}
 
           {queryIsValid && (
             <VStack space={4}>

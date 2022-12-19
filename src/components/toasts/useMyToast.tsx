@@ -22,7 +22,9 @@ export const useMyToast = () => {
             size={16}
             style={{ marginTop: 2 }}
           />
-          <Text textAlign="center">{children}</Text>
+          <Text textAlign="center" flex={1}>
+            {children}
+          </Text>
           <IconButton
             size="xs"
             position="relative"
@@ -54,7 +56,9 @@ export const useMyToast = () => {
             size={16}
             style={{ marginTop: 2 }}
           />
-          <Text textAlign="center">{children}</Text>
+          <Text textAlign="center" flex={1}>
+            {children}
+          </Text>
 
           <IconButton
             size="xs"

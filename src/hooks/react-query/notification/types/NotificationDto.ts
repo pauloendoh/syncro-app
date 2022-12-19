@@ -1,4 +1,5 @@
 import { FollowDto } from "../../../../types/domain/follow/FollowDto"
+import { RatingImportRequestDto } from "../../../../types/domain/rating-import-request/RatingImportRequestDto"
 import { ItemRecommendationDto } from "./ItemRecommendationDto"
 
 export interface NotificationDto {
@@ -12,4 +13,5 @@ export interface NotificationDto {
 
   itemRecommendationId?: string
   itemRecommendation?: ItemRecommendationDto
+  ratingsImportRequest?: RatingImportRequestDto
 }

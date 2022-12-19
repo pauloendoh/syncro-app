@@ -1,5 +1,5 @@
-import { FormControl, HStack, Input, Modal, Text } from "native-base"
-import React, { useState } from "react"
+import { Button, FormControl, HStack, Input, Modal, Text } from "native-base"
+import React, { useEffect, useState } from "react"
 import { useAxios } from "../../../hooks/useAxios"
 import useImportRatingsModalStore from "../../../hooks/zustand/modals/useImportRatingsModalStore"
 import SaveCancelButtons from "../../../screens/_common/buttons/SaveCancelButtons/SaveCancelButtons"
@@ -15,6 +15,11 @@ const ImportRatingModal = () => {
   const axios = useAxios()
   const { showSuccessToast } = useMyToast()
 
+  const [hasRequested, setHasRequested] = useState(false)
+  useEffect(() => {
+    if (isOpen) setHasRequested(false)
+  }, [isOpen])
+
   const handleSubmit = () => {
     setLoading(true)
 
@@ -23,8 +28,7 @@ const ImportRatingModal = () => {
         username,
       })
       .then(() => {
-        showSuccessToast("")
-        closeModal()
+        setHasRequested(true)
       })
       .finally(() => {
         setLoading(false)
@@ -39,20 +43,36 @@ const ImportRatingModal = () => {
             <Text>Import MAL anime ratings</Text>
           </HStack>
         </Modal.Header>
-        <Modal.Body>
-          <FormControl>
-            <FormControl.Label>MyAnimeList username</FormControl.Label>
-            <Input onChangeText={setUsername} value={username} />
-          </FormControl>
-        </Modal.Body>
-        <Modal.Footer borderTopColor="transparent">
-          <SaveCancelButtons
-            onSave={handleSubmit}
-            saveText="Import"
-            onCancel={closeModal}
-            isLoadingAndDisabled={loading}
-          />
-        </Modal.Footer>
+        <>
+          <Modal.Body>
+            {hasRequested ? (
+              <Text>
+                Your import has started! 😃 You will be notified when it
+                finishes!
+              </Text>
+            ) : (
+              <FormControl>
+                <FormControl.Label>MyAnimeList username</FormControl.Label>
+                <Input onChangeText={setUsername} value={username} />
+              </FormControl>
+            )}
+          </Modal.Body>
+          <Modal.Footer borderTopColor="transparent">
+            {hasRequested ? (
+              <Button colorScheme="primary" onPress={closeModal}>
+                Close
+              </Button>
+            ) : (
+              <SaveCancelButtons
+                saveButtonWidth="96px"
+                onSave={handleSubmit}
+                saveText="Import"
+                onCancel={closeModal}
+                isLoadingAndDisabled={loading}
+              />
+            )}
+          </Modal.Footer>
+        </>
       </Modal.Content>
     </Modal>
   )

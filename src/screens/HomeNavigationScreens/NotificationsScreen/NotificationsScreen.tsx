@@ -8,6 +8,7 @@ import { useMyColors } from "../../../hooks/useMyColors"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import FollowNotificationItem from "./FollowNotificationItem/FollowNotificationItem"
 import ItemRecommendationNotificationItem from "./ItemRecommendationNotificationItem/ItemRecommendationNotificationItem"
+import RatingImportRequestNotificationItem from "./RatingImportRequestNotificationItem/RatingImportRequestNotificationItem"
 
 const NotificationsScreen = ({
   navigation,
@@ -57,6 +58,16 @@ const NotificationsScreen = ({
                 showDot={props.item.showDot}
               />
             )
+
+          if (props.item.ratingsImportRequest) {
+            return (
+              <RatingImportRequestNotificationItem
+                importRequest={props.item.ratingsImportRequest}
+                showDot={props.item.showDot}
+              />
+            )
+          }
+
           return null
         }}
       />

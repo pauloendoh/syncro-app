@@ -23,6 +23,8 @@ export const urls = {
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
     importRatings: API_URL + `/import-ratings`,
+    importItemsByRequestId: (requestId: string) =>
+      API_URL + `/import-request/${requestId}/import-items`,
 
     userInterests: (userId: string) => API_URL + `/user/${userId}/interests`,
 
