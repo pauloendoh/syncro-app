@@ -7,7 +7,10 @@ import { SyncroItemType } from "../../../types/domain/syncro-item/SyncroItemType
 import { urls } from "../../../utils/urls"
 
 export const useOverallSearchQuery = (query: string, type: SyncroItemType) => {
-  return useQuery<IImdbResultItem[] | SyncroItemDto[], AxiosError>([
-    urls.api.search({ q: query, type }),
-  ])
+  return useQuery<IImdbResultItem[] | SyncroItemDto[], AxiosError>(
+    [urls.api.search({ q: query, type })],
+    {
+      retry: false,
+    }
+  )
 }

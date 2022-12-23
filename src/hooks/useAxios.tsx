@@ -40,7 +40,8 @@ export const useAxios = () => {
           return Promise.reject(error)
         }
 
-        showErrorToast(error.response?.data.message || error.message)
+        const message = error.response?.data.message || error.message
+        showErrorToast(message)
       }
 
       return Promise.reject(error)

@@ -1,4 +1,3 @@
-import { useFocusEffect } from "@react-navigation/native"
 import { Spinner, Text, VStack } from "native-base"
 import React, { useMemo } from "react"
 import { useOverallSearchQuery } from "../../../../hooks/react-query/search/useOverallSearchQuery"
@@ -15,14 +14,12 @@ interface Props {
 }
 
 const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
-  const { data: searchResultItems, isLoading, refetch } = useOverallSearchQuery(
-    query,
-    itemType
-  )
-
-  useFocusEffect(() => {
-    refetch()
-  })
+  const {
+    data: searchResultItems,
+    isLoading,
+    error,
+    refetch,
+  } = useOverallSearchQuery(query, itemType)
 
   const noResults = useMemo(
     () => !isLoading && searchResultItems?.length === 0,
@@ -56,6 +53,8 @@ const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
     <VStack mt={4} space={4}>
       {isLoading && <Spinner size="lg" color="primary.500" />}
       {noResults && <Text>{notFoundMessage}</Text>}
+
+      {/* <Text>{JSON.stringify(error)}</Text> */}
 
       {imdbItems?.map((imdbItem) => (
         <ImdbSearchItem
