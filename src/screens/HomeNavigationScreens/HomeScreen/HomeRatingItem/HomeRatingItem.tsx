@@ -1,14 +1,11 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { DateTime } from "luxon"
 import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
 import React, { useMemo } from "react"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
-import { useMyInterestsQuery } from "../../../../hooks/react-query/interest/useMyInterestsQuery"
-import { useMyRatingsQuery } from "../../../../hooks/react-query/rating/useMyRatingsQuery"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
-import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
+import HomeRatingItemButtons from "./HomeRatingItemButtons/HomeRatingItemButtons"
 
 interface Props {
   rating: RatingDto
@@ -24,17 +21,6 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
   }, [rating.createdAt])
 
   const authUser = useAuthStore((s) => s.authUser)
-
-  const { data: myRatings } = useMyRatingsQuery()
-  const { data: myInterests } = useMyInterestsQuery()
-
-  const itemIsInMyList = useMemo(() => {
-    const rated =
-      myRatings?.find((r) => r.syncroItemId === rating.syncroItemId) || null
-    const interested =
-      myInterests?.find((r) => r.syncroItemId === rating.syncroItemId) || null
-    return Boolean(rated || interested)
-  }, [myRatings, myInterests, rating.syncroItemId])
 
   return (
     <Pressable onPress={() => props.onPress()}>
@@ -64,20 +50,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
             </Text>
             <Text fontSize="xs">{timeAgo}</Text>
 
-            <HStackVCenter mt={1}>
-              {itemIsInMyList && (
-                <HStackVCenter space={1}>
-                  <MaterialCommunityIcons
-                    name="bookmark-box-multiple"
-                    size={16}
-                    color={theme.colors.secondary[500]}
-                  />
-                  <Text style={{ color: theme.colors.secondary[500] }}>
-                    Saved
-                  </Text>
-                </HStackVCenter>
-              )}
-            </HStackVCenter>
+            <HomeRatingItemButtons rating={rating} />
           </VStack>
         </HStack>
         <HStack width={100}>
