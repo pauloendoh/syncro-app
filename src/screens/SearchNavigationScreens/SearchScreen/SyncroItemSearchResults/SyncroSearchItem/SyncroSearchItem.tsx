@@ -62,10 +62,7 @@ const SyncroSearchItem = ({ syncroItem, onClick }: Props) => {
             </VStack>
             <VStack style={{ width: 120 }}>
               {Boolean(myRatingValue || myInterestLevel) && (
-                <SearchItemYourSection
-                  ratingValue={myRatingValue}
-                  interestLevel={myInterestLevel}
-                />
+                <SearchItemYourSection itemId={syncroItem.id} />
               )}
             </VStack>
           </HStack>

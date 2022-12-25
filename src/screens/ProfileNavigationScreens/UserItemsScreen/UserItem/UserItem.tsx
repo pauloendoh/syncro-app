@@ -98,10 +98,7 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
               )}
             </VStack>
             <VStack>
-              <SearchItemYourSection
-                ratingValue={item.myRating}
-                interestLevel={item.myInterest}
-              />
+              <SearchItemYourSection itemId={item.id} />
             </VStack>
           </HStack>
         </VStack>

@@ -62,10 +62,7 @@ const ImdbSearchItem = ({ resultItem, onClick }: Props) => {
             <VStack style={{ width: 120 }}>
               {/*  */}
               {Boolean(myRatingValue || myInterestLevel) && (
-                <SearchItemYourSection
-                  ratingValue={myRatingValue}
-                  interestLevel={myInterestLevel}
-                />
+                <SearchItemYourSection itemId={resultItem.id} />
               )}
             </VStack>
           </HStack>
