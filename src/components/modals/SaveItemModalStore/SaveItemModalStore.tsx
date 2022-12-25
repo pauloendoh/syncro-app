@@ -89,6 +89,7 @@ const SaveItemModalStore = () => {
             <HStack space={8}>
               <VStack>
                 <Text>Position</Text>
+                <Text>{}</Text>
               </VStack>
               <VStack>
                 <Text>You</Text>

@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { VStack } from "native-base"
+import { ScrollView } from "native-base"
 import React from "react"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { syncroItemTypes } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
@@ -12,7 +12,7 @@ const MyNextItemsScreen = ({
   const { lightBackground } = useMyColors()
 
   return (
-    <VStack
+    <ScrollView
       flex="1"
       backgroundColor={lightBackground}
       paddingX={4}
@@ -21,7 +21,7 @@ const MyNextItemsScreen = ({
       {syncroItemTypes.map((itemType) => (
         <SavedItemsByTypeSection itemType={itemType} key={itemType} />
       ))}
-    </VStack>
+    </ScrollView>
   )
 }
 
