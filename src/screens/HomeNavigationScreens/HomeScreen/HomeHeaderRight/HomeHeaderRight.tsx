@@ -30,7 +30,7 @@ const HomeHeaderRight = (props: Props) => {
       <Box>
         <IconButton onPress={() => push("MyNextItems")}>
           <MaterialIcons
-            name="video-library"
+            name="collections-bookmark"
             size={20}
             color={theme.colors.dark[900]}
           />

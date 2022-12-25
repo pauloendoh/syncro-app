@@ -1,5 +1,7 @@
 import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
-import React from "react"
+import React, { useMemo } from "react"
+import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
+import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
 import { IImdbResultItem } from "../../../../../types/domain/movie/MovieResultResponseDto"
 import { getImageUrlOrDefaultUrl } from "../../../../../utils/getImageUrlOrDefaultUrl"
 import SearchItemImdbSection from "./SearchItemImdbSection/SearchItemImdbSection"
@@ -10,8 +12,27 @@ interface Props {
   onClick: () => void
 }
 
+// PE 1/3 - unificar no SyncroSearchItem
 const ImdbSearchItem = ({ resultItem, onClick }: Props) => {
   const theme = useTheme()
+
+  const { data: myRatings } = useMyRatingsQuery()
+  const { data: myInterests } = useMyInterestsQuery()
+
+  const myRatingValue = useMemo(
+    () =>
+      myRatings?.find((rating) => rating.syncroItemId === resultItem.id)
+        ?.ratingValue || null,
+    [myRatings, resultItem.id]
+  )
+
+  const myInterestLevel = useMemo(
+    () =>
+      myInterests?.find((interest) => interest.syncroItemId === resultItem.id)
+        ?.interestLevel || null,
+    [myInterests, resultItem.id]
+  )
+
   return (
     <Pressable onPress={onClick}>
       <HStack space="4">
@@ -40,13 +61,10 @@ const ImdbSearchItem = ({ resultItem, onClick }: Props) => {
             </VStack>
             <VStack style={{ width: 120 }}>
               {/*  */}
-              {Boolean(
-                resultItem.myRating?.ratingValue ||
-                  resultItem.myInterest?.interestLevel
-              ) && (
+              {Boolean(myRatingValue || myInterestLevel) && (
                 <SearchItemYourSection
-                  ratingValue={resultItem.myRating?.ratingValue}
-                  interestLevel={resultItem.myInterest?.interestLevel}
+                  ratingValue={myRatingValue}
+                  interestLevel={myInterestLevel}
                 />
               )}
             </VStack>

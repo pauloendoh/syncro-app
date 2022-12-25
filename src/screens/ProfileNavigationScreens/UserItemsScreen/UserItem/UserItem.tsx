@@ -1,4 +1,4 @@
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { HStack, Image, Text, theme, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
@@ -72,20 +72,28 @@ const UserItem = ({ item, itemType, ...props }: Props) => {
                       <Text>?</Text>
                     )}
                   </HStack>
-                  <HStack space={1}>
-                    <VStackHCenter style={{ width: 24 }}>
-                      <FontAwesome5
-                        name={"fire"}
-                        color={
-                          item.interests?.[0]?.interestLevel
-                            ? ratingYellow
-                            : theme.colors.gray[500]
-                        }
-                        size={18}
-                      />
-                    </VStackHCenter>
-                    <Text>{item.interests?.[0]?.interestLevel}</Text>
-                  </HStack>
+                  {item.interests?.[0]?.interestLevel && (
+                    <HStack space={1}>
+                      <VStackHCenter style={{ width: 24 }}>
+                        <MaterialCommunityIcons
+                          name={
+                            item.interests?.[0]?.interestLevel
+                              ? "bookmark-check"
+                              : "bookmark-outline"
+                          }
+                          color={
+                            item.interests?.[0]?.interestLevel
+                              ? ratingYellow
+                              : theme.colors.gray[500]
+                          }
+                          size={18}
+                        />
+                      </VStackHCenter>
+                      <Text>
+                        {item.interests?.[0]?.interestLevel && "Saved"}
+                      </Text>
+                    </HStack>
+                  )}
                 </>
               )}
             </VStack>

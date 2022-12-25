@@ -1,4 +1,4 @@
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { HStack, Text, useTheme } from "native-base"
 import React from "react"
 import HStackVCenter from "../../../../../_common/flexboxes/HStackVCenter"
@@ -31,8 +31,8 @@ const SearchItemYourSection = (props: Props) => {
       </HStackVCenter>
       <HStack space={1}>
         <VStackHCenter style={{ width: 24 }}>
-          <FontAwesome5
-            name={"fire"}
+          <MaterialCommunityIcons
+            name={props.interestLevel ? "bookmark-check" : "bookmark-outline"}
             color={
               props.interestLevel
                 ? theme.colors.secondary[500]
@@ -42,7 +42,7 @@ const SearchItemYourSection = (props: Props) => {
           />
         </VStackHCenter>
 
-        <Text>{props.interestLevel || <Text>&nbsp;</Text>}</Text>
+        <Text>{props.interestLevel && "Saved"}</Text>
       </HStack>
     </>
   )

@@ -20,6 +20,8 @@ export const urls = {
       API_URL + `/syncro-item?id=${id}`,
     myRatings: API_URL + `/me/ratings`,
     myInterests: API_URL + `/me/interests`,
+    toggleSaveItem: (itemId: string) =>
+      API_URL + `/toggle-save/item?id=${itemId}`,
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
     importRatings: API_URL + `/import-ratings`,

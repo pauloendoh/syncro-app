@@ -1,12 +1,11 @@
-import { FontAwesome5 } from "@expo/vector-icons"
+import { MaterialCommunityIcons } from "@expo/vector-icons"
 
 import { Text, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { Pressable } from "react-native"
-import { getShortLabelByInterestValue } from "../../../../../components/modals/InterestModal/getLabelByInterestValue"
 import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
+import useToggleSaveItemMutation from "../../../../../hooks/react-query/interest/useToggleSaveItemMutation"
 import useInterestModalStore from "../../../../../hooks/zustand/modals/useInterestModalStore"
-import { buildInterestDto } from "../../../../../types/domain/interest/InterestDto"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
@@ -30,24 +29,21 @@ const MyInterestButton = (props: Props) => {
 
   const theme = useTheme()
 
+  const { mutate: submitToggleSave } = useToggleSaveItemMutation()
+
   return (
-    <Pressable
-      onPress={() =>
-        openModal(
-          savedInterest || buildInterestDto({ syncroItemId: props.itemId })
-        )
-      }
-    >
+    <Pressable onPress={() => submitToggleSave(props.itemId)}>
       <VStackHCenter alignItems={"center"}>
-        <FontAwesome5
-          name={"fire"}
+        <MaterialCommunityIcons
+          name={
+            currentInterestLevel > 0 ? "bookmark-check" : "bookmark-outline"
+          }
+          size={32}
           color={
             currentInterestLevel > 0
               ? theme.colors.secondary[500]
               : theme.colors.light[100]
           }
-          ks
-          size={32}
         />
 
         <Text
@@ -56,23 +52,8 @@ const MyInterestButton = (props: Props) => {
             currentInterestLevel > 0 ? theme.colors.secondary[500] : undefined
           }
         >
-          {currentInterestLevel > 0 ? (
-            <>
-              <Text fontWeight="500" fontSize="md">
-                {currentInterestLevel}
-              </Text>
-              /3
-            </>
-          ) : (
-            "Add to interest list"
-          )}
+          {currentInterestLevel > 0 ? "Saved" : "Save item"}
         </Text>
-
-        {currentInterestLevel > 0 && (
-          <Text color={theme.colors.secondary[500]} textAlign="center">
-            {getShortLabelByInterestValue(currentInterestLevel)}
-          </Text>
-        )}
       </VStackHCenter>
     </Pressable>
   )

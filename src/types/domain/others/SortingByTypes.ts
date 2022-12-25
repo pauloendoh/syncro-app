@@ -16,15 +16,12 @@ export const getSortingOptions = (thisIsYourList = false): SortingOption[] => {
       type: "theirRatingDesc",
     },
     {
-      label: "🔥 Interest - highest",
+      label: "🔖 Saved",
       type: "theirInterestDesc",
     },
   ]
 
   if (thisIsYourList) return [...options]
 
-  return [
-    ...options,
-    { label: "⭐ Average interest - highest", type: "avgInterest" },
-  ]
+  return [...options]
 }
