@@ -1,65 +1,15 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { useQueryClient } from "@tanstack/react-query"
-import { Box, Select, Text, VStack } from "native-base"
-import React, { useEffect, useState } from "react"
-import { useCustomPositionsQuery } from "../../../hooks/react-query/custom-position/useCustomPositionsQuery"
-import { useUserItemsQuery } from "../../../hooks/react-query/user/useUserItemsQuery"
+import { VStack } from "native-base"
+import React from "react"
 import { useMyColors } from "../../../hooks/useMyColors"
-import useAuthStore from "../../../hooks/zustand/useAuthStore"
-import { syncroItemMapping } from "../../../types/domain/syncro-item/SyncroItemType/syncroItemMapping"
-import {
-  SyncroItemType,
-  syncroItemTypes,
-} from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
+import { syncroItemTypes } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
-import { storageKeys } from "../../../utils/storageKeys"
-import UserItemsList from "../../ProfileNavigationScreens/UserItemsScreen/UserItemsList/UserItemsList"
-import { useSortedItems } from "../../ProfileNavigationScreens/UserItemsScreen/useSortedItems/useSortedItems"
+import SavedItemsByTypeSection from "./SavedItemsByTypeSection/SavedItemsByTypeSection"
 
 const MyNextItemsScreen = ({
   navigation,
 }: NativeStackScreenProps<HomeScreenTypes, "MyNextItems">) => {
   const { lightBackground } = useMyColors()
-
-  const [selectedItemType, setSelectedItemType] = useState<SyncroItemType>(
-    "tvSeries"
-  )
-
-  useEffect(() => {
-    AsyncStorage.getItem(storageKeys.myNextItemsScreenInitialValue).then(
-      (value) => {
-        if (value) setSelectedItemType(value as SyncroItemType)
-      }
-    )
-  }, [])
-
-  useEffect(() => {
-    AsyncStorage.setItem(
-      storageKeys.myNextItemsScreenInitialValue,
-      selectedItemType
-    )
-  }, [selectedItemType])
-
-  const authUser = useAuthStore((s) => s.authUser)
-  const {
-    data: items,
-    isLoading,
-    refetch: refetchUserItems,
-  } = useUserItemsQuery(authUser!.id, selectedItemType)
-
-  const {
-    data: customPositions,
-    refetch: refetchCustomPositions,
-  } = useCustomPositionsQuery(selectedItemType)
-
-  const sortedItems = useSortedItems({
-    items,
-    sortingBy: "customOrdering",
-    customPositions,
-  })
-
-  const qc = useQueryClient()
 
   return (
     <VStack
@@ -68,39 +18,9 @@ const MyNextItemsScreen = ({
       paddingX={4}
       paddingTop={4}
     >
-      <Select
-        selectedValue={selectedItemType}
-        onValueChange={(value) => setSelectedItemType(value as SyncroItemType)}
-      >
-        {syncroItemTypes.map((type) => (
-          <Select.Item
-            key={type}
-            label={syncroItemMapping[type].labelPlural}
-            value={type}
-          />
-        ))}
-      </Select>
-
-      {sortedItems.length === 0 && !isLoading ? (
-        <Box mt={4}>
-          <Text>No items were found :( </Text>
-          <Box mt={2} />
-          <Text>Start saving as "Very interested!"</Text>
-        </Box>
-      ) : (
-        <UserItemsList
-          onRefresh={() => {
-            refetchUserItems()
-            refetchCustomPositions()
-          }}
-          isLoading={isLoading}
-          itemType={selectedItemType}
-          onPressItem={(id) => navigation.push("SyncroItem", { itemId: id })}
-          sortedItems={sortedItems}
-          sortingBy={"customOrdering"}
-          thisIsYourList={true}
-        />
-      )}
+      {syncroItemTypes.map((itemType) => (
+        <SavedItemsByTypeSection itemType={itemType} key={itemType} />
+      ))}
     </VStack>
   )
 }

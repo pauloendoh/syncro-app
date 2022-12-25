@@ -29,7 +29,6 @@ const MyNavigationContainer = (props: Props) => {
   return (
     <>
       <GlobalActionSheets />
-      <GlobalModals />
 
       <NavigationContainer
         onReady={() => {
@@ -39,6 +38,8 @@ const MyNavigationContainer = (props: Props) => {
       >
         {/* must be inside navigation container */}
         <PushNotificationHandler />
+
+        <GlobalModals />
 
         <Tab.Navigator
           initialRouteName="HomeNavigation"

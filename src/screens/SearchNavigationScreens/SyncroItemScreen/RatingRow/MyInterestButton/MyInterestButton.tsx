@@ -5,7 +5,7 @@ import React, { useMemo } from "react"
 import { Pressable } from "react-native"
 import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
 import useToggleSaveItemMutation from "../../../../../hooks/react-query/interest/useToggleSaveItemMutation"
-import useInterestModalStore from "../../../../../hooks/zustand/modals/useInterestModalStore"
+import useSaveItemModalStore from "../../../../../hooks/zustand/modals/useSaveItemModalStore"
 import VStackHCenter from "../../../../_common/flexboxes/VStackHCenter"
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 const MyInterestButton = (props: Props) => {
   const { data: myRatings } = useMyInterestsQuery()
 
-  const openModal = useInterestModalStore((s) => s.openModal)
+  const openModal = useSaveItemModalStore((s) => s.openModal)
 
   const savedInterest = useMemo(
     () => myRatings?.find((r) => r.syncroItemId === props.itemId),

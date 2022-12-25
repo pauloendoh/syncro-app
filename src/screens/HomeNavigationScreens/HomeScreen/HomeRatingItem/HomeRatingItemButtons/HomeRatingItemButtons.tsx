@@ -5,12 +5,9 @@ import { Pressable } from "react-native"
 import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
 import useToggleSaveItemMutation from "../../../../../hooks/react-query/interest/useToggleSaveItemMutation"
 import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
-import useRatingModalStore from "../../../../../hooks/zustand/modals/useRatingModalStore"
-import {
-  buildRatingDto,
-  RatingDto,
-} from "../../../../../types/domain/rating/RatingDto"
+import { RatingDto } from "../../../../../types/domain/rating/RatingDto"
 import HStackVCenter from "../../../../_common/flexboxes/HStackVCenter"
+import PressableMyRating from "./PressableMyRating/PressableMyRating"
 
 interface Props {
   rating: RatingDto
@@ -19,13 +16,6 @@ interface Props {
 const HomeRatingItemButtons = (props: Props) => {
   const { data: myRatings } = useMyRatingsQuery()
   const { data: myInterests } = useMyInterestsQuery()
-
-  const myRating = useMemo(
-    () =>
-      myRatings?.find((r) => r.syncroItemId === props.rating.syncroItemId) ||
-      null,
-    [myRatings, props.rating.syncroItemId]
-  )
 
   const myInterest = useMemo(
     () =>
@@ -36,33 +26,9 @@ const HomeRatingItemButtons = (props: Props) => {
 
   const { mutate: submitToggleSave } = useToggleSaveItemMutation()
 
-  const { openModal: openRatingModal } = useRatingModalStore()
-
   return (
     <HStackVCenter mt={2} space={8}>
-      <Pressable
-        onPress={() => {
-          openRatingModal(
-            myRating ||
-              buildRatingDto({ syncroItemId: props.rating.syncroItemId })
-          )
-        }}
-      >
-        <HStackVCenter space={1}>
-          <MaterialCommunityIcons
-            name="star"
-            color={
-              myRating && myRating.ratingValue && myRating.ratingValue > 0
-                ? theme.colors.secondary[500]
-                : theme.colors.gray[500]
-            }
-            size={24}
-          />
-          <Text color={myRating && theme.colors.secondary[500]}>
-            {myRating?.ratingValue || <Text>&nbsp;</Text>}
-          </Text>
-        </HStackVCenter>
-      </Pressable>
+      <PressableMyRating itemId={props.rating.syncroItemId!} />
       <Pressable
         onPress={() => {
           if (props.rating.syncroItemId)

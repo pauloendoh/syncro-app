@@ -1,14 +1,14 @@
 import create from "zustand"
 import { InterestDto } from "../../../types/domain/interest/InterestDto"
 
-interface IInterestModalStore {
+interface IStore {
   initialValue: InterestDto | null
   isOpen: boolean
   openModal: (tag: InterestDto) => void
   closeModal: () => void
 }
 
-const useInterestModalStore = create<IInterestModalStore>((set, get) => ({
+const useSaveItemModalStore = create<IStore>((set, get) => ({
   initialValue: null,
   isOpen: false,
   openModal: (initialValue) => {
@@ -17,4 +17,4 @@ const useInterestModalStore = create<IInterestModalStore>((set, get) => ({
   closeModal: () => set({ isOpen: false }),
 }))
 
-export default useInterestModalStore
+export default useSaveItemModalStore

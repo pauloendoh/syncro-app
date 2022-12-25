@@ -1,9 +1,9 @@
 import React from "react"
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal"
 import ImportRatingModal from "./ImportRatingModal/ImportRatingModal"
-import InterestModal from "./InterestModal/InterestModal"
 import MalImportResultsModal from "./MalImportResultsModal/MalImportResultsModal"
 import RatingModal from "./RatingModal/RatingModal"
+import SaveItemModalStore from "./SaveItemModalStore/SaveItemModalStore"
 
 interface Props {
   test?: string
@@ -15,7 +15,7 @@ const GlobalModals = (props: Props) => {
       <ImportRatingModal />
       <ConfirmationModal />
       <RatingModal />
-      <InterestModal />
+      <SaveItemModalStore />
       <MalImportResultsModal />
     </>
   )

@@ -3,8 +3,8 @@ import { Box, Image, Pressable, Text, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { useMyInterestsQuery } from "../../../hooks/react-query/interest/useMyInterestsQuery"
 import { useMyRatingsQuery } from "../../../hooks/react-query/rating/useMyRatingsQuery"
-import useInterestModalStore from "../../../hooks/zustand/modals/useInterestModalStore"
 import useRatingModalStore from "../../../hooks/zustand/modals/useRatingModalStore"
+import useSaveItemModalStore from "../../../hooks/zustand/modals/useSaveItemModalStore"
 import { buildInterestDto } from "../../../types/domain/interest/InterestDto"
 import { buildRatingDto } from "../../../types/domain/rating/RatingDto"
 import { SyncroItemDto } from "../../../types/domain/syncro-item/SyncroItemDto"
@@ -26,7 +26,7 @@ const SyncroItemImage = (props: Props) => {
     [myRatings, props.syncroItem?.id]
   )
 
-  const { openModal: openInterestModal } = useInterestModalStore()
+  const { openModal: openInterestModal } = useSaveItemModalStore()
 
   const myInterest = useMemo(
     () => myInterests?.find((r) => r.syncroItemId === props.syncroItem?.id),

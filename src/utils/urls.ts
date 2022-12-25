@@ -22,6 +22,8 @@ export const urls = {
     myInterests: API_URL + `/me/interests`,
     toggleSaveItem: (itemId: string) =>
       API_URL + `/toggle-save/item?id=${itemId}`,
+    findSavedItemsByType: (type: SyncroItemType) =>
+      API_URL + `/saved-items?type=${type}`,
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
     importRatings: API_URL + `/import-ratings`,
