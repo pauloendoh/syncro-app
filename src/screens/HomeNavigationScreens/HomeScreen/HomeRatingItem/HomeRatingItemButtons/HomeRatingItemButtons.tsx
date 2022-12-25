@@ -1,10 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { Text, theme } from "native-base"
+import { Text, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { Pressable } from "react-native"
 import { useMyInterestsQuery } from "../../../../../hooks/react-query/interest/useMyInterestsQuery"
 import useToggleSaveItemMutation from "../../../../../hooks/react-query/interest/useToggleSaveItemMutation"
-import { useMyRatingsQuery } from "../../../../../hooks/react-query/rating/useMyRatingsQuery"
 import { RatingDto } from "../../../../../types/domain/rating/RatingDto"
 import HStackVCenter from "../../../../_common/flexboxes/HStackVCenter"
 import PressableMyRating from "./PressableMyRating/PressableMyRating"
@@ -14,7 +13,7 @@ interface Props {
 }
 
 const HomeRatingItemButtons = (props: Props) => {
-  const { data: myRatings } = useMyRatingsQuery()
+  const theme = useTheme()
   const { data: myInterests } = useMyInterestsQuery()
 
   const myInterest = useMemo(

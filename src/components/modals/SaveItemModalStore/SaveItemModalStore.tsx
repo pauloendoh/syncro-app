@@ -45,10 +45,7 @@ const SaveItemModalStore = () => {
   const queryClient = useQueryClient()
 
   const refreshItems = () => {
-    if (syncroItem)
-      queryClient.invalidateQueries([
-        urls.api.findSavedItemsByType(syncroItem.type),
-      ])
+    if (syncroItem) queryClient.invalidateQueries([urls.api.findSavedItems])
   }
 
   return (

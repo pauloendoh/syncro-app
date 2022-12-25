@@ -1,25 +1,24 @@
-import { Box, HStack, Image, Text, useTheme, VStack } from "native-base"
+import { Box, FlatList, Image, Text, useTheme, VStack } from "native-base"
 import React from "react"
 import { Pressable } from "react-native"
-import { useSavedItemsByTypeQuery } from "../../../../hooks/react-query/interest/useSavedItemsByTypeQuery"
 import useSaveItemModalStore from "../../../../hooks/zustand/modals/useSaveItemModalStore"
+import { InterestDto } from "../../../../types/domain/interest/InterestDto"
 import { SyncroItemType } from "../../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { useSyncroItemTypeMap } from "../../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
 
 interface Props {
   itemType: SyncroItemType
+  savedItems: InterestDto[]
 }
 
-const SavedItemsByTypeSection = (props: Props) => {
+const SavedItemsByTypeSection = ({ savedItems, ...props }: Props) => {
   const type = useSyncroItemTypeMap({
     itemType: props.itemType,
   })
 
   const theme = useTheme()
   const { openModal } = useSaveItemModalStore()
-
-  const { data: savedItems } = useSavedItemsByTypeQuery(props.itemType)
 
   if (!savedItems || savedItems.length === 0) return null
 
@@ -29,8 +28,10 @@ const SavedItemsByTypeSection = (props: Props) => {
         {savedItems?.length} {type.getLabel(savedItems.length > 1)}
       </Text>
 
-      <HStack flexWrap="wrap" flexDirection={"row"}>
-        {savedItems.map((savedItem, index) => (
+      <FlatList
+        data={savedItems}
+        numColumns={3}
+        renderItem={({ index, item: savedItem, separators }) => (
           <Pressable
             key={savedItem.syncroItem?.id}
             onPress={() => openModal(savedItem)}
@@ -62,8 +63,8 @@ const SavedItemsByTypeSection = (props: Props) => {
               </Box>
             </Box>
           </Pressable>
-        ))}
-      </HStack>
+        )}
+      />
     </VStack>
   )
 }
