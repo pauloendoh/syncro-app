@@ -19,6 +19,8 @@ const useToggleSaveItemMutation = () => {
         .then((res) => res.data),
     {
       onSuccess: (data, itemId) => {
+        queryClient.invalidateQueries([urls.api.findSavedItems])
+
         if (typeof data === "string") {
           queryClient.setQueryData<InterestDto[]>(
             [urls.api.myInterests],

@@ -59,7 +59,7 @@ const SavedItemsByTypeSection = ({ savedItems, ...props }: Props) => {
                   backgroundColor: theme.colors.dark[100],
                 }}
               >
-                <Text>{index + 1}</Text>
+                <Text>{savedItem.position}</Text>
               </Box>
             </Box>
           </Pressable>

@@ -5,6 +5,8 @@ export type InterestDto = {
   syncroItemId: string | null
   userId: string
   interestLevel: number | null
+  position: number
+
   createdAt: string
   updatedAt: string
 
@@ -19,6 +21,8 @@ export const buildInterestDto = (p?: Partial<InterestDto>): InterestDto => ({
   syncroItemId: "",
   userId: "",
   interestLevel: null,
+  position: 1,
+
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   ...p,

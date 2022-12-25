@@ -21,7 +21,7 @@ const MyNextItemsScreen = ({
       type: t,
       items: savedItems.filter((i) => i.syncroItem?.type === t),
     }))
-  }, savedItems)
+  }, [savedItems])
 
   return (
     <FlatList
