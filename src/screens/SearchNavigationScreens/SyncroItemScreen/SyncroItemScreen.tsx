@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { Divider, HStack, Image, Text, VStack } from "native-base"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
@@ -50,6 +50,13 @@ const SyncroItemScreen = ({
     return ""
   }, [data])
 
+  const [ready, setReady] = useState(false)
+  useLayoutEffect(() => {
+    if (data) {
+      setReady(true)
+    }
+  }, [data])
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <MyScrollView refreshing={isLoading} onRefresh={refetch}>
@@ -78,9 +85,13 @@ const SyncroItemScreen = ({
             )}
 
             <VStack style={{ flexShrink: 1 }}>
-              <MyViewMoreText numberOfLines={10}>
-                <Text>{data?.plotSummary}</Text>
-              </MyViewMoreText>
+              {ready ? (
+                <MyViewMoreText numberOfLines={10}>
+                  <Text>{data?.plotSummary}</Text>
+                </MyViewMoreText>
+              ) : (
+                <Text>Loading...</Text>
+              )}
             </VStack>
           </HStack>
           <Divider mt={2} />

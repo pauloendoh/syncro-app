@@ -7,6 +7,7 @@ type Props = React.ComponentProps<typeof ViewMoreText>
 const MyViewMoreText = (props: Props) => {
   return (
     <ViewMoreText
+      {...props}
       renderViewLess={(onPress) => (
         <Text onPress={onPress} fontWeight="bold">
           View less
@@ -17,7 +18,6 @@ const MyViewMoreText = (props: Props) => {
           View more
         </Text>
       )}
-      {...props}
     >
       {props.children}
     </ViewMoreText>
