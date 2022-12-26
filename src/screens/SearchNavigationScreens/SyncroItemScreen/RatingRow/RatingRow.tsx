@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { HStack, Text, VStack } from "native-base"
 import React from "react"
 import { SyncroItemDto } from "../../../../types/domain/syncro-item/SyncroItemDto"
+import { useSyncroItemTypeMap } from "../../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
 import { shortNumberFormatter } from "../../../../utils/math/shortNumberFormatter"
 import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
 import MyInterestButton from "./MyInterestButton/MyInterestButton"
@@ -12,6 +13,9 @@ interface Props {
 }
 
 const RatingRow = ({ syncroItem }: Props) => {
+  const typeMap = useSyncroItemTypeMap({
+    itemType: syncroItem.type,
+  })
   return (
     <HStack mt={4} style={{ justifyContent: "space-around" }}>
       <VStackHCenter style={{ width: 100 }}>
@@ -27,7 +31,7 @@ const RatingRow = ({ syncroItem }: Props) => {
             </Text>
 
             <Text>{shortNumberFormatter(syncroItem.ratingCount)} ratings</Text>
-            <Text>{syncroItem.type === "game" ? "IGDB" : "IMDB"}</Text>
+            <Text>{typeMap.site}</Text>
           </VStack>
         )}
       </VStackHCenter>

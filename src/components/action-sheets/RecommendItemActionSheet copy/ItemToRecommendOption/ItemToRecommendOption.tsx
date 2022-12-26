@@ -43,7 +43,7 @@ const ItemToRecommendOption = ({
       <SyncroItemImage syncroItem={item} />
 
       <VStack space={2}>
-        <HStack flex={1}>
+        <HStack>
           <Text flex={1}>
             {item.title} {item.year && `(${item.year})`}
           </Text>

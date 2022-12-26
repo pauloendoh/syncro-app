@@ -1,10 +1,11 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { Divider, HStack, Image, Text, VStack } from "native-base"
-import React, { useEffect, useLayoutEffect, useMemo, useState } from "react"
+import React, { useEffect, useLayoutEffect, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import { useSyncroItemTypeMap } from "../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
@@ -42,13 +43,9 @@ const SyncroItemScreen = ({
     })
   }, [data])
 
-  const itemType = useMemo(() => {
-    if (!data) return ""
-    if (data.type === "game") return "Game"
-    if (data.type === "movie") return "Movie"
-    if (data.type === "tvSeries") return "TV Series"
-    return ""
-  }, [data])
+  const typeMap = useSyncroItemTypeMap({
+    itemType: data?.type,
+  })
 
   const [ready, setReady] = useState(false)
   useLayoutEffect(() => {
@@ -68,7 +65,7 @@ const SyncroItemScreen = ({
           </HStackVCenter>
 
           <HStackVCenter mt="4" space="4">
-            <Text>{itemType}</Text>
+            <Text>{typeMap.getLabel()}</Text>
 
             <Text>{data?.year}</Text>
           </HStackVCenter>

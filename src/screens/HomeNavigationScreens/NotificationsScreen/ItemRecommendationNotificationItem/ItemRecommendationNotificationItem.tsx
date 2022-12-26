@@ -32,53 +32,63 @@ const ItemRecommendationNotificationItem = ({
 
   // copy of UserSearchItem
   return (
-    <Pressable
-      onPress={() => push("SyncroItem", { itemId: itemRecommendation.itemId })}
-    >
-      <HStack justifyContent="space-between" p={4}>
-        <HStack flexShrink={1}>
+    <HStack justifyContent="space-between" p={4}>
+      <HStack flexShrink={1}>
+        <Pressable
+          onPress={() =>
+            push("Profile", {
+              userId: itemRecommendation.fromUserId,
+            })
+          }
+        >
           <UserProfilePicture
             userId={itemRecommendation.fromUserId}
             widthHeigth={36}
           />
+        </Pressable>
 
-          <VStack ml={4} pr={10}>
-            <Text maxWidth={200}>
-              <Text fontWeight={"semibold"}>
-                {itemRecommendation.fromUser?.username}
-              </Text>{" "}
-              recommended you:
-              {props.showDot && (
-                <Box>
-                  <Box
-                    style={{
-                      backgroundColor: theme.colors.primary[500],
-                      minWidth: 8,
-                      minHeight: 8,
-                      borderRadius: 8,
-                      marginLeft: 8,
-                    }}
-                  />
-                </Box>
-              )}
-            </Text>
-            <Text style={{ fontWeight: "500" }} noOfLines={1}>
-              {itemRecommendation.item?.title}{" "}
-              {itemRecommendation.item?.year &&
-                `(${itemRecommendation.item?.year})`}
-            </Text>
+        <VStack ml={4} pr={10}>
+          <Text maxWidth={200}>
+            <Text fontWeight={"semibold"}>
+              {itemRecommendation.fromUser?.username}
+            </Text>{" "}
+            recommended you:
+            {props.showDot && (
+              <Box>
+                <Box
+                  style={{
+                    backgroundColor: theme.colors.primary[500],
+                    minWidth: 8,
+                    minHeight: 8,
+                    borderRadius: 8,
+                    marginLeft: 8,
+                  }}
+                />
+              </Box>
+            )}
+          </Text>
+          <Text style={{ fontWeight: "500" }} noOfLines={1}>
+            {itemRecommendation.item?.title}{" "}
+            {itemRecommendation.item?.year &&
+              `(${itemRecommendation.item?.year})`}
+          </Text>
 
-            <Text fontSize="sm">{format(itemRecommendation.createdAt)}</Text>
-          </VStack>
-        </HStack>
+          <Text fontSize="sm">{format(itemRecommendation.createdAt)}</Text>
+        </VStack>
+      </HStack>
+      <Pressable
+        onPress={() =>
+          push("SyncroItem", { itemId: itemRecommendation.itemId })
+        }
+      >
         <Image
           src={getImageUrlOrDefaultUrl(itemRecommendation.item?.imageUrl)}
           width="100px"
           height="100px"
           alt={itemRecommendation.item?.title}
         />
-      </HStack>
-    </Pressable>
+      </Pressable>
+    </HStack>
   )
 }
 

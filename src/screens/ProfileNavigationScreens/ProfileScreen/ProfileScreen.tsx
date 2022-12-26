@@ -86,7 +86,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
           refetchFollowers()
         }}
       >
-        <VStack px={4}>
+        <VStack px={4} pb={4}>
           <HStackVCenter mt={2} space={6}>
             <ProfileImageProfileScreen userId={route.params.userId} />
             <Pressable

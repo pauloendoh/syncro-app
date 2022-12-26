@@ -1,13 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useMyToast } from "../../../components/toasts/useMyToast"
 import upsert from "../../../utils/array/upsert"
 import { urls } from "../../../utils/urls"
 import { useAxios } from "../../useAxios"
 import { ItemRecommendationDto } from "../notification/types/ItemRecommendationDto"
 
 const useRecommendItemMutation = () => {
-  const { showSuccessToast } = useMyToast()
-
   const axios = useAxios()
   const qc = useQueryClient()
   return useMutation(
@@ -27,8 +24,6 @@ const useRecommendItemMutation = () => {
             )
           }
         )
-
-        showSuccessToast("Recommended!")
       },
     }
   )
