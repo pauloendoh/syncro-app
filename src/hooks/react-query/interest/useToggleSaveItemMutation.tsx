@@ -1,6 +1,10 @@
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Text } from "native-base"
 import { useMyToast } from "../../../components/toasts/useMyToast"
 import { InterestDto } from "../../../types/domain/interest/InterestDto"
+import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import removeFromArray from "../../../utils/array/removeFromArray"
 import upsert from "../../../utils/array/upsert"
 import { urls } from "../../../utils/urls"
@@ -9,6 +13,10 @@ import { useAxios } from "../../useAxios"
 const useToggleSaveItemMutation = () => {
   const queryClient = useQueryClient()
   const { showSuccessToast } = useMyToast()
+
+  const { navigate, push } = useNavigation<
+    NativeStackNavigationProp<HomeScreenTypes>
+  >()
 
   const axios = useAxios()
 
@@ -37,7 +45,25 @@ const useToggleSaveItemMutation = () => {
           }
         )
 
-        showSuccessToast("Item saved!")
+        showSuccessToast(
+          <Text>
+            Item saved!{" "}
+            <Text
+              onPress={() => {
+                push("MyNextItems")
+              }}
+              fontWeight="semibold"
+              style={{
+                textDecorationLine: "underline",
+              }}
+            >
+              See list
+            </Text>
+          </Text>,
+          {
+            duration: 7500,
+          }
+        )
       },
     }
   )
