@@ -14,7 +14,7 @@ const useToggleSaveItemMutation = () => {
   const queryClient = useQueryClient()
   const { showSuccessToast } = useMyToast()
 
-  const { navigate, push } = useNavigation<
+  const { navigate } = useNavigation<
     NativeStackNavigationProp<HomeScreenTypes>
   >()
 
@@ -50,7 +50,7 @@ const useToggleSaveItemMutation = () => {
             Item saved!{" "}
             <Text
               onPress={() => {
-                push("MyNextItems")
+                navigate("MyNextItems")
               }}
               fontWeight="semibold"
               style={{
