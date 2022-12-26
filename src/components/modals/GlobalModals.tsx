@@ -3,7 +3,7 @@ import ConfirmationModal from "./ConfirmationModal/ConfirmationModal"
 import ImportRatingModal from "./ImportRatingModal/ImportRatingModal"
 import MalImportResultsModal from "./MalImportResultsModal/MalImportResultsModal"
 import RatingModal from "./RatingModal/RatingModal"
-import SaveItemModalStore from "./SaveItemModalStore/SaveItemModalStore"
+import SaveItemModalStore from "./SaveItemModal/SaveItemModal"
 
 interface Props {
   test?: string

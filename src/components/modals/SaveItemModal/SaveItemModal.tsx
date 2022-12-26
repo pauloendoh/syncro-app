@@ -7,12 +7,15 @@ import {
   Image,
   Modal,
   Pressable,
+  Select,
   Text,
   useTheme,
   VStack,
 } from "native-base"
 import React, { useMemo } from "react"
+import { useSavedItemsQuery } from "../../../hooks/react-query/interest/useSavedItemsQuery"
 import useToggleSaveItemMutation from "../../../hooks/react-query/interest/useToggleSaveItemMutation"
+import useUpdateSavedPositionMutation from "../../../hooks/react-query/interest/useUpdateSavedPositionMutation"
 import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import useSaveItemModalStore from "../../../hooks/zustand/modals/useSaveItemModalStore"
 import PressableMyRating from "../../../screens/HomeNavigationScreens/HomeScreen/HomeRatingItem/HomeRatingItemButtons/PressableMyRating/PressableMyRating"
@@ -39,6 +42,22 @@ const SaveItemModalStore = () => {
     if (syncroItem?.year) return `${syncroItem?.title} (${syncroItem?.year})`
     return syncroItem?.title
   }, [syncroItem])
+
+  const { data: savedItems } = useSavedItemsQuery()
+
+  const positionOptions = useMemo(() => {
+    if (!savedItems) return []
+    const items = savedItems.filter(
+      (item) => item.syncroItem?.type === syncroItem?.type
+    )
+
+    return items.map((item) => ({
+      value: item.position.toString(),
+      label: item.position.toString(),
+    }))
+  }, [syncroItem, savedItems])
+
+  const { mutate: submitUpdatePosition } = useUpdateSavedPositionMutation()
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal} size="xl">
@@ -78,7 +97,39 @@ const SaveItemModalStore = () => {
             <HStack space={8}>
               <VStack>
                 <Text>Position</Text>
-                <Text>{}</Text>
+
+                <Select
+                  selectedValue={initialValue?.position.toString()}
+                  width="80px"
+                  _actionSheetBody={{
+                    size: "xs",
+                  }}
+                  onValueChange={(val) => {
+                    if (!initialValue) return
+
+                    const newPosition = Number(val)
+
+                    submitUpdatePosition(
+                      {
+                        interestId: initialValue?.id,
+                        newPosition,
+                      },
+                      {
+                        onSuccess: () => {
+                          closeModal()
+                        },
+                      }
+                    )
+                  }}
+                >
+                  {positionOptions.map((option) => (
+                    <Select.Item
+                      key={option.value}
+                      label={option.label}
+                      value={option.value}
+                    />
+                  ))}
+                </Select>
               </VStack>
               <VStack>
                 <Text>You</Text>
