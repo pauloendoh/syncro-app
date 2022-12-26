@@ -1,3 +1,4 @@
+import { Subscription } from "expo-modules-core"
 import { StatusBar } from "expo-status-bar"
 // https://github.com/formatjs/formatjs/issues/1591#issuecomment-592328534
 import "intl"
@@ -11,7 +12,7 @@ import {
 
 import { QueryClientProvider } from "@tanstack/react-query"
 import { Alert, NativeBaseProvider } from "native-base"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import useCheckAuthOrLogout from "./src/hooks/domain/auth/useCheckAuthOrLogout"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -46,8 +47,9 @@ if (Platform.OS === "android") {
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+    priority: Notifications.AndroidNotificationPriority.HIGH,
   }),
 })
 
@@ -57,10 +59,22 @@ export default function App() {
   const { checkAuthOrLogout, loading: loadingUser } = useCheckAuthOrLogout()
   const authUser = useAuthStore((s) => s.authUser)
 
+  const notificationListener = useRef<Subscription>()
+  const responseListener = useRef<Subscription>()
+
   const myQueryClient = useMyQueryClient()
 
   const registerForPushNotifications = async () => {
-    const { granted } = await Notifications.requestPermissionsAsync()
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      })
+    }
+
+    const { granted } = await Notifications.getPermissionsAsync()
     if (!granted) {
       alert("Fail to get the push token")
       return
@@ -80,9 +94,28 @@ export default function App() {
 
     registerForPushNotifications().then((token) => {
       if (token) AsyncStorage.setItem(storageKeys.pushToken, token)
-
-      console.log(token)
     })
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log(notification)
+      }
+    )
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log(response)
+      }
+    )
+
+    return () => {
+      if (notificationListener.current)
+        Notifications.removeNotificationSubscription(
+          notificationListener.current
+        )
+      if (responseListener.current)
+        Notifications.removeNotificationSubscription(responseListener.current)
+    }
   }, [])
 
   const completedLoading = useMemo(() => isLoadingComplete && !loadingUser, [
