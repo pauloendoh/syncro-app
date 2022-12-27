@@ -69,8 +69,9 @@ const ProfileScreenRatingItem = (props: Props) => {
       onPress={() => {
         props.onClick()
       }}
+      style={{ width: "50%" }}
     >
-      <VStackHCenter width={150} mt={4}>
+      <VStackHCenter mt={4}>
         {randomHighestItem?.imageUrl ? (
           <Image
             source={{ uri: randomHighestItem?.imageUrl }}

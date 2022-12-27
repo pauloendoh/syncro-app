@@ -148,7 +148,7 @@ const ProfileScreen = ({ navigation, route }: ProfileScreenNavigationProp) => {
 
           <HStack
             mt={2}
-            space={4}
+            width="100%"
             style={{
               flexWrap: "wrap",
             }}
