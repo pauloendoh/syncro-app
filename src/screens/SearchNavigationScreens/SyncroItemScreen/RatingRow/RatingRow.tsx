@@ -1,49 +1,155 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { HStack, Text, VStack } from "native-base"
+import { ScrollView, useTheme } from "native-base"
 import React from "react"
+import { Linking } from "react-native"
+import { useMyInterestQU } from "../../../../hooks/react-query/interest/useMyInterestsQuery"
+import useToggleSaveItemMutation from "../../../../hooks/react-query/interest/useToggleSaveItemMutation"
+import { useMyRatingQU } from "../../../../hooks/react-query/rating/useMyRatingsQuery"
+import useRecommendItemActionSheetStore from "../../../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
+import useRatingModalStore from "../../../../hooks/zustand/modals/useRatingModalStore"
+import { buildRatingDto } from "../../../../types/domain/rating/RatingDto"
 import { SyncroItemDto } from "../../../../types/domain/syncro-item/SyncroItemDto"
 import { useSyncroItemTypeMap } from "../../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
-import { shortNumberFormatter } from "../../../../utils/math/shortNumberFormatter"
-import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
-import MyInterestButton from "./MyInterestButton/MyInterestButton"
-import MyRatingButton from "./MyRatingButton/MyRatingButton"
+import { urls } from "../../../../utils/urls"
+import RatingRowButton from "./RatingRowButton/RatingRowButton"
 
 interface Props {
   syncroItem: SyncroItemDto
 }
 
 const RatingRow = ({ syncroItem }: Props) => {
+  const myRating = useMyRatingQU(syncroItem.id)
+
+  const myInterest = useMyInterestQU(syncroItem.id)
+
+  const theme = useTheme()
+
+  const openRatingModal = useRatingModalStore((s) => s.openModal)
+
+  const { mutate: submitToggleSave } = useToggleSaveItemMutation()
+
+  const openExternalLink = () => {
+    Linking.canOpenURL(urls.others.imdbItem(syncroItem.id)).then(
+      (supported) => {
+        if (!supported) {
+          return
+        }
+
+        // PE 1/3 - dry
+        if (syncroItem.type === "game") {
+          if (!syncroItem.igdbUrl) {
+            alert("No external link available")
+            return
+          }
+          Linking.openURL(syncroItem.igdbUrl)
+          return
+        }
+        if (syncroItem.type === "manga") {
+          if (!syncroItem.mangaMalUrl) {
+            alert("No external link available")
+            return
+          }
+          Linking.openURL(syncroItem.mangaMalUrl)
+          return
+        }
+
+        Linking.openURL(urls.others.imdbItem(syncroItem.id))
+      }
+    )
+  }
+
+  const openActionSheet = useRecommendItemActionSheetStore(
+    (s) => s.openActionSheet
+  )
+
   const typeMap = useSyncroItemTypeMap({
     itemType: syncroItem.type,
   })
+
   return (
-    <HStack mt={4} style={{ justifyContent: "space-around" }}>
-      <VStackHCenter style={{ width: 100 }}>
-        {syncroItem.avgRating > 0 && syncroItem.ratingCount > 0 && (
-          <VStack alignItems={"center"}>
-            <MaterialCommunityIcons name="star" color={"#FFB600"} size={32} />
+    <ScrollView
+      horizontal
+      paddingBottom={4}
+      showsHorizontalScrollIndicator={false}
+    >
+      <RatingRowButton
+        onPress={() =>
+          openRatingModal(
+            myRating || buildRatingDto({ syncroItemId: syncroItem.id })
+          )
+        }
+        isActive={!!myRating?.ratingValue}
+        startIcon={
+          <MaterialCommunityIcons
+            name={myRating ? "star" : "star-outline"}
+            color={theme.colors.dark[900]}
+            size={16}
+          />
+        }
+        width="72px"
+      >
+        {myRating?.ratingValue || "Rate"}
+      </RatingRowButton>
 
-            <Text>
-              <Text fontWeight="500" fontSize="md">
-                {syncroItem.avgRating}
-              </Text>
-              /10
-            </Text>
+      <RatingRowButton
+        ml={2}
+        onPress={() => submitToggleSave(syncroItem.id)}
+        isActive={!!myInterest?.interestLevel}
+        startIcon={
+          <MaterialCommunityIcons
+            name={
+              !!myInterest?.interestLevel
+                ? "bookmark-check"
+                : "bookmark-outline"
+            }
+            color={theme.colors.dark[900]}
+            size={16}
+          />
+        }
+        width="80px"
+      >
+        {myInterest?.interestLevel ? "Saved" : "Save"}
+      </RatingRowButton>
 
-            <Text>{shortNumberFormatter(syncroItem.ratingCount)} ratings</Text>
-            <Text>{typeMap.site}</Text>
-          </VStack>
-        )}
-      </VStackHCenter>
+      <RatingRowButton
+        ml={2}
+        onPress={() => openActionSheet(syncroItem.id)}
+        startIcon={
+          <MaterialCommunityIcons
+            name={"share"}
+            color={theme.colors.dark[900]}
+            size={16}
+          />
+        }
+        width="120px"
+      >
+        Recommend
+      </RatingRowButton>
 
-      <VStackHCenter style={{ width: 80 }}>
-        <MyRatingButton itemId={syncroItem.id} />
-      </VStackHCenter>
+      <RatingRowButton
+        ml={2}
+        onPress={() => openActionSheet(syncroItem.id)}
+        startIcon={
+          <MaterialCommunityIcons
+            name={"share"}
+            color={theme.colors.dark[900]}
+            size={16}
+          />
+        }
+        width="88px"
+      >
+        {typeMap.site}
+      </RatingRowButton>
+    </ScrollView>
+    // <HStack mt={4} style={{ justifyContent: "space-around" }}>
+    //   <VStackHCenter style={{ width: 80 }}>
+    //     <MyRatingButton itemId={syncroItem.id} />
+    //   </VStackHCenter>
 
-      <VStackHCenter style={{ width: 80 }}>
-        <MyInterestButton itemId={syncroItem.id} />
-      </VStackHCenter>
-    </HStack>
+    //   <VStackHCenter style={{ width: 80 }}>
+    //     <MyInterestButton itemId={syncroItem.id} />
+    //   </VStackHCenter>
+    // </HStack>
   )
 }
 
