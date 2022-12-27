@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons"
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import { ScrollView, useTheme } from "native-base"
 import React from "react"
 import { Linking } from "react-native"
@@ -130,11 +130,7 @@ const RatingRow = ({ syncroItem }: Props) => {
         ml={2}
         onPress={() => openActionSheet(syncroItem.id)}
         startIcon={
-          <MaterialCommunityIcons
-            name={"share"}
-            color={theme.colors.dark[900]}
-            size={16}
-          />
+          <AntDesign name={"link"} color={theme.colors.dark[900]} size={16} />
         }
         width="88px"
       >
