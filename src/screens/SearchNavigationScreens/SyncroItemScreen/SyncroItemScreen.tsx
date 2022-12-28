@@ -100,7 +100,7 @@ const SyncroItemScreen = ({
               )}
 
               <HStackVCenter>
-                <Text width="88px">{typeMap.getLabel()}</Text>
+                <Text width="88px">{typeMap.getTypeLabel()}</Text>
                 <Text>{data?.year}</Text>
               </HStackVCenter>
             </VStack>

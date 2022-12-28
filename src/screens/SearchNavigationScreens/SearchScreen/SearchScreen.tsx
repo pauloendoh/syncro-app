@@ -1,9 +1,11 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Box, VStack } from "native-base"
+import { Box, Text, VStack } from "native-base"
 import React, { useMemo, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
+import { useOverallSearchQuery } from "../../../hooks/react-query/search/useOverallSearchQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
+import { useSyncroItemTypeMap } from "../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
 import SearchScreenTabView from "./SearchScreenTabView/SearchScreenTabView"
 import SyncroItemSearchResults from "./SyncroItemSearchResults/SyncroItemSearchResults"
@@ -20,6 +22,28 @@ const SearchScreen = ({
 
   const queryIsValid = useMemo(() => query.length >= 3, [query])
 
+  const itemTypeMap = useSyncroItemTypeMap({
+    tabIndex,
+  })
+
+  const { data: searchResultItems, isLoading } = useOverallSearchQuery(
+    query,
+    itemTypeMap.itemType
+  )
+
+  const text = useMemo(() => {
+    if (isLoading && query.length > 0)
+      return `Searching for \"${query}\" ${itemTypeMap.getTypeLabelLowerCase(
+        true
+      )} ...`
+    if (searchResultItems && searchResultItems.length > 0)
+      return `${
+        searchResultItems.length
+      } results for \"${query}\" ${itemTypeMap.getTypeLabelLowerCase(true)}:`
+
+    return ""
+  }, [isLoading, searchResultItems, query, itemTypeMap])
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <MyScrollView refreshing={false} onRefresh={() => {}}>
@@ -31,6 +55,13 @@ const SearchScreen = ({
             changeTabIndex={setTabIndex}
           />
 
+          <Box mt={4}>
+            {text.length > 0 && (
+              <Text fontSize="md" fontWeight="semibold">
+                {text}
+              </Text>
+            )}
+          </Box>
           {/* {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />} */}
 
           {queryIsValid && (

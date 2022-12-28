@@ -10,7 +10,8 @@ export const useSyncroItemTypeMap = (by: {
     labelPlural: string
     site: string
     tabIndex: number
-    getLabel: (isPlural?: boolean) => string
+    getTypeLabel: (isPlural?: boolean) => string
+    getTypeLabelLowerCase: (isPlural?: boolean) => string
   }[] = [
     {
       itemType: "tvSeries",
@@ -18,28 +19,37 @@ export const useSyncroItemTypeMap = (by: {
 
       site: "IMDb",
       tabIndex: 0,
-      getLabel: (isPlural = false) => (isPlural ? "TV Series" : "TV Series"),
+      getTypeLabel: (isPlural = false) =>
+        isPlural ? "TV Series" : "TV Series",
+      getTypeLabelLowerCase: (isPlural = false) =>
+        isPlural ? "tv series" : "tv series",
     },
     {
       itemType: "movie",
       labelPlural: "Movies",
       site: "IMDb",
       tabIndex: 1,
-      getLabel: (isPlural = false) => (isPlural ? "Movies" : "Movie"),
+      getTypeLabel: (isPlural = false) => (isPlural ? "Movies" : "Movie"),
+      getTypeLabelLowerCase: (isPlural = false) =>
+        isPlural ? "movies" : "movie",
     },
     {
       itemType: "game",
       labelPlural: "Games",
       site: "IGDb",
       tabIndex: 2,
-      getLabel: (isPlural = false) => (isPlural ? "Games" : "Game"),
+      getTypeLabel: (isPlural = false) => (isPlural ? "Games" : "Game"),
+      getTypeLabelLowerCase: (isPlural = false) =>
+        isPlural ? "games" : "game",
     },
     {
       itemType: "manga",
       labelPlural: "Manga",
       site: "MAL",
       tabIndex: 3,
-      getLabel: (isPlural = false) => (isPlural ? "Manga" : "Manga"),
+      getTypeLabel: (isPlural = false) => (isPlural ? "Manga" : "Manga"),
+      getTypeLabelLowerCase: (isPlural = false) =>
+        isPlural ? "manga" : "manga",
     },
   ]
 

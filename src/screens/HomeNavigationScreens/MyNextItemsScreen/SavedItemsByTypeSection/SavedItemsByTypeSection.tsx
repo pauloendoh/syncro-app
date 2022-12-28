@@ -25,7 +25,7 @@ const SavedItemsByTypeSection = ({ savedItems, ...props }: Props) => {
   return (
     <VStack mb={8}>
       <Text ml={2}>
-        {savedItems?.length} {type.getLabel(savedItems.length > 1)}
+        {savedItems?.length} {type.getTypeLabel(savedItems.length > 1)}
       </Text>
 
       <FlatList

@@ -14,12 +14,10 @@ interface Props {
 }
 
 const SyncroItemSearchResults = ({ onClickItemId, query, itemType }: Props) => {
-  const {
-    data: searchResultItems,
-    isLoading,
-    error,
-    refetch,
-  } = useOverallSearchQuery(query, itemType)
+  const { data: searchResultItems, isLoading } = useOverallSearchQuery(
+    query,
+    itemType
+  )
 
   const noResults = useMemo(
     () => !isLoading && searchResultItems?.length === 0,
