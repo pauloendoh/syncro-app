@@ -12,9 +12,7 @@ import React, { useMemo } from "react"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
-import SyncroItemIcon from "../../../../types/domain/syncro-item/SyncroItemType/useSyncroItemIcon"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
-import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 import HomeRatingItemButtons from "./HomeRatingItemButtons/HomeRatingItemButtons"
 
 interface Props {
@@ -71,7 +69,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
             alt={rating.syncroItem?.title}
           />
 
-          {rating.syncroItem && rating.syncroItem.avgRating > 0 && (
+          {/* {rating.syncroItem && rating.syncroItem.avgRating > 0 && (
             <HStackVCenter
               position="absolute"
               justifyContent={"space-between"}
@@ -90,7 +88,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
                 {rating.syncroItem?.avgRating || ""}
               </Text>
             </HStackVCenter>
-          )}
+          )} */}
         </Box>
       </HStack>
     </Pressable>
