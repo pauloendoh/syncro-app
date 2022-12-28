@@ -17,13 +17,14 @@ const SimilarUserList = (props: Props) => {
     refetch,
   } = useMySimilarUsersQuery()
 
-  const sortedRatingSimilarities = useMemo(() => {
-    if (!ratingSimilarities) return []
-    return ratingSimilarities.sort((a, b) => {
-      if (b.overallPercentage > a.overallPercentage) return 1
-      return -1
-    })
-  }, [ratingSimilarities])
+  const sortedRatingSimilarities = useMemo(
+    () =>
+      ratingSimilarities?.sort((a, b) => {
+        if (b.ratedSameItemsCount > a.ratedSameItemsCount) return 1
+        return -1
+      }) || [],
+    [ratingSimilarities]
+  )
 
   return (
     <VStack space={4}>
