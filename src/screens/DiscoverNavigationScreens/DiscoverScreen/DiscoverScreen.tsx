@@ -5,6 +5,7 @@ import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
 import DiscoverScreenTabView from "./DiscoverScreenTabView/DiscoverScreenTabView"
+import NewUsersList from "./NewUsersList/NewUsersList"
 import PopularUserList from "./PopularUserList/PopularUserList"
 import SimilarUserList from "./SimilarUserList/SimilarUserList"
 
@@ -30,6 +31,12 @@ const DiscoverScreen = ({
           )}
           {tabIndex === 1 && (
             <SimilarUserList
+              onPressUserId={(userId) => navigation.push("Profile", { userId })}
+            />
+          )}
+
+          {tabIndex === 2 && (
+            <NewUsersList
               onPressUserId={(userId) => navigation.push("Profile", { userId })}
             />
           )}

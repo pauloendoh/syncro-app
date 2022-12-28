@@ -6,6 +6,7 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view"
 const renderScene = SceneMap({
   first: () => null,
   second: () => null,
+  third: () => null,
 })
 
 interface Props {
@@ -19,6 +20,7 @@ export default function DiscoverScreenTabView(props: Props) {
   const [routes] = useState([
     { key: "first", title: "Popular Users" },
     { key: "second", title: "Rating Similarity" },
+    { key: "third", title: "New Users" },
   ])
 
   const theme = useTheme()
@@ -33,6 +35,9 @@ export default function DiscoverScreenTabView(props: Props) {
           indicatorStyle={{
             backgroundColor: theme.colors.primary[600],
           }}
+          scrollEnabled
+          tabStyle={{ width: 140 }}
+          labelStyle={{ textTransform: "none", fontWeight: "bold" }}
         />
       )}
       navigationState={{ index: props.tabIndex, routes }}

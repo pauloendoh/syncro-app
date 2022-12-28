@@ -55,6 +55,7 @@ export const urls = {
       API_URL + `/custom-positions?itemType=${itemType}`,
     customPosition: API_URL + `/custom-positions`,
     mostFollowedUsers: API_URL + `/follow/most-followed-users`,
+    newUsers: API_URL + `/new-users`,
     notifications: API_URL + `/notifications`,
     hideNotificationDots: API_URL + `/notifications/hide-dots`,
 
