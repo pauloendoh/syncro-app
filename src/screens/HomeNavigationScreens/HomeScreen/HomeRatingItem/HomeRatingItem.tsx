@@ -12,8 +12,9 @@ import React, { useMemo } from "react"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
+import SyncroItemIcon from "../../../../types/domain/syncro-item/SyncroItemType/useSyncroItemIcon"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
-import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
+import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 import HomeRatingItemButtons from "./HomeRatingItemButtons/HomeRatingItemButtons"
 
 interface Props {
@@ -70,21 +71,26 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
             alt={rating.syncroItem?.title}
           />
 
-          <VStackHCenter
-            position="absolute"
-            style={{
-              backgroundColor: theme.colors.black,
-              right: 0,
-              top: 0,
-              padding: 4,
-              width: 24,
-              opacity: 0.75,
-            }}
-          >
-            <Text color="yellow.500" fontWeight="bold">
-              {rating.ratingValue}
-            </Text>
-          </VStackHCenter>
+          {rating.syncroItem && rating.syncroItem.avgRating > 0 && (
+            <HStackVCenter
+              position="absolute"
+              justifyContent={"space-between"}
+              py={0.5}
+              px={2}
+              space={1}
+              style={{
+                backgroundColor: theme.colors.black,
+                right: 0,
+                bottom: 0,
+                opacity: 0.75,
+              }}
+            >
+              <SyncroItemIcon type={rating.syncroItem.type} size={12} />
+              <Text color="yellow.500" fontWeight="semibold" fontSize={"xs"}>
+                {rating.syncroItem?.avgRating || ""}
+              </Text>
+            </HStackVCenter>
+          )}
         </Box>
       </HStack>
     </Pressable>
