@@ -74,6 +74,8 @@ export const urls = {
     endPasswordReset: API_URL + `/auth/end-password-reset`,
     logoutPushToken: (pushToken: string) =>
       API_URL + `/me/push-token/${pushToken}`,
+
+    didNotFind: API_URL + `/did-not-find`,
   },
 
   others: {

@@ -1,7 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Box, Text, VStack } from "native-base"
+import { Box, HStack, Text, VStack } from "native-base"
 import React, { useEffect, useMemo, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
+import useDidNotFindMutation from "../../../hooks/react-query/did-not-find/useDidNotFindMutation"
 import { useOverallSearchQuery } from "../../../hooks/react-query/search/useOverallSearchQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
@@ -50,6 +51,13 @@ const SearchScreen = ({
     return ""
   }, [isLoading, searchResultItems, query, itemTypeMap])
 
+  const shouldShowDidNotFind = useMemo(
+    () => queryIsValid && searchResultItems && !isLoading && itemTypeMap,
+    [queryIsValid, searchResultItems, isLoading, itemTypeMap]
+  )
+
+  const { mutate: submitDidNotFind } = useDidNotFindMutation()
+
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
       <MyScrollView refreshing={false} onRefresh={() => {}}>
@@ -62,11 +70,7 @@ const SearchScreen = ({
           />
 
           <Box mt={4}>
-            {text.length > 0 && (
-              <Text fontSize="md" fontWeight="semibold">
-                {text}
-              </Text>
-            )}
+            {text.length > 0 && <Text fontWeight="semibold">{text}</Text>}
           </Box>
           {/* {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />} */}
 
@@ -121,6 +125,22 @@ const SearchScreen = ({
                 />
               )}
             </VStack>
+          )}
+
+          {shouldShowDidNotFind && itemTypeMap && (
+            <HStack my={8}>
+              <Text fontSize={"xs"}>
+                Didn’t find what you were looking for?{" "}
+                <Text
+                  color="primary.500"
+                  onPress={() => {
+                    submitDidNotFind({ query, type: itemTypeMap.itemType })
+                  }}
+                >
+                  Click here
+                </Text>
+              </Text>
+            </HStack>
           )}
         </VStack>
       </MyScrollView>
