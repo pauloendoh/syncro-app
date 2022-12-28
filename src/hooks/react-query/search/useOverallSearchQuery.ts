@@ -11,6 +11,7 @@ export const useOverallSearchQuery = (query: string, type: SyncroItemType) => {
     [urls.api.search({ q: query, type })],
     {
       retry: false,
+      enabled: !!type && query.length > 0,
     }
   )
 }

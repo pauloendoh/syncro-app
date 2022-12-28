@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Box, Text, VStack } from "native-base"
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useOverallSearchQuery } from "../../../hooks/react-query/search/useOverallSearchQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
@@ -14,7 +14,7 @@ import UserSearchResults from "./UserSearchResults/UserSearchResults"
 const SearchScreen = ({
   navigation,
 }: NativeStackScreenProps<SearchScreenTypes, "Search">) => {
-  const { submittedText: query } = useSearchStore()
+  const { submittedText: query, onSubmit, setSearchText } = useSearchStore()
 
   const { lightBackground } = useMyColors()
 
@@ -28,10 +28,16 @@ const SearchScreen = ({
 
   const { data: searchResultItems, isLoading } = useOverallSearchQuery(
     query,
-    itemTypeMap.itemType
+    itemTypeMap?.itemType
   )
 
+  useEffect(() => {
+    onSubmit("")
+    setSearchText("")
+  }, [tabIndex])
+
   const text = useMemo(() => {
+    if (!itemTypeMap) return ""
     if (isLoading && query.length > 0)
       return `Searching for \"${query}\" ${itemTypeMap.getTypeLabelLowerCase(
         true
