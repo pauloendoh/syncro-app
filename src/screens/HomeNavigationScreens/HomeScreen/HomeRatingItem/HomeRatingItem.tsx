@@ -1,10 +1,19 @@
 import { DateTime } from "luxon"
-import { HStack, Image, Pressable, Text, useTheme, VStack } from "native-base"
+import {
+  Box,
+  HStack,
+  Image,
+  Pressable,
+  Text,
+  useTheme,
+  VStack,
+} from "native-base"
 import React, { useMemo } from "react"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
 import { getImageUrlOrDefaultUrl } from "../../../../utils/getImageUrlOrDefaultUrl"
+import VStackHCenter from "../../../_common/flexboxes/VStackHCenter"
 import HomeRatingItemButtons from "./HomeRatingItemButtons/HomeRatingItemButtons"
 
 interface Props {
@@ -53,14 +62,30 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
             <HomeRatingItemButtons rating={rating} />
           </VStack>
         </HStack>
-        <HStack width={100}>
+        <Box width={100} position="relative">
           <Image
             src={getImageUrlOrDefaultUrl(rating.syncroItem?.imageUrl)}
             width={100}
             height={100}
             alt={rating.syncroItem?.title}
           />
-        </HStack>
+
+          <VStackHCenter
+            position="absolute"
+            style={{
+              backgroundColor: theme.colors.black,
+              right: 0,
+              top: 0,
+              padding: 4,
+              width: 24,
+              opacity: 0.75,
+            }}
+          >
+            <Text color="yellow.500" fontWeight="bold">
+              {rating.ratingValue}
+            </Text>
+          </VStackHCenter>
+        </Box>
       </HStack>
     </Pressable>
   )
