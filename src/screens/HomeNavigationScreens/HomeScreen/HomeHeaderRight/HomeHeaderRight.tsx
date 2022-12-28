@@ -4,6 +4,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { Badge, Box, IconButton, useTheme } from "native-base"
 import React, { useMemo } from "react"
 import { useNotificationsQuery } from "../../../../hooks/react-query/notification/useNotificationsQuery"
+import { useNewNotificationSocket } from "../../../../hooks/socket/useNewNotificationSocket"
+import { useMySocketEvent } from "../../../../hooks/useMySocketEvent"
 import { HomeScreenTypes } from "../../../../types/HomeScreenTypes"
 import HStackVCenter from "../../../_common/flexboxes/HStackVCenter"
 
@@ -21,9 +23,13 @@ const HomeHeaderRight = (props: Props) => {
 
   const theme = useTheme()
 
+  useNewNotificationSocket()
+
   const { navigate, push } = useNavigation<
     NativeStackNavigationProp<HomeScreenTypes>
   >()
+
+  useMySocketEvent("notification")
 
   return (
     <HStackVCenter space={4}>

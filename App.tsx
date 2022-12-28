@@ -1,5 +1,6 @@
 import { Subscription } from "expo-modules-core"
 import { StatusBar } from "expo-status-bar"
+import { IoProvider } from "socket.io-react-hook"
 // https://github.com/formatjs/formatjs/issues/1591#issuecomment-592328534
 import "intl"
 import "intl/locale-data/jsonp/en"
@@ -142,26 +143,28 @@ export default function App() {
   return (
     <QueryClientProvider client={myQueryClient}>
       <NativeBaseProvider theme={myTheme}>
-        <SafeAreaProvider>
-          <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}
-            accessible={false}
-          >
-            <SafeAreaView
-              style={{
-                flex: 1,
-                backgroundColor: myTheme.colors.light[900],
-              }}
+        <IoProvider>
+          <SafeAreaProvider>
+            <TouchableWithoutFeedback
+              onPress={Keyboard.dismiss}
+              accessible={false}
             >
-              <StatusBar style="light" />
+              <SafeAreaView
+                style={{
+                  flex: 1,
+                  backgroundColor: myTheme.colors.light[900],
+                }}
+              >
+                <StatusBar style="light" />
 
-              {!completedLoading && <LoadingScreen />}
-              {completedLoading && (
-                <>{!authUser ? <AuthScreen /> : <MyNavigationContainer />}</>
-              )}
-            </SafeAreaView>
-          </TouchableWithoutFeedback>
-        </SafeAreaProvider>
+                {!completedLoading && <LoadingScreen />}
+                {completedLoading && (
+                  <>{!authUser ? <AuthScreen /> : <MyNavigationContainer />}</>
+                )}
+              </SafeAreaView>
+            </TouchableWithoutFeedback>
+          </SafeAreaProvider>
+        </IoProvider>
       </NativeBaseProvider>
     </QueryClientProvider>
   )

@@ -2,15 +2,18 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import { useTheme } from "native-base"
-import React from "react"
+import React, { useEffect } from "react"
 import { Platform } from "react-native"
+import { useMySocketEvent } from "../../hooks/useMySocketEvent"
 import useRecommendItemActionSheetStore from "../../hooks/zustand/action-sheets/useRecommendItemActionSheetStore"
+import useAuthStore from "../../hooks/zustand/useAuthStore"
 import useNavigationStore from "../../hooks/zustand/useNavigationStore"
 import DiscoverNavigationScreens from "../../screens/DiscoverNavigationScreens/DiscoverNavigationScreens"
 import HomeNavigationScreens from "../../screens/HomeNavigationScreens/HomeNavigationScreens"
 import ProfileNavigationScreens from "../../screens/ProfileNavigationScreens/ProfileNavigationScreens"
 import SearchNavigationScreens from "../../screens/SearchNavigationScreens/SearchNavigationScreens"
 import { NavigationParamType } from "../../types/NavigationParamType"
+import { socketEvents } from "../../utils/socket/socketEvents"
 import GlobalActionSheets from "../action-sheets/GlobalActionSheets"
 import GlobalModals from "../modals/GlobalModals"
 import PushNotificationHandler from "./PushNotificationHandler"
@@ -25,6 +28,17 @@ const MyNavigationContainer = (props: Props) => {
   const theme = useTheme()
   const itemId = useRecommendItemActionSheetStore((s) => s.itemId)
   const { setIsReady } = useNavigationStore()
+
+  const { sendMessage: submitJoinUserRoom } = useMySocketEvent(
+    socketEvents.joinUserRoom
+  )
+  const { authUser } = useAuthStore()
+
+  useEffect(() => {
+    if (!authUser) return
+
+    submitJoinUserRoom(authUser.id)
+  }, [authUser])
 
   return (
     <>

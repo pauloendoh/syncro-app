@@ -6,7 +6,6 @@ import { useMyToast } from "../components/toasts/useMyToast"
 export const useAxios = () => {
   const { showErrorToast } = useMyToast()
   const myAxios = axios.create()
-  myAxios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
   myAxios.interceptors.request.use(async (config) => {
     const userStr = await AsyncStorage.getItem("user")
