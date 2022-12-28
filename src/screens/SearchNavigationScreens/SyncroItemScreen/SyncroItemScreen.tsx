@@ -6,6 +6,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
+import SyncroItemIcon from "../../../types/domain/syncro-item/SyncroItemType/useSyncroItemIcon"
 import { useSyncroItemTypeMap } from "../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import { ProfileScreenTypes } from "../../../types/ProfileScreenTypes"
@@ -74,7 +75,7 @@ const SyncroItemScreen = ({
 
             <VStack style={{ flexShrink: 1 }} space={2}>
               <Text fontSize="md" fontWeight={"bold"}>
-                {data?.title}
+                {data?.title} {data?.year && `(${data?.year})`}
               </Text>
 
               {data.avgRating > 0 && data.ratingCount > 0 && (
@@ -99,10 +100,10 @@ const SyncroItemScreen = ({
                 </HStack>
               )}
 
-              <HStackVCenter>
+              <HStack space={1}>
+                <SyncroItemIcon type={data.type} size={18} />
                 <Text width="88px">{typeMap.getTypeLabel()}</Text>
-                <Text>{data?.year}</Text>
-              </HStackVCenter>
+              </HStack>
             </VStack>
           </HStack>
 
