@@ -1,6 +1,6 @@
-import { HStack, Text, useTheme, VStack } from "native-base"
+import { Box, FlatList, HStack, Text, useTheme, VStack } from "native-base"
 import React, { useMemo } from "react"
-import { Pressable } from "react-native"
+import { Pressable, RefreshControl } from "react-native"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import { useMySimilarUsersQuery } from "../../../../types/domain/me/useMySimilarUsersQuery"
 
@@ -27,8 +27,15 @@ const SimilarUserList = (props: Props) => {
   )
 
   return (
-    <VStack space={4}>
-      {sortedRatingSimilarities.map((item) => (
+    <FlatList
+      refreshing={isLoading}
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+      }
+      data={sortedRatingSimilarities}
+      keyExtractor={(item) => item.userB.id}
+      ItemSeparatorComponent={() => <Box mt={4} />}
+      renderItem={({ item }) => (
         <Pressable
           onPress={() => props.onPressUserId(item.userB.id)}
           key={item.userB.id}
@@ -47,8 +54,8 @@ const SimilarUserList = (props: Props) => {
             </VStack>
           </HStack>
         </Pressable>
-      ))}
-    </VStack>
+      )}
+    />
   )
 }
 

@@ -1,13 +1,7 @@
 import { useTheme } from "native-base"
 import { useState } from "react"
 import { useWindowDimensions } from "react-native"
-import { SceneMap, TabBar, TabView } from "react-native-tab-view"
-
-const renderScene = SceneMap({
-  first: () => null,
-  second: () => null,
-  third: () => null,
-})
+import { TabBar, TabView } from "react-native-tab-view"
 
 interface Props {
   tabIndex: number
@@ -41,7 +35,7 @@ export default function DiscoverScreenTabView(props: Props) {
         />
       )}
       navigationState={{ index: props.tabIndex, routes }}
-      renderScene={renderScene}
+      renderScene={() => null}
       onIndexChange={props.changeTabIndex}
       initialLayout={{ width: layout.width }}
     />

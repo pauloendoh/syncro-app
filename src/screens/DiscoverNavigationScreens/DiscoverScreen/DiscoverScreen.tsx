@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { VStack } from "native-base"
+import { HStack, View, VStack } from "native-base"
 import React, { useState } from "react"
-import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { DiscoverScreenTypes } from "../../../types/DiscoverScreenTypes"
 import DiscoverScreenTabView from "./DiscoverScreenTabView/DiscoverScreenTabView"
@@ -18,12 +17,15 @@ const DiscoverScreen = ({
 
   return (
     <VStack flex="1" backgroundColor={lightBackground}>
-      <MyScrollView onRefresh={() => {}} refreshing={false}>
-        <VStack mt={2} space={4} px={4}>
+      <View flex={1} px={4} mt={2}>
+        <HStack>
           <DiscoverScreenTabView
             tabIndex={tabIndex}
             changeTabIndex={setTabIndex}
           />
+        </HStack>
+
+        <VStack mt={6}>
           {tabIndex === 0 && (
             <PopularUserList
               onPressUserId={(userId) => navigation.push("Profile", { userId })}
@@ -41,7 +43,7 @@ const DiscoverScreen = ({
             />
           )}
         </VStack>
-      </MyScrollView>
+      </View>
     </VStack>
   )
 }
