@@ -6,7 +6,13 @@ export interface RatingImportItemDto {
   updatedAt: string
   userId: string
   requestId: string
-  status: string
+  status:
+    | "waiting"
+    | "importedSuccessfully"
+    | "alreadyRated"
+    | "errorOrNotFound"
+    | "isMovie"
+
   syncroItemId?: string
   ratingValue: number
   originalTitle: string
