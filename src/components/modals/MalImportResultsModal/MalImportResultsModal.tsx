@@ -1,5 +1,14 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { Button, HStack, Modal, Text, useTheme, VStack } from "native-base"
+import {
+  Button,
+  Center,
+  HStack,
+  Modal,
+  Spinner,
+  Text,
+  useTheme,
+  VStack,
+} from "native-base"
 import React, { useMemo, useState } from "react"
 import { useImportItemsQuery } from "../../../hooks/react-query/import-item/useImportItemsQuery"
 import { useMyNavigation } from "../../../hooks/useMyNavigation"
@@ -10,7 +19,7 @@ import ImportResultsModalTabs from "./ImportResultsModalTabs/ImportResultsModalT
 
 const MalImportResultsModal = () => {
   const { isOpen, requestId, closeModal } = useMalImportResultsModalStore()
-  const { data: importItems } = useImportItemsQuery(
+  const { data: importItems, isLoading } = useImportItemsQuery(
     requestId,
     !!requestId && isOpen
   )
@@ -44,72 +53,80 @@ const MalImportResultsModal = () => {
   return (
     <Modal isOpen={isOpen} onClose={closeModal} size="xl">
       <Modal.Content>
-        <Modal.Header borderBottomColor="transparent">
-          <HStack justifyContent="space-between">
-            <Text fontSize="lg">Anime import - Results</Text>
-          </HStack>
-        </Modal.Header>
-        <Modal.Body>
-          <ImportResultsModalTabs
-            changeTabIndex={setTabIndex}
-            tabIndex={tabIndex}
-            requestId={requestId}
-          />
-
-          <VStack mt={4}>
-            {filteredItems.map((item) => (
-              <HStack
-                key={item.id}
-                justifyContent="space-between"
-                alignItems="flex-start"
-                py={4}
-                borderBottomColor={theme.colors.gray[500]}
-                borderBottomWidth={0.25}
-              >
-                <Text
-                  color="primary.500"
-                  flex={1}
-                  flexWrap="wrap"
-                  onPress={() => {
-                    if (item.syncroItem) {
-                      navigate("SyncroItem", {
-                        itemId: item.syncroItem.id,
-                      })
-                      closeModal()
-                    }
-                  }}
-                >
-                  {item.syncroItem && (
-                    <>
-                      {item.syncroItem.title}
-                      {item.syncroItem.year &&
-                        ` (${item.syncroItem.year})`}{" "}
-                      <SyncroItemIcon
-                        type={item.syncroItem.type}
-                        size={12}
-                        color={theme.colors.primary[500]}
-                      />
-                    </>
-                  )}
-                </Text>
-
-                <HStackVCenter space={1}>
-                  <MaterialCommunityIcons
-                    name={"star"}
-                    color={theme.colors.secondary[500]}
-                    size={14}
-                  />
-                  <Text color="secondary.500">{item.ratingValue}</Text>
-                </HStackVCenter>
+        {isLoading ? (
+          <Center style={{ height: 100 }}>
+            <Spinner />
+          </Center>
+        ) : (
+          <>
+            <Modal.Header borderBottomColor="transparent">
+              <HStack justifyContent="space-between">
+                <Text fontSize="lg">Anime import - Results</Text>
               </HStack>
-            ))}
-          </VStack>
-        </Modal.Body>
-        <Modal.Footer borderTopColor="transparent">
-          <Button colorScheme="primary" onPress={closeModal}>
-            Close
-          </Button>
-        </Modal.Footer>
+            </Modal.Header>
+            <Modal.Body>
+              <ImportResultsModalTabs
+                changeTabIndex={setTabIndex}
+                tabIndex={tabIndex}
+                requestId={requestId}
+              />
+
+              <VStack mt={4}>
+                {filteredItems.map((item) => (
+                  <HStack
+                    key={item.id}
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                    py={4}
+                    borderBottomColor={theme.colors.gray[500]}
+                    borderBottomWidth={0.25}
+                  >
+                    <Text
+                      color="primary.500"
+                      flex={1}
+                      flexWrap="wrap"
+                      onPress={() => {
+                        if (item.syncroItem) {
+                          navigate("SyncroItem", {
+                            itemId: item.syncroItem.id,
+                          })
+                          closeModal()
+                        }
+                      }}
+                    >
+                      {item.syncroItem && (
+                        <>
+                          {item.syncroItem.title}
+                          {item.syncroItem.year &&
+                            ` (${item.syncroItem.year})`}{" "}
+                          <SyncroItemIcon
+                            type={item.syncroItem.type}
+                            size={12}
+                            color={theme.colors.primary[500]}
+                          />
+                        </>
+                      )}
+                    </Text>
+
+                    <HStackVCenter space={1}>
+                      <MaterialCommunityIcons
+                        name={"star"}
+                        color={theme.colors.secondary[500]}
+                        size={14}
+                      />
+                      <Text color="secondary.500">{item.ratingValue}</Text>
+                    </HStackVCenter>
+                  </HStack>
+                ))}
+              </VStack>
+            </Modal.Body>
+            <Modal.Footer borderTopColor="transparent">
+              <Button colorScheme="primary" onPress={closeModal}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </>
+        )}
       </Modal.Content>
     </Modal>
   )
