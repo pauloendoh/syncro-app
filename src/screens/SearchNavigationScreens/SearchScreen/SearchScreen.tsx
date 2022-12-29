@@ -8,7 +8,6 @@ import { useMyColors } from "../../../hooks/useMyColors"
 import useSearchStore from "../../../hooks/zustand/useSearchStore"
 import { useSyncroItemTypeMap } from "../../../types/domain/syncro-item/SyncroItemType/useSyncroItemTypeMap"
 import { SearchScreenTypes } from "../../../types/SearchScreenTypes"
-import SearchScreenImportSection from "./SearchScreenImportSection/SearchScreenImportSection"
 import SearchScreenTabView from "./SearchScreenTabView/SearchScreenTabView"
 import SyncroItemSearchResults from "./SyncroItemSearchResults/SyncroItemSearchResults"
 import UserSearchResults from "./UserSearchResults/UserSearchResults"
@@ -73,7 +72,7 @@ const SearchScreen = ({
           <Box mt={4}>
             {text.length > 0 && <Text fontWeight="semibold">{text}</Text>}
           </Box>
-          {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />}
+          {/* {query.trim() === "" && <SearchScreenImportSection tabIndex={0} />} */}
 
           {queryIsValid && (
             <VStack space={4}>
