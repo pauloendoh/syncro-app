@@ -28,7 +28,9 @@ export const urls = {
     updateSavedPosition: API_URL + `/update-saved-position`,
 
     userRatings: (userId: string) => API_URL + `/user/${userId}/ratings`,
-    importRatings: API_URL + `/import-ratings`,
+    checkMalUser: (username: string) => API_URL + `/check-mal/${username}`,
+    confirmAndStartAnimeImport: (username: string) =>
+      API_URL + `/confirm-and-start-anime-import/${username}`,
     importItemsByRequestId: (requestId: string) =>
       API_URL + `/import-request/${requestId}/import-items`,
 

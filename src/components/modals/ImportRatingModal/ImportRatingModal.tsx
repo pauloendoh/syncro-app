@@ -1,78 +1,67 @@
-import { Button, FormControl, HStack, Input, Modal, Text } from "native-base"
+import { Button, Modal, Text } from "native-base"
 import React, { useEffect, useState } from "react"
 import { useAxios } from "../../../hooks/useAxios"
 import useImportRatingsModalStore from "../../../hooks/zustand/modals/useImportRatingsModalStore"
-import SaveCancelButtons from "../../../screens/_common/buttons/SaveCancelButtons/SaveCancelButtons"
-import { urls } from "../../../utils/urls"
 import { useMyToast } from "../../toasts/useMyToast"
+import ImportConfirmModalContent from "./ImportConfirmModalContent"
+import ImportStartModalContent from "./ImportStartModalContent"
 
 const ImportRatingModal = () => {
   const { isOpen, initialValue, closeModal } = useImportRatingsModalStore()
 
-  const [username, setUsername] = useState("")
   const [loading, setLoading] = useState(false)
 
   const axios = useAxios()
   const { showSuccessToast } = useMyToast()
 
-  const [hasRequested, setHasRequested] = useState(false)
+  const [modalState, setModalState] = useState<
+    "start" | "confirm" | "confirmed"
+  >("start")
+
+  const [confirmData, setConfirmData] = useState<{
+    username: string
+    url: string
+  }>()
+
   useEffect(() => {
-    if (isOpen) setHasRequested(false)
+    if (isOpen) setModalState("start")
   }, [isOpen])
-
-  const handleSubmit = () => {
-    setLoading(true)
-
-    axios
-      .post(urls.api.importRatings, {
-        username,
-      })
-      .then(() => {
-        setHasRequested(true)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
       <Modal.Content>
-        <Modal.Header borderBottomColor="transparent">
-          <HStack justifyContent="space-between">
-            <Text>Import MAL anime ratings</Text>
-          </HStack>
-        </Modal.Header>
-        <>
-          <Modal.Body>
-            {hasRequested ? (
+        {modalState === "start" && (
+          <ImportStartModalContent
+            onCloseModal={closeModal}
+            onGoNext={(data) => {
+              setConfirmData(data)
+              setModalState("confirm")
+            }}
+          />
+        )}
+        {modalState === "confirm" && confirmData && (
+          <ImportConfirmModalContent
+            confirmData={confirmData}
+            onCloseModal={closeModal}
+            onGoNext={() => setModalState("confirmed")}
+          />
+        )}
+
+        {modalState === "confirmed" && (
+          <>
+            <Modal.Body>
               <Text>
                 Your import has started! 😃 You will be notified when it
                 finishes!
               </Text>
-            ) : (
-              <FormControl>
-                <FormControl.Label>MyAnimeList username</FormControl.Label>
-                <Input onChangeText={setUsername} value={username} />
-              </FormControl>
-            )}
-          </Modal.Body>
-          <Modal.Footer borderTopColor="transparent">
-            {hasRequested ? (
+            </Modal.Body>
+            <Modal.Footer borderTopColor="transparent">
               <Button colorScheme="primary" onPress={closeModal}>
                 Close
               </Button>
-            ) : (
-              <SaveCancelButtons
-                saveButtonWidth="96px"
-                onSave={handleSubmit}
-                saveText="Import"
-                onCancel={closeModal}
-                isLoadingAndDisabled={loading}
-              />
-            )}
-          </Modal.Footer>
-        </>
+            </Modal.Footer>
+          </>
+        )}
       </Modal.Content>
     </Modal>
   )
