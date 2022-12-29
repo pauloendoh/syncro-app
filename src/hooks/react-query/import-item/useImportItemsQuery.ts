@@ -4,11 +4,14 @@ import { RatingImportItemDto } from "../../../types/domain/rating-import-request
 
 import { urls } from "../../../utils/urls"
 
-export const useImportItemsQuery = (importRequestId: string) => {
+export const useImportItemsQuery = (
+  importRequestId: string,
+  enabled: boolean
+) => {
   return useQuery<RatingImportItemDto[], AxiosError>(
     [urls.api.importItemsByRequestId(importRequestId)],
     {
-      enabled: importRequestId.length > 0,
+      enabled,
     }
   )
 }

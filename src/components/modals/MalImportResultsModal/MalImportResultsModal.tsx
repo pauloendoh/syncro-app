@@ -10,7 +10,10 @@ import ImportResultsModalTabs from "./ImportResultsModalTabs/ImportResultsModalT
 
 const MalImportResultsModal = () => {
   const { isOpen, requestId, closeModal } = useMalImportResultsModalStore()
-  const { data: importItems } = useImportItemsQuery(requestId)
+  const { data: importItems } = useImportItemsQuery(
+    requestId,
+    !!requestId && isOpen
+  )
 
   const ratedImportItems = useMemo(
     () => importItems?.filter((i) => i.syncroItem) || [],
