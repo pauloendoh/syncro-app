@@ -15,8 +15,7 @@ const RecommendUserButton = (props: Props) => {
   const { data: myFollowers } = useFollowersQuery(authUser?.id)
 
   const followsMe = useMemo(
-    () =>
-      myFollowers?.some((follower) => follower.id === props.userId) ?? false,
+    () => myFollowers?.some((follower) => follower.followerId === props.userId),
     [myFollowers, props.userId]
   )
 

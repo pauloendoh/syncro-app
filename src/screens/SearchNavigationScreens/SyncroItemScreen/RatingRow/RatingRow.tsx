@@ -1,6 +1,5 @@
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import { ScrollView, useTheme } from "native-base"
-import React from "react"
 import { Linking } from "react-native"
 import { useMyInterestQU } from "../../../../hooks/react-query/interest/useMyInterestsQuery"
 import useToggleSaveItemMutation from "../../../../hooks/react-query/interest/useToggleSaveItemMutation"
@@ -128,7 +127,7 @@ const RatingRow = ({ syncroItem }: Props) => {
 
       <RatingRowButton
         ml={2}
-        onPress={() => openActionSheet(syncroItem.id)}
+        onPress={openExternalLink}
         startIcon={
           <AntDesign name={"link"} color={theme.colors.dark[900]} size={16} />
         }
