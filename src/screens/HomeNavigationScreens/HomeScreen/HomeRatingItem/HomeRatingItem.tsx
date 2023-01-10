@@ -1,7 +1,14 @@
 import { DateTime } from "luxon"
-import { Box, HStack, Pressable, Text, useTheme, VStack } from "native-base"
+import {
+  Box,
+  HStack,
+  Image,
+  Pressable,
+  Text,
+  useTheme,
+  VStack,
+} from "native-base"
 import React, { useMemo } from "react"
-import MyFastImage from "../../../../components/MyFastImage/MyFastImage"
 import UserProfilePicture from "../../../../components/UserProfilePicture/UserProfilePicture"
 import useAuthStore from "../../../../hooks/zustand/useAuthStore"
 import { RatingDto } from "../../../../types/domain/rating/RatingDto"
@@ -55,7 +62,7 @@ const HomeRatingItem = ({ rating, ...props }: Props) => {
           </VStack>
         </HStack>
         <Box width={100} position="relative">
-          <MyFastImage
+          <Image
             src={getImageUrlOrDefaultUrl(rating.syncroItem?.imageUrl)}
             width={100}
             height={100}
