@@ -6,7 +6,7 @@
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "dev": "cross-env API_URL=\"http://192.168.0.2:3000\" expo start",
+    "dev": "cross-env API_URL=\"http://192.168.0.4:3000\" expo start",
     "dev:prod": "cross-env API_URL=\"https://ration-server.herokuapp.com\" expo start",
     "dev:prod2": "cross-env API_URL=\"https://ration-server.herokuapp.com\" expo start --no-dev --minify",
     "start": "expo start",
@@ -79,7 +79,8 @@
     "sentry-expo": "~5.0.0",
     "socket.io-react-hook": "^2.2.2",
     "timeago.js": "^4.0.2",
-    "zustand": "^4.1.1"
+    "zustand": "^4.1.1",
+    "@shopify/flash-list": "1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

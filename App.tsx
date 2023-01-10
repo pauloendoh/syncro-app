@@ -66,19 +66,17 @@ export default function App() {
   const myQueryClient = useMyQueryClient()
 
   const registerForPushNotifications = async () => {
+    const { granted } = await Notifications.getPermissionsAsync()
+    if (!granted) {
+      alert("Fail to get the push token")
+      return null
+    }
+
     if (Platform.OS === "android") {
       await Notifications.setNotificationChannelAsync("default", {
         name: "default",
         importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#FF231F7C",
       })
-    }
-
-    const { granted } = await Notifications.getPermissionsAsync()
-    if (!granted) {
-      alert("Fail to get the push token")
-      return
     }
 
     const token = (
