@@ -1,6 +1,7 @@
 import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
-import { Box, Image, Pressable, Text, useTheme } from "native-base"
+import { Box, Pressable, Text, useTheme } from "native-base"
 import React, { useMemo } from "react"
+import MyFastImage from "../../../components/MyFastImage/MyFastImage"
 import { useMyInterestsQuery } from "../../../hooks/react-query/interest/useMyInterestsQuery"
 import { useMyRatingsQuery } from "../../../hooks/react-query/rating/useMyRatingsQuery"
 import useRatingModalStore from "../../../hooks/zustand/modals/useRatingModalStore"
@@ -37,7 +38,7 @@ const SyncroItemImage = (props: Props) => {
 
   return (
     <Box>
-      <Image
+      <MyFastImage
         src={getImageUrlOrDefaultUrl(props.syncroItem?.imageUrl)}
         width={100}
         height={100}

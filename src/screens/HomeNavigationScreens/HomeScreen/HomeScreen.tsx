@@ -40,6 +40,7 @@ const HomeScreen = ({
         {isReady && homeRatings && homeRatings.length === 0 && (
           <HomeIsEmptySection />
         )}
+
         {homeRatings && (
           <VStack mt={4} space={4} flex={1}>
             <FlashList

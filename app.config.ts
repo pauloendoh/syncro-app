@@ -57,6 +57,7 @@ export default () => ({
     ],
     extra: {
       API_URL: process.env.API_URL || null,
+      ENVIRONMENT: process.env.ENVIRONMENT || null,
       eas: {
         projectId: "2f8c898a-7d0b-46ac-b38a-0471c72c1d7d",
       },
