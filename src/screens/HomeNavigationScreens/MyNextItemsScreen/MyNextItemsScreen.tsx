@@ -18,10 +18,15 @@ const MyNextItemsScreen = ({
   const groupedSavedItems = useMemo(() => {
     if (!savedItems) return []
 
-    return syncroItemTypes.map((t) => ({
-      type: t,
-      items: savedItems.filter((i) => i.syncroItem?.type === t),
-    }))
+    return syncroItemTypes
+      .map((t) => ({
+        type: t,
+        items: savedItems.filter((i) => i.syncroItem?.type === t),
+      }))
+      .sort(
+        // sort by number of items descending
+        (a, b) => (a.items.length > b.items.length ? -1 : 1)
+      )
   }, [savedItems])
 
   useEffect(() => {
