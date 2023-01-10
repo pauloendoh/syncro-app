@@ -1,5 +1,7 @@
+import { FlashList } from "@shopify/flash-list"
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { FlatList, View, VStack } from "native-base"
+import { View, VStack } from "native-base"
 import React, { useMemo, useState } from "react"
 import { RefreshControl } from "react-native"
 import { useHomeRatingsQuery } from "../../../hooks/react-query/feed/useHomeRatingsQuery"
@@ -41,9 +43,9 @@ const HomeScreen = ({
 
         {homeRatings && (
           <VStack mt={4} space={4} flex={1}>
-            <FlatList
+            <FlashList
               refreshing={!isReady}
-              // estimatedItemSize={100}
+              estimatedItemSize={100}
               refreshControl={
                 <RefreshControl
                   refreshing={!isReady}
