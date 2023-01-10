@@ -1,12 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { FlatList } from "native-base"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { useSavedItemsQuery } from "../../../hooks/react-query/interest/useSavedItemsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
 import { syncroItemTypes } from "../../../types/domain/syncro-item/SyncroItemType/SyncroItemType"
 import { HomeScreenTypes } from "../../../types/HomeScreenTypes"
 import SavedItemsByTypeSection from "./SavedItemsByTypeSection/SavedItemsByTypeSection"
 
+// PE 1/3 - rename to SavedItemsScreen
 const MyNextItemsScreen = ({
   navigation,
 }: NativeStackScreenProps<HomeScreenTypes, "MyNextItems">) => {
@@ -21,6 +22,12 @@ const MyNextItemsScreen = ({
       type: t,
       items: savedItems.filter((i) => i.syncroItem?.type === t),
     }))
+  }, [savedItems])
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: `${savedItems?.length || 0} Saved Items`,
+    })
   }, [savedItems])
 
   return (

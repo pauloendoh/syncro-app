@@ -49,11 +49,7 @@ const HomeNavigationScreens = ({
         component={NotificationsScreen}
         options={{ headerTitle: "Notifications" }}
       />
-      <Stack.Screen
-        name="MyNextItems"
-        component={MyNextItemsScreen}
-        options={{ headerTitle: "Saved" }}
-      />
+      <Stack.Screen name="MyNextItems" component={MyNextItemsScreen} />
     </Stack.Navigator>
   )
 }

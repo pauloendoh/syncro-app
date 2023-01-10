@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { Badge, Box, IconButton, useTheme } from "native-base"
 import React, { useMemo } from "react"
+import { useSavedItemsQuery } from "../../../../hooks/react-query/interest/useSavedItemsQuery"
 import { useNotificationsQuery } from "../../../../hooks/react-query/notification/useNotificationsQuery"
 import { useNewNotificationSocket } from "../../../../hooks/socket/useNewNotificationSocket"
 import { useMySocketEvent } from "../../../../hooks/useMySocketEvent"
@@ -29,19 +30,39 @@ const HomeHeaderRight = (props: Props) => {
     NativeStackNavigationProp<HomeScreenTypes>
   >()
 
+  const { data: savedItems } = useSavedItemsQuery()
+
   useMySocketEvent("notification")
 
   return (
     <HStackVCenter space={4}>
       <Box>
+        {savedItems && savedItems.length > 0 && (
+          <Badge // bg="red.400"
+            colorScheme="primary"
+            rounded="full"
+            position="absolute"
+            right={-4}
+            zIndex={1}
+            variant="solid"
+            alignSelf="flex-end"
+            _text={{
+              fontSize: 10,
+            }}
+          >
+            {savedItems.length}
+          </Badge>
+        )}
+
         <IconButton onPress={() => push("MyNextItems")}>
           <MaterialIcons
-            name="collections-bookmark"
+            name="bookmark"
             size={20}
             color={theme.colors.dark[900]}
           />
         </IconButton>
       </Box>
+
       <Box>
         {unseenNotifications.length > 0 && (
           <Badge // bg="red.400"
@@ -49,7 +70,6 @@ const HomeHeaderRight = (props: Props) => {
             rounded="full"
             position="absolute"
             right={-4}
-            size="sm"
             zIndex={1}
             variant="solid"
             alignSelf="flex-end"
