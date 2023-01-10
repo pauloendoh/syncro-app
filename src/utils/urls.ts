@@ -18,6 +18,9 @@ export const urls = {
 
     syncroItemDetails: (id?: string | null) =>
       API_URL + `/syncro-item?id=${id}`,
+    updateItemAvgRating: (itemId: string) =>
+      API_URL + `/syncro-item/rating?id=${itemId}`,
+
     myRatings: API_URL + `/me/ratings`,
     myInterests: API_URL + `/me/interests`,
     toggleSaveItem: (itemId: string) =>

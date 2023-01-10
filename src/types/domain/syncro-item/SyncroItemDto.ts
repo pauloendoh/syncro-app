@@ -16,6 +16,9 @@ export interface SyncroItemDto {
   mangaMalUrl: string | null
   ratings?: RatingDto[]
   interests?: InterestDto[]
+
+  updatedAt: string
+  createdAt: string
 }
 
 export const buildSyncroItemDto = (
@@ -33,5 +36,7 @@ export const buildSyncroItemDto = (
   avgRating: 0,
   ratingCount: 0,
   plotSummary: "",
+  updatedAt: new Date().toISOString(),
+  createdAt: new Date().toISOString(),
   ...p,
 })

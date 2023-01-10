@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { Box, HStack, Image, Text, VStack } from "native-base"
-import React, { useEffect, useLayoutEffect, useState } from "react"
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react"
 import MyScrollView from "../../../components/MyScrollView/MyScrollView"
 import { useSyncroItemDetailsQuery } from "../../../hooks/react-query/syncro-item/useSyncroItemDetailsQuery"
 import { useMyColors } from "../../../hooks/useMyColors"
@@ -16,6 +16,7 @@ import { shortNumberFormatter } from "../../../utils/math/shortNumberFormatter"
 import HStackVCenter from "../../_common/flexboxes/HStackVCenter"
 import MyViewMoreText from "../../_common/text/MyViewMoreText/MyViewMoreText"
 import RatingRow from "./RatingRow/RatingRow"
+import SyncroItemHeaderMenu from "./SyncroItemHeaderMenu/SyncroItemHeaderMenu"
 
 export type ProfileScreenNavigationProp = CompositeScreenProps<
   BottomTabScreenProps<SearchScreenTypes, "SyncroItem">,
@@ -35,13 +36,26 @@ const SyncroItemScreen = ({
 
   const { lightBackground } = useMyColors()
 
+  const shouldShowMenu = useMemo(() => {
+    if (!data) return false
+
+    const wasUpdatedWithinLastWeek =
+      new Date(data.updatedAt) >
+      new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)
+    if (wasUpdatedWithinLastWeek) return false
+
+    if (data.type === "movie" || data.type === "tvSeries") return true
+
+    return false
+  }, [data])
+
   useEffect(() => {
     navigation.setOptions({
       headerTitle: data?.title || "Loading...",
-      // headerRight: () => {
-      //   if (!data) return <></>
-      //   return <SyncroItemHeaderMenu syncroItem={data} />
-      // },
+      headerRight: () => {
+        if (data && shouldShowMenu)
+          return <SyncroItemHeaderMenu syncroItem={data} />
+      },
     })
   }, [data])
 
